@@ -1553,6 +1553,142 @@
 <!-- footer close  -->
 
     <script>
+
+    // ===== WhatsApp & Call Modal Functions =====
+    const YOUR_WHATSAPP_NUMBER = '919876543210'; // अपना नंबर यहाँ डालें (country code के साथ, बिना +)
+    const YOUR_PHONE_NUMBER = '919876543210';     // अपना नंबर यहाँ डालें
+
+    function openWhatsAppModal() {
+        document.getElementById('actionType').value = 'whatsapp';
+        document.getElementById('modalTitle').textContent = 'Chat on WhatsApp';
+        document.getElementById('userModal').classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function openCallModal() {
+        document.getElementById('actionType').value = 'call';
+        document.getElementById('modalTitle').textContent = 'Request a Call Back';
+        document.getElementById('userModal').classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+        document.getElementById('userModal').classList.remove('active');
+        document.body.style.overflow = '';
+        document.getElementById('userDataForm').reset();
+    }
+
+    // Modal के बाहर click करने पर बंद हो
+    document.getElementById('userModal').addEventListener('click', function(e) {
+        if (e.target === this) closeModal();
+    });
+
+    // Escape key से बंद हो
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') closeModal();
+    });
+
+    function submitUserData(e) {
+        e.preventDefault();
+
+        const name = document.getElementById('userName').value.trim();
+        const phone = document.getElementById('userPhone').value.trim();
+        const email = document.getElementById('userEmail').value.trim();
+        const action = document.getElementById('actionType').value;
+
+        if (!name || !phone || !email) {
+            showToast('⚠️ Please fill all fields', 'error');
+            return;
+        }
+
+        const message = `Hello! I'm ${name}.\nPhone: ${phone}\nEmail: ${email}\nI'm interested in your courses. Please contact me.`;
+
+        if (action === 'whatsapp') {
+            // WhatsApp पर redirect
+            const whatsappUrl = `https://wa.me/${YOUR_WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+            window.open(whatsappUrl, '_blank');
+            showToast('✅ Redirecting to WhatsApp...', 'success');
+        } else if (action === 'call') {
+            // Phone call
+            window.location.href = `tel:${YOUR_PHONE_NUMBER}`;
+            showToast('📞 Connecting your call...', 'success');
+        }
+
+        closeModal();
+    }
+
+    // ===== Toast Notification =====
+    function showToast(message, type = 'success') {
+        const container = document.getElementById('toast-container');
+        const toast = document.createElement('div');
+        
+        const borderColor = type === 'error' ? 'rgba(239,68,68,0.4)' : 'rgba(250,204,21,0.3)';
+        toast.style.cssText = `
+            background: #1a1a1f;
+            border: 1px solid ${borderColor};
+            color: white;
+            padding: 14px 22px;
+            border-radius: 1rem;
+            font-size: 14px;
+            animation: slideInToast 0.4s ease-out forwards, slideOutToast 0.4s ease-in 2.5s forwards;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+            max-width: 320px;
+        `;
+        toast.textContent = message;
+        container.appendChild(toast);
+
+        // 3 seconds बाद हटा दो
+        setTimeout(() => {
+            if (toast.parentNode) toast.parentNode.removeChild(toast);
+        }, 3000);
+    }
+
+    // ===== Mobile Menu =====
+    function toggleMobileMenu() {
+        document.getElementById('mobile-menu').classList.toggle('open');
+    }
+
+    // ===== Scroll Animations =====
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('animate');
+            }
+        });
+    }, { threshold: 0.1, rootMargin: '0px 0px -5% 0px' });
+
+    document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+
+    // ===== Counter Animation =====
+    function animateCounter(elementId, target, suffix = '') {
+        const el = document.getElementById(elementId);
+        let current = 0;
+        const increment = Math.ceil(target / 60);
+        const timer = setInterval(() => {
+            current += increment;
+            if (current >= target) {
+                current = target;
+                clearInterval(timer);
+            }
+            el.textContent = current + suffix;
+        }, 25);
+    }
+
+    const statsObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                animateCounter('stat1', 500, '+');
+                animateCounter('stat2', 94, '%');
+                animateCounter('stat3', 50, '+');
+                animateCounter('stat4', 15, '+');
+                statsObserver.disconnect();
+            }
+        });
+    }, { threshold: 0.3 });
+
+    const stat1El = document.getElementById('stat1');
+    if (stat1El) statsObserver.observe(stat1El.parentElement.parentElement);
+        
         // Intersection Observer for scroll animations
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
