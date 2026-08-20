@@ -29,9 +29,13 @@
       "default",
       {
         "ignore": [
-          "backdrop-filter"
+          "backdrop-filter",
+          "inset"
         ]
       }
-    ]
+    ],
+    "disown-opener": "off",
+    "detect-css-reflows/composite": "off",
+    "detect-css-reflows/paint": "off"
   }
 }

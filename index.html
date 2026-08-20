@@ -2,76 +2,32 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>AI Codex Learning Point — IT Training Center</title>
+    <!-- Tailwind + Fonts + Iconify -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet">
-
-
-
-
-    <!-- Floating WhatsApp & Call Icons -->
-    <div class="floating-icons">
-        <div class="float-icon whatsapp" onclick="openWhatsAppModal()">
-            <iconify-icon icon="simple-icons:whatsapp" class="text-white text-3xl"></iconify-icon>
-        </div>
-        <div class="float-icon call" onclick="openCallModal()">
-            <iconify-icon icon="solar:phone-calling-bold" class="text-white text-2xl"></iconify-icon>
-        </div>
-    </div>
-
-    <!-- Modal for collecting user data -->
-    <div id="userModal" class="modal-overlay">
-        <div class="modal-content">
-            <div class="modal-close" onclick="closeModal()">
-                <iconify-icon icon="solar:close-circle-linear" class="text-2xl"></iconify-icon>
-            </div>
-            <div class="text-center mb-6">
-                <div class="w-16 h-16 bg-yellow-400/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <iconify-icon icon="solar:user-circle-bold" class="text-yellow-400 text-3xl"></iconify-icon>
-                </div>
-                <h3 class="font-dm-sans text-2xl font-light tracking-tight" style="color: white; margin: 0;"
-                    id="modalTitle">Get in Touch</h3>
-                <p style="color: #94a3b8; font-size: 14px; margin-top: 8px;">We'll reach out to you shortly</p>
-            </div>
-            <form id="userDataForm" onsubmit="submitUserData(event)">
-                <div class="space-y-4" style="display: flex; flex-direction: column; gap: 16px;">
-                    <input type="text" id="userName" placeholder="Full Name" class="input-field" required>
-                    <input type="tel" id="userPhone" placeholder="Phone Number" class="input-field" required>
-                    <input type="email" id="userEmail" placeholder="Email Address" class="input-field" required>
-                    <input type="hidden" id="actionType" value="">
-                    <button type="submit" class="submit-btn">Submit & Connect</button>
-                </div>
-            </form>
-            <p style="color: #64748b; font-size: 11px; text-align: center; margin-top: 16px;">We respect your privacy.
-                No spam.</p>
-        </div>
-    </div>
-
-    <div id="toastContainer"></div>
-
-
-
-
-
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        'dm-sans': ['DM Sans', 'sans-serif'],
-                    }
-                }
-            }
-        }
-    </script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=DM+Sans:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
     <style>
-        /* Floating WhatsApp & Call Icons */
+        /* base & utilities */
+        body {
+            background: #0f0f11;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .font-dm-sans {
+            font-family: 'DM Sans', sans-serif;
+        }
+
+        .nav-blur {
+            -webkit-backdrop-filter: blur(12px);
+            backdrop-filter: blur(12px);
+        }
+
+        /* floating icons */
         .floating-icons {
             position: fixed;
             bottom: 30px;
@@ -79,7 +35,7 @@
             z-index: 1000;
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 16px;
         }
 
         .float-icon {
@@ -90,12 +46,12 @@
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            transition: 0.2s;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
         }
 
         .float-icon:hover {
-            transform: scale(1.1);
+            transform: scale(1.08);
         }
 
         .whatsapp {
@@ -114,22 +70,19 @@
             background: #2563eb;
         }
 
-        /* Modal overlay */
+        /* modal */
         .modal-overlay {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(5px);
+            inset: 0;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(6px);
             z-index: 2000;
             display: flex;
             align-items: center;
             justify-content: center;
             visibility: hidden;
             opacity: 0;
-            transition: all 0.3s ease;
+            transition: 0.25s;
         }
 
         .modal-overlay.active {
@@ -139,14 +92,14 @@
 
         .modal-content {
             background: #1a1a1f;
-            border: 1px solid rgba(250, 204, 21, 0.3);
+            border: 1px solid rgba(250, 204, 21, 0.25);
             border-radius: 2rem;
             padding: 2rem;
-            max-width: 450px;
-            width: 90%;
+            max-width: 420px;
+            width: 92%;
             position: relative;
-            transform: scale(0.9);
-            transition: transform 0.3s ease;
+            transform: scale(0.94);
+            transition: 0.25s;
         }
 
         .modal-overlay.active .modal-content {
@@ -155,11 +108,11 @@
 
         .modal-close {
             position: absolute;
-            top: 20px;
+            top: 18px;
             right: 20px;
-            cursor: pointer;
             color: #94a3b8;
-            transition: color 0.2s;
+            cursor: pointer;
+            transition: 0.2s;
         }
 
         .modal-close:hover {
@@ -172,10 +125,10 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 1rem;
             padding: 12px 16px;
-            color: white;
+            color: #fff;
             font-size: 14px;
             outline: none;
-            transition: all 0.2s;
+            transition: 0.2s;
             box-sizing: border-box;
         }
 
@@ -188,293 +141,283 @@
             background: #FACC15;
             color: #0f0f11;
             font-weight: 600;
-            padding: 12px 24px;
+            padding: 12px;
             border-radius: 2rem;
             width: 100%;
-            transition: all 0.2s;
-            cursor: pointer;
             border: none;
             font-size: 16px;
+            cursor: pointer;
+            transition: 0.2s;
         }
 
         .submit-btn:hover {
             background: #e5b800;
-            transform: scale(1.02);
+            transform: scale(1.01);
         }
 
-        /* Toast notification */
-        .toast {
+        /* toast */
+        #toastContainer {
             position: fixed;
-            bottom: 120px;
+            bottom: 130px;
             right: 30px;
+            z-index: 3000;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .toast {
             background: #1a1a1f;
             border: 1px solid rgba(250, 204, 21, 0.3);
-            color: white;
-            padding: 12px 20px;
-            border-radius: 1rem;
+            color: #fff;
+            padding: 12px 22px;
+            border-radius: 1.2rem;
             font-size: 14px;
-            z-index: 3000;
-            animation: slideIn 0.3s ease-out forwards;
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
+            animation: slideIn 0.35s ease-out forwards;
         }
 
         @keyframes slideIn {
-            from {
-                transform: translateX(100px);
-                opacity: 0;
-            }
-
-            to {
-                transform: translateX(0);
-                opacity: 1;
-            }
-        }
-
-
-        body {
-            background: #0f0f11;
-        }
-
-        @keyframes animationIn {
             0% {
                 opacity: 0;
-                transform: translateY(30px);
-                filter: blur(8px);
+                transform: translateX(60px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* scroll animation */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            filter: blur(4px);
+            transition: all 0.8s ease;
+        }
+
+        .animate-on-scroll.animate {
+            opacity: 1;
+            transform: translateY(0);
+            filter: blur(0);
+        }
+
+        .hero-animate {
+            animation: fadeUp 1s ease forwards;
+        }
+
+        .hero-animate-slow {
+            animation: fadeUp 1.2s ease 0.2s forwards;
+            opacity: 0;
+        }
+
+        .hero-animate-slower {
+            animation: fadeUp 1.2s ease 0.5s forwards;
+            opacity: 0;
+        }
+
+        @keyframes fadeUp {
+            0% {
+                opacity: 0;
+                transform: translateY(24px);
+                filter: blur(6px);
             }
 
             100% {
                 opacity: 1;
                 transform: translateY(0);
-                filter: blur(0px);
+                filter: blur(0);
             }
         }
 
-        .animate-on-scroll {
-            animation: animationIn 0.8s ease-out forwards;
-            animation-play-state: paused;
+        /* marquee */
+        .marquee-track {
+            display: flex;
+            gap: 2.5rem;
+            animation: scrollMarquee 24s linear infinite;
+            width: max-content;
         }
 
-        .animate-on-scroll.animate {
-            animation-play-state: running;
+        @keyframes scrollMarquee {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-50%);
+            }
         }
 
-        .anim-delay-1 {
-            animation-delay: 0.1s;
+        /* faq */
+        .faq-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.35s ease;
         }
 
-        .anim-delay-2 {
-            animation-delay: 0.2s;
+        .faq-item.open .faq-content {
+            max-height: 300px;
         }
 
-        .anim-delay-3 {
-            animation-delay: 0.3s;
+        .faq-toggle iconify-icon {
+            transition: transform 0.25s;
         }
 
-        .anim-delay-4 {
-            animation-delay: 0.4s;
+        .faq-item.open .faq-toggle iconify-icon {
+            transform: rotate(180deg);
         }
 
-        .anim-delay-5 {
-            animation-delay: 0.5s;
-        }
-
-        .anim-delay-6 {
-            animation-delay: 0.6s;
-        }
-
-        .anim-delay-7 {
-            animation-delay: 0.7s;
-        }
-
-        .anim-delay-8 {
-            animation-delay: 0.8s;
-        }
-
-        .hero-animate {
-            animation: animationIn 1s ease-out forwards;
-        }
-
-        .hero-animate-slow {
-            animation: animationIn 1.2s ease-out 0.3s forwards;
-            opacity: 0;
-        }
-
-        .hero-animate-slower {
-            animation: animationIn 1.2s ease-out 0.6s forwards;
-            opacity: 0;
+        /* misc */
+        .gradient-border {
+            position: relative;
         }
 
         .footer-link {
-            transition: color 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: color 0.15s;
         }
 
         .footer-link:hover {
             color: #FACC15;
         }
 
-        .gradient-border {
-            position: relative;
-        }
-
-        .gradient-border::before {
-            content: "";
-            position: absolute;
-            border-radius: inherit;
-            padding: 1px;
-            background: linear-gradient(135deg, rgba(250, 204, 21, 0.4), transparent, rgba(250, 204, 21, 0.2));
-            pointer-events: none;
-        }
-
-        /* Mobile menu */
-        .mobile-menu {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease-out;
-        }
-
-        .mobile-menu.open {
-            max-height: 400px;
-        }
-
-        /* Toast */
-        .toast {
-            animation: slideInToast 0.4s ease-out forwards, slideOutToast 0.4s ease-in 2.5s forwards;
-        }
-
-        @keyframes slideInToast {
-            0% {
-                transform: translateY(100px);
-                opacity: 0;
-            }
-
-            100% {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-
-        @keyframes slideOutToast {
-            0% {
-                transform: translateY(0);
-                opacity: 1;
-            }
-
-            100% {
-                transform: translateY(100px);
-                opacity: 0;
-            }
+        a {
+            text-decoration: none;
         }
     </style>
 </head>
 
-<body class="font-sans text-white antialiased">
+<body>
 
-    <!-- Toast Container -->
-    <div id="toast-container" class="fixed bottom-6 right-6 z-[100] flex flex-col gap-3"></div>
+    <!-- FLOATING ICONS -->
+    <div class="floating-icons">
+        <div class="float-icon whatsapp" onclick="openWhatsAppModal()">
+            <iconify-icon icon="simple-icons:whatsapp" class="text-white text-3xl"></iconify-icon>
+        </div>
+        <div class="float-icon call" onclick="openCallModal()">
+            <iconify-icon icon="solar:phone-calling-bold" class="text-white text-2xl"></iconify-icon>
+        </div>
+    </div>
 
-    <!-- Header -->
+    <!-- MODAL -->
+    <div id="userModal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-close" onclick="closeModal()">
+                <iconify-icon icon="solar:close-circle-linear" class="text-2xl"></iconify-icon>
+            </div>
+            <div class="text-center mb-5">
+                <div class="w-16 h-16 bg-yellow-400/10 rounded-full flex items-center justify-center mx-auto mb-3">
+                    <iconify-icon icon="solar:user-circle-bold" class="text-yellow-400 text-3xl"></iconify-icon>
+                </div>
+                <h3 class="font-dm-sans text-2xl font-light text-white" id="modalTitle">Get in Touch</h3>
+                <p class="text-slate-400 text-sm mt-1">We'll reach out shortly</p>
+            </div>
+            <form id="userDataForm" onsubmit="submitUserData(event)">
+                <div class="flex flex-col gap-4">
+                    <input type="text" id="userName" placeholder="Full Name" class="input-field" required />
+                    <input type="tel" id="userPhone" placeholder="Phone Number" class="input-field" required />
+                    <input type="email" id="userEmail" placeholder="Email Address" class="input-field" required />
+                    <input type="hidden" id="actionType" value="" />
+                    <button type="submit" class="submit-btn">Submit & Connect</button>
+                </div>
+            </form>
+            <p class="text-slate-500 text-xs text-center mt-4">We respect your privacy. No spam.</p>
+        </div>
+    </div>
+
+    <!-- TOAST CONTAINER -->
+    <div id="toastContainer"></div>
+
+    <!-- ========== HEADER ========== -->
     <header class="fixed top-0 left-0 right-0 z-50 border-b border-white/10 nav-blur bg-[#0f0f11]/80">
-        <div class="max-w-[90rem] mx-auto px-6 lg:px-8 py-5 flex items-center justify-between">
+        <div class="max-w-[90rem] mx-auto px-6 lg:px-8 py-4 flex items-center justify-between">
             <a href="#" class="flex items-center gap-2">
                 <div class="w-9 h-9 bg-yellow-400 rounded-lg flex items-center justify-center">
                     <iconify-icon icon="solar:code-bold" class="text-neutral-900 text-xl"></iconify-icon>
                 </div>
-                <span class="font-dm-sans font-semibold text-xl tracking-tight">AI Codex <span>Learning
-                        Point</span></span>
+                <span class="font-dm-sans font-semibold text-xl tracking-tight text-white">AI Codex <span
+                        class="text-yellow-400">Learning Point</span></span>
             </a>
-            <nav class="hidden md:flex items-center gap-8">
-                <a href="#courses"
-                    class="text-sm text-slate-300 hover:text-yellow-400 transition-colors duration-150">Courses</a>
-                <a href="#features"
-                    class="text-sm text-slate-300 hover:text-yellow-400 transition-colors duration-150">Why Us</a>
-                <a href="#instructors"
-                    class="text-sm text-slate-300 hover:text-yellow-400 transition-colors duration-150">Instructors</a>
-                <a href="#testimonials"
-                    class="text-sm text-slate-300 hover:text-yellow-400 transition-colors duration-150">Reviews</a>
-                <a href="#pricing"
-                    class="text-sm text-slate-300 hover:text-yellow-400 transition-colors duration-150">Pricing</a>
-                <a href="#contact"
-                    class="text-sm text-slate-300 hover:text-yellow-400 transition-colors duration-150">Contact</a>
+            <nav class="hidden md:flex items-center gap-7 text-sm">
+                <a href="#courses" class="text-slate-300 hover:text-yellow-400 transition">Courses</a>
+                <a href="#features" class="text-slate-300 hover:text-yellow-400 transition">Why Us</a>
+                <a href="#instructors" class="text-slate-300 hover:text-yellow-400 transition">Instructors</a>
+                <a href="#testimonials" class="text-slate-300 hover:text-yellow-400 transition">Reviews</a>
+                <a href="#pricing" class="text-slate-300 hover:text-yellow-400 transition">Pricing</a>
+                <a href="#contact" class="text-slate-300 hover:text-yellow-400 transition">Contact</a>
             </nav>
             <div class="hidden md:flex items-center gap-4">
-                <button onclick="showToast('🎉 Redirecting to enrollment...')"
-                    class="bg-yellow-400 text-neutral-900 text-sm font-medium px-5 py-2.5 rounded-full hover:bg-yellow-300 transition-colors duration-150">
-                    <a
-                        href="https://docs.google.com/forms/d/e/1FAIpQLSddmp1XfmcjuXQsfD4Wb2umA5v9BX_Fj-nuW7UkvhCNfO_uiw/viewform?usp=dialog">
-                        <a
-                            href="https://docs.google.com/forms/d/e/1FAIpQLSddmp1XfmcjuXQsfD4Wb2umA5v9BX_Fj-nuW7UkvhCNfO_uiw/viewform?usp=dialog">Enroll
-                            Now</a></button>
-                </a></button>
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSddmp1XfmcjuXQsfD4Wb2umA5v9BX_Fj-nuW7UkvhCNfO_uiw/viewform?usp=dialog"
+                    target="_blank"
+                    class="bg-yellow-400 text-neutral-900 text-sm font-medium px-5 py-2.5 rounded-full hover:bg-yellow-300 transition">Enroll
+                    Now</a>
             </div>
-            <button id="mobile-toggle" class="md:hidden text-white" onclick="toggleMobileMenu()">
-                <iconify-icon icon="solar:hamburger-menu-linear" class="text-2xl"></iconify-icon>
+            <button id="mobile-toggle" class="md:hidden text-white text-2xl" onclick="toggleMobileMenu()">
+                <iconify-icon icon="solar:hamburger-menu-linear"></iconify-icon>
             </button>
         </div>
-        <div id="mobile-menu" class="mobile-menu md:hidden border-t border-white/10 bg-[#0f0f11]/95 nav-blur">
-            <div class="px-6 py-4 flex flex-col gap-4">
-                <a href="#courses" class="text-slate-300 hover:text-yellow-400 transition-colors py-2"
+        <div id="mobile-menu"
+            class="max-h-0 overflow-hidden transition-all duration-300 md:hidden bg-[#0f0f11]/95 nav-blur border-t border-white/10">
+            <div class="px-6 py-4 flex flex-col gap-3">
+                <a href="#courses" class="text-slate-300 hover:text-yellow-400 py-1"
                     onclick="toggleMobileMenu()">Courses</a>
-                <a href="#features" class="text-slate-300 hover:text-yellow-400 transition-colors py-2"
-                    onclick="toggleMobileMenu()">Why Us</a>
-                <a href="#instructors" class="text-slate-300 hover:text-yellow-400 transition-colors py-2"
+                <a href="#features" class="text-slate-300 hover:text-yellow-400 py-1" onclick="toggleMobileMenu()">Why
+                    Us</a>
+                <a href="#instructors" class="text-slate-300 hover:text-yellow-400 py-1"
                     onclick="toggleMobileMenu()">Instructors</a>
-                <a href="#testimonials" class="text-slate-300 hover:text-yellow-400 transition-colors py-2"
+                <a href="#testimonials" class="text-slate-300 hover:text-yellow-400 py-1"
                     onclick="toggleMobileMenu()">Reviews</a>
-                <a href="#pricing" class="text-slate-300 hover:text-yellow-400 transition-colors py-2"
+                <a href="#pricing" class="text-slate-300 hover:text-yellow-400 py-1"
                     onclick="toggleMobileMenu()">Pricing</a>
-                <a href="#contact"
-                    class="text-sm text-slate-300 hover:text-yellow-400 transition-colors duration-150">Contact</a>
-                <button onclick="showToast('🎉 Redirecting to enrollment...')"
-                    class="bg-yellow-400 text-neutral-900 text-sm font-medium px-5 py-2.5 rounded-full hover:bg-yellow-300 transition-colors duration-150">
-                    <a
-                        href="https://docs.google.com/forms/d/e/1FAIpQLSddmp1XfmcjuXQsfD4Wb2umA5v9BX_Fj-nuW7UkvhCNfO_uiw/viewform?usp=dialog">Enroll
-                        Now</a></button>
+                <a href="#contact" class="text-slate-300 hover:text-yellow-400 py-1"
+                    onclick="toggleMobileMenu()">Contact</a>
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSddmp1XfmcjuXQsfD4Wb2umA5v9BX_Fj-nuW7UkvhCNfO_uiw/viewform?usp=dialog"
+                    target="_blank"
+                    class="bg-yellow-400 text-neutral-900 text-center text-sm font-medium px-5 py-2.5 rounded-full hover:bg-yellow-300 transition">Enroll
+                    Now</a>
             </div>
         </div>
     </header>
 
-    <!-- Hero -->
+    <!-- ========== HERO ========== -->
     <section class="min-h-[90vh] relative overflow-hidden pt-28 pb-20">
-        <!-- Background glow -->
         <div
             class="absolute top-0 left-1/2 -translate-x-1/2 w-[40rem] h-[40rem] bg-yellow-400/5 rounded-full blur-3xl pointer-events-none">
         </div>
         <div class="max-w-[90rem] mx-auto px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-x-12 gap-y-12 items-center">
             <div>
                 <div
-                    class="hero-animate inline-flex items-center gap-2 bg-yellow-400/10 border border-yellow-400/20 rounded-full px-4 py-1.5 mb-8">
+                    class="hero-animate inline-flex items-center gap-2 bg-yellow-400/10 border border-yellow-400/20 rounded-full px-4 py-1.5 mb-6">
                     <iconify-icon icon="solar:star-bold" class="text-yellow-400 text-sm"></iconify-icon>
-                    <span class="text-yellow-400 text-sm font-medium">New batch starting Immedeately 2026</span>
+                    <span class="text-yellow-400 text-sm font-medium">New batch starting Immediately 2026</span>
                 </div>
                 <h1
-                    class="hero-animate font-dm-sans text-[3rem] lg:text-[4.5rem] font-light leading-[1.1] tracking-tight mb-6">
-                    Master IT Skills.<br>
-                    <span class="text-yellow-400">Launch Your Career.</span>
+                    class="hero-animate font-dm-sans text-[3rem] lg:text-[4.5rem] font-light leading-[1.1] tracking-tight mb-5 text-white">
+                    Master IT Skills.<br><span class="text-yellow-400">Launch Your Career.</span>
                 </h1>
-                <p class="hero-animate-slow text-lg lg:text-xl text-slate-300 leading-relaxed max-w-lg mb-10">
-                    Industry-focused coaching in Full Stack Development , Web Development ,Data Analytics , React
-                    Development , Frontend Development , Python Development. Hands-on projects, expert
-                    mentors, 94% placement rate.
+                <p class="hero-animate-slow text-lg lg:text-xl text-slate-300 leading-relaxed max-w-lg mb-8">
+                    Industry-focused coaching in Full Stack, Web Dev, Data Analytics, React, Frontend, Python. Hands-on
+                    projects, expert mentors, 94% placement rate.
                 </p>
                 <div class="hero-animate-slower flex flex-wrap gap-4">
-                    <button onclick="showToast('✅ Starting your free trial setup...')"
-                        class="bg-yellow-400 text-neutral-900 font-medium px-8 py-4 rounded-full hover:bg-yellow-300 transition-all duration-150 hover:scale-105 shadow-xl">
-                        Start Free Trial
-                    </button>
+                    <a href="https://docs.google.com/forms/d/e/1FAIpQLSddmp1XfmcjuXQsfD4Wb2umA5v9BX_Fj-nuW7UkvhCNfO_uiw/viewform?usp=dialog"
+                        target="_blank"
+                        class="bg-yellow-400 text-neutral-900 font-medium px-8 py-4 rounded-full hover:bg-yellow-300 transition hover:scale-105 shadow-xl">Start
+                        Free Trial</a>
                     <button onclick="document.getElementById('courses').scrollIntoView({behavior:'smooth'})"
-                        class="bg-white/5 border border-white/10 text-white font-medium px-8 py-4 rounded-full hover:bg-white/10 transition-all duration-150 flex items-center gap-2">
-                        <iconify-icon icon="solar:play-circle-linear" class="text-xl"></iconify-icon>
-                        Explore Courses
+                        class="bg-white/5 border border-white/10 text-white font-medium px-8 py-4 rounded-full hover:bg-white/10 transition flex items-center gap-2">
+                        <iconify-icon icon="solar:play-circle-linear" class="text-xl"></iconify-icon> Explore Courses
                     </button>
                 </div>
                 <div class="hero-animate-slower flex items-center gap-4 mt-8">
                     <div class="flex -space-x-2">
-                        <img src="https://picsum.photos/seed/student1/40/40.jpg"
+                        <img src="https://picsum.photos/seed/student1/40/40"
                             class="w-10 h-10 rounded-full border-2 border-[#0f0f11]" alt="">
-                        <img src="https://picsum.photos/seed/student2/40/40.jpg"
+                        <img src="https://picsum.photos/seed/student2/40/40"
                             class="w-10 h-10 rounded-full border-2 border-[#0f0f11]" alt="">
-                        <img src="https://picsum.photos/seed/student3/40/40.jpg"
+                        <img src="https://picsum.photos/seed/student3/40/40"
                             class="w-10 h-10 rounded-full border-2 border-[#0f0f11]" alt="">
-                        <img src="https://picsum.photos/seed/student4/40/40.jpg"
+                        <img src="https://picsum.photos/seed/student4/40/40"
                             class="w-10 h-10 rounded-full border-2 border-[#0f0f11]" alt="">
                     </div>
                     <div>
@@ -488,195 +431,759 @@
                     <img src="https://img.freepik.com/premium-photo/large-it-office-environment-with-computer-workstations-productive-teamwork_901408-28084.jpg?semt=ais_incoming&w=740&q=80"
                         alt="IT Training" class="w-full h-[26rem] lg:h-[34rem] object-cover">
                     <div class="absolute inset-0"
-                        style="background: linear-gradient(to top, rgba(234,179,8,0.15), transparent, rgba(15,15,17,0.3))">
+                        style="background:linear-gradient(to top, rgba(234,179,8,0.15), transparent, rgba(15,15,17,0.3))">
                     </div>
                 </div>
-                <!-- Floating card -->
                 <div
                     class="absolute -bottom-6 -left-6 bg-white/10 backdrop-blur-md border border-white/10 rounded-2xl p-5 shadow-2xl">
                     <div class="flex items-center gap-3">
                         <div class="w-12 h-12 bg-yellow-400/20 rounded-xl flex items-center justify-center">
                             <iconify-icon icon="solar:diploma-verified-bold"
-                                class="text-yellow-400 text-2xl"></iconify-icon>
-                        </div>
+                                class="text-yellow-400 text-2xl"></iconify-icon></div>
                         <div>
                             <p class="text-white font-medium text-sm">ISO Certified</p>
                             <p class="text-slate-400 text-xs">Training Partner</p>
                         </div>
                     </div>
                 </div>
-                <!-- Floating card 2 -->
                 <div
                     class="absolute -top-4 -right-4 bg-white/10 backdrop-blur-md border border-white/10 rounded-2xl p-4 shadow-2xl">
-                    <div class="flex items-center gap-2">
-                        <iconify-icon icon="solar:star-bold" class="text-yellow-400"></iconify-icon>
-                        <span class="text-white font-semibold">4.9</span>
-                        <span class="text-slate-400 text-sm">/ 5.0</span>
+                    <div class="flex items-center gap-2"><iconify-icon icon="solar:star-bold"
+                            class="text-yellow-400"></iconify-icon><span
+                            class="text-white font-semibold">4.9</span><span class="text-slate-400 text-sm">/ 5.0</span>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Marquee -->
-    <section class="border-y border-white/5 py-6 overflow-hidden">
-        <div class="flex items-center gap-12 animate-marquee whitespace-nowrap"
-            style="animation: marquee 20s linear infinite;">
-            <!-- React -->
-            <span class="text-slate-500 font-dm-sans text-lg font-medium flex items-center gap-2">
-                <iconify-icon icon="simple-icons:react" class="text-xl"></iconify-icon> React
-            </span>
-            <!-- Python -->
-            <span class="text-slate-500 font-dm-sans text-lg font-medium flex items-center gap-2">
-                <iconify-icon icon="simple-icons:python" class="text-xl"></iconify-icon> Python
-            </span>
-            <!-- Full Stack Development -->
-            <span class="text-slate-500 font-dm-sans text-lg font-medium flex items-center gap-2">
-                <iconify-icon icon="simple-icons:amazonaws" class="text-xl"></iconify-icon> Full Stack Development
-            </span>
-            <!-- Frontend Developer -->
-            <span class="text-slate-500 font-dm-sans text-lg font-medium flex items-center gap-2">
-                <iconify-icon icon="simple-icons:docker" class="text-xl"></iconify-icon> Frontend Developer
-            </span>
-            <!-- C -->
-            <span class="text-slate-500 font-dm-sans text-lg font-medium flex items-center gap-2">
-                <iconify-icon icon="simple-icons:kubernetes" class="text-xl"></iconify-icon> C
-            </span>
-            <!-- C++ -->
-            <span class="text-slate-500 font-dm-sans text-lg font-medium flex items-center gap-2">
-                <iconify-icon icon="simple-icons:terraform" class="text-xl"></iconify-icon> C++
-            </span>
-            <!-- Node.js -->
-            <span class="text-slate-500 font-dm-sans text-lg font-medium flex items-center gap-2">
-                <iconify-icon icon="simple-icons:nodedotjs" class="text-xl"></iconify-icon> Node.js
-            </span>
-            <!-- TypeScript -->
-            <span class="text-slate-500 font-dm-sans text-lg font-medium flex items-center gap-2">
-                <iconify-icon icon="simple-icons:typescript" class="text-xl"></iconify-icon> TypeScript
-            </span>
-            <!-- Azure -->
-            <span class="text-slate-500 font-dm-sans text-lg font-medium flex items-center gap-2">
-                <iconify-icon icon="simple-icons:microsoftazure" class="text-xl"></iconify-icon> Azure
-            </span>
-            <!-- Linux -->
-            <span class="text-slate-500 font-dm-sans text-lg font-medium flex items-center gap-2">
-                <iconify-icon icon="simple-icons:linux" class="text-xl"></iconify-icon> Linux
-            </span>
-            <!-- Web Development -->
-            <span class="text-slate-500 font-dm-sans text-lg font-medium flex items-center gap-2">
-                <iconify-icon icon="simple-icons:docker" class="text-xl"></iconify-icon> Web Development
-            </span>
-            <!-- Advance Excel -->
-            <span class="text-slate-500 font-dm-sans text-lg font-medium flex items-center gap-2">
-                <iconify-icon icon="simple-icons:microsoftazure" class="text-xl"></iconify-icon> Advance Excel
-            </span>
-
-            <!-- Duplicate for seamless loop -->
-            <span class="text-slate-500 font-dm-sans text-lg font-medium flex items-center gap-2">
-                <iconify-icon icon="simple-icons:react" class="text-xl"></iconify-icon> React
-            </span>
-            <span class="text-slate-500 font-dm-sans text-lg font-medium flex items-center gap-2">
-                <iconify-icon icon="simple-icons:python" class="text-xl"></iconify-icon> Python
-            </span>
-            <span class="text-slate-500 font-dm-sans text-lg font-medium flex items-center gap-2">
-                <iconify-icon icon="simple-icons:amazonaws" class="text-xl"></iconify-icon> Full Stack Development
-            </span>
-            <span class="text-slate-500 font-dm-sans text-lg font-medium flex items-center gap-2">
-                <iconify-icon icon="simple-icons:docker" class="text-xl"></iconify-icon> Frontend Developer
-            </span>
-            <span class="text-slate-500 font-dm-sans text-lg font-medium flex items-center gap-2">
-                <iconify-icon icon="simple-icons:kubernetes" class="text-xl"></iconify-icon> C
-            </span>
-            <span class="text-slate-500 font-dm-sans text-lg font-medium flex items-center gap-2">
-                <iconify-icon icon="simple-icons:terraform" class="text-xl"></iconify-icon> C++
-            </span>
-            <span class="text-slate-500 font-dm-sans text-lg font-medium flex items-center gap-2">
-                <iconify-icon icon="simple-icons:nodedotjs" class="text-xl"></iconify-icon> Node.js
-            </span>
-            <span class="text-slate-500 font-dm-sans text-lg font-medium flex items-center gap-2">
-                <iconify-icon icon="simple-icons:typescript" class="text-xl"></iconify-icon> TypeScript
-            </span>
-            <span class="text-slate-500 font-dm-sans text-lg font-medium flex items-center gap-2">
-                <iconify-icon icon="simple-icons:microsoftazure" class="text-xl"></iconify-icon> Azure
-            </span>
-            <span class="text-slate-500 font-dm-sans text-lg font-medium flex items-center gap-2">
-                <iconify-icon icon="simple-icons:linux" class="text-xl"></iconify-icon> Linux
-            </span>
-            <span class="text-slate-500 font-dm-sans text-lg font-medium flex items-center gap-2">
-                <iconify-icon icon="simple-icons:docker" class="text-xl"></iconify-icon> Web Development
-            </span>
-            <span class="text-slate-500 font-dm-sans text-lg font-medium flex items-center gap-2">
-                <iconify-icon icon="simple-icons:microsoftazure" class="text-xl"></iconify-icon> Advance Excel
-            </span>
+    <!-- ========== MARQUEE ========== -->
+    <section class="border-y border-white/5 py-5 overflow-hidden">
+        <div class="marquee-track">
+            <span class="text-slate-500 font-dm-sans text-lg font-medium flex items-center gap-2"><iconify-icon
+                    icon="simple-icons:react" class="text-xl"></iconify-icon> React</span>
+            <span class="text-slate-500 font-dm-sans text-lg font-medium flex items-center gap-2"><iconify-icon
+                    icon="simple-icons:python" class="text-xl"></iconify-icon> Python</span>
+            <span class="text-slate-500 font-dm-sans text-lg font-medium flex items-center gap-2"><iconify-icon
+                    icon="simple-icons:amazonaws" class="text-xl"></iconify-icon> Full Stack</span>
+            <span class="text-slate-500 font-dm-sans text-lg font-medium flex items-center gap-2"><iconify-icon
+                    icon="simple-icons:docker" class="text-xl"></iconify-icon> Frontend</span>
+            <span class="text-slate-500 font-dm-sans text-lg font-medium flex items-center gap-2"><iconify-icon
+                    icon="simple-icons:kubernetes" class="text-xl"></iconify-icon> C</span>
+            <span class="text-slate-500 font-dm-sans text-lg font-medium flex items-center gap-2"><iconify-icon
+                    icon="simple-icons:terraform" class="text-xl"></iconify-icon> C++</span>
+            <span class="text-slate-500 font-dm-sans text-lg font-medium flex items-center gap-2"><iconify-icon
+                    icon="simple-icons:nodedotjs" class="text-xl"></iconify-icon> Node.js</span>
+            <span class="text-slate-500 font-dm-sans text-lg font-medium flex items-center gap-2"><iconify-icon
+                    icon="simple-icons:typescript" class="text-xl"></iconify-icon> TypeScript</span>
+            <span class="text-slate-500 font-dm-sans text-lg font-medium flex items-center gap-2"><iconify-icon
+                    icon="simple-icons:microsoftazure" class="text-xl"></iconify-icon> Azure</span>
+            <span class="text-slate-500 font-dm-sans text-lg font-medium flex items-center gap-2"><iconify-icon
+                    icon="simple-icons:linux" class="text-xl"></iconify-icon> Linux</span>
+            <span class="text-slate-500 font-dm-sans text-lg font-medium flex items-center gap-2"><iconify-icon
+                    icon="simple-icons:docker" class="text-xl"></iconify-icon> Web Dev</span>
+            <span class="text-slate-500 font-dm-sans text-lg font-medium flex items-center gap-2"><iconify-icon
+                    icon="simple-icons:microsoftazure" class="text-xl"></iconify-icon> Advance Excel</span>
+            <!-- duplicate for seamless loop -->
+            <span class="text-slate-500 font-dm-sans text-lg font-medium flex items-center gap-2"><iconify-icon
+                    icon="simple-icons:react" class="text-xl"></iconify-icon> React</span>
+            <span class="text-slate-500 font-dm-sans text-lg font-medium flex items-center gap-2"><iconify-icon
+                    icon="simple-icons:python" class="text-xl"></iconify-icon> Python</span>
+            <span class="text-slate-500 font-dm-sans text-lg font-medium flex items-center gap-2"><iconify-icon
+                    icon="simple-icons:amazonaws" class="text-xl"></iconify-icon> Full Stack</span>
+            <span class="text-slate-500 font-dm-sans text-lg font-medium flex items-center gap-2"><iconify-icon
+                    icon="simple-icons:docker" class="text-xl"></iconify-icon> Frontend</span>
+            <span class="text-slate-500 font-dm-sans text-lg font-medium flex items-center gap-2"><iconify-icon
+                    icon="simple-icons:kubernetes" class="text-xl"></iconify-icon> C</span>
+            <span class="text-slate-500 font-dm-sans text-lg font-medium flex items-center gap-2"><iconify-icon
+                    icon="simple-icons:terraform" class="text-xl"></iconify-icon> C++</span>
+            <span class="text-slate-500 font-dm-sans text-lg font-medium flex items-center gap-2"><iconify-icon
+                    icon="simple-icons:nodedotjs" class="text-xl"></iconify-icon> Node.js</span>
+            <span class="text-slate-500 font-dm-sans text-lg font-medium flex items-center gap-2"><iconify-icon
+                    icon="simple-icons:typescript" class="text-xl"></iconify-icon> TypeScript</span>
+            <span class="text-slate-500 font-dm-sans text-lg font-medium flex items-center gap-2"><iconify-icon
+                    icon="simple-icons:microsoftazure" class="text-xl"></iconify-icon> Azure</span>
+            <span class="text-slate-500 font-dm-sans text-lg font-medium flex items-center gap-2"><iconify-icon
+                    icon="simple-icons:linux" class="text-xl"></iconify-icon> Linux</span>
+            <span class="text-slate-500 font-dm-sans text-lg font-medium flex items-center gap-2"><iconify-icon
+                    icon="simple-icons:docker" class="text-xl"></iconify-icon> Web Dev</span>
+            <span class="text-slate-500 font-dm-sans text-lg font-medium flex items-center gap-2"><iconify-icon
+                    icon="simple-icons:microsoftazure" class="text-xl"></iconify-icon> Advance Excel</span>
         </div>
-        <style>
-            @keyframes marquee {
-                0% {
-                    transform: translateX(0);
-                }
-
-                100% {
-                    transform: translateX(-50%);
-                }
-            }
-        </style>
     </section>
-    <!-- Features / Why Us -->
+
+   
+
+<!-- ========== OUR SERVICES ========== -->
+<section id="services" class="py-24">
+
+    <div class="max-w-[90rem] mx-auto px-6 lg:px-8">
+
+        <!-- Section Heading -->
+        <div class="text-center mb-14">
+
+            <span class="text-yellow-400 text-sm font-medium tracking-wider uppercase block mb-3">
+                Our Services
+            </span>
+
+            <h2 class="font-dm-sans text-[2.25rem] lg:text-[3.75rem] font-light tracking-tight leading-tight text-white">
+                Grow Your Business With
+                <span class="text-yellow-400">
+                    Digital Solutions
+                </span>
+            </h2>
+
+            <p class="text-slate-400 max-w-2xl mx-auto mt-5 text-sm lg:text-base leading-relaxed">
+                We provide modern technology, AI and digital marketing
+                solutions to help your business grow and succeed.
+            </p>
+
+        </div>
+
+
+        <!-- Services Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+
+            <!-- ================= SERVICE 1 ================= -->
+
+            <div class="animate-on-scroll anim-delay-1 group bg-white/[0.03] border border-white/10 rounded-[2rem] overflow-hidden hover:border-yellow-400/30 transition">
+
+                <div class="relative h-48 overflow-hidden">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?auto=format&fit=crop&w=1200&q=85"
+                        class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+                        alt="Static Website"
+                    >
+
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#0f0f11] to-transparent"></div>
+
+                    <span class="absolute top-4 right-4 bg-yellow-400 text-neutral-900 text-xs font-semibold px-3 py-1 rounded-full">
+                        Popular
+                    </span>
+
+                </div>
+
+                <div class="p-6">
+
+                    <div class="flex items-center gap-2 text-slate-400 text-xs mb-3">
+                        <span>🌐</span>
+                        <span>Web Development</span>
+                    </div>
+
+                    <h3 class="font-dm-sans text-xl font-light tracking-tight mb-2 text-white">
+                        Static Website
+                    </h3>
+
+                    <p class="text-slate-400 text-sm leading-relaxed mb-4">
+                        Fast, responsive and professional websites for
+                        businesses, institutes, portfolios and personal brands.
+                    </p>
+
+                    <div class="flex items-center justify-between">
+
+                        <span class="text-yellow-400 font-semibold">
+                            Starting ₹5,000
+                        </span>
+
+                        <button
+                            onclick="showServiceToast('Static Website')"
+                            class="text-sm text-slate-300 hover:text-yellow-400 transition flex items-center gap-1"
+                        >
+                            Learn More →
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= SERVICE 2 ================= -->
+
+            <div class="animate-on-scroll anim-delay-2 group bg-white/[0.03] border border-white/10 rounded-[2rem] overflow-hidden hover:border-yellow-400/30 transition">
+
+                <div class="relative h-48 overflow-hidden">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1558655146-d09347e92766?auto=format&fit=crop&w=1200&q=85"
+                        class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+                        alt="Dynamic Website"
+                    >
+
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#0f0f11] to-transparent"></div>
+
+                    <span class="absolute top-4 right-4 bg-yellow-400 text-neutral-900 text-xs font-semibold px-3 py-1 rounded-full">
+                        Business
+                    </span>
+
+                </div>
+
+                <div class="p-6">
+
+                    <div class="flex items-center gap-2 text-slate-400 text-xs mb-3">
+                        <span>💻</span>
+                        <span>Web Development</span>
+                    </div>
+
+                    <h3 class="font-dm-sans text-xl font-light tracking-tight mb-2 text-white">
+                        Dynamic Website
+                    </h3>
+
+                    <p class="text-slate-400 text-sm leading-relaxed mb-4">
+                        Powerful websites with admin panels, databases,
+                        authentication and custom business features.
+                    </p>
+
+                    <div class="flex items-center justify-between">
+
+                        <span class="text-yellow-400 font-semibold">
+                            Starting ₹15,000
+                        </span>
+
+                        <button
+                            onclick="showServiceToast('Dynamic Website')"
+                            class="text-sm text-slate-300 hover:text-yellow-400 transition flex items-center gap-1"
+                        >
+                            Learn More →
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= SERVICE 3 ================= -->
+
+            <div class="animate-on-scroll anim-delay-3 group bg-white/[0.03] border border-white/10 rounded-[2rem] overflow-hidden hover:border-yellow-400/30 transition">
+
+                <div class="relative h-48 overflow-hidden">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=1200&q=85"
+                        class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+                        alt="AI Chatbot"
+                    >
+
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#0f0f11] to-transparent"></div>
+
+                    <span class="absolute top-4 right-4 bg-green-400 text-neutral-900 text-xs font-semibold px-3 py-1 rounded-full">
+                        New
+                    </span>
+
+                </div>
+
+                <div class="p-6">
+
+                    <div class="flex items-center gap-2 text-slate-400 text-xs mb-3">
+                        <span>🤖</span>
+                        <span>Artificial Intelligence</span>
+                    </div>
+
+                    <h3 class="font-dm-sans text-xl font-light tracking-tight mb-2 text-white">
+                        AI Chatbot
+                    </h3>
+
+                    <p class="text-slate-400 text-sm leading-relaxed mb-4">
+                        AI-powered chatbots for websites and businesses
+                        to answer customer questions and generate leads 24/7.
+                    </p>
+
+                    <div class="flex items-center justify-between">
+
+                        <span class="text-yellow-400 font-semibold">
+                            Starting ₹10,000
+                        </span>
+
+                        <button
+                            onclick="showServiceToast('AI Chatbot')"
+                            class="text-sm text-slate-300 hover:text-yellow-400 transition flex items-center gap-1"
+                        >
+                            Learn More →
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= SERVICE 4 ================= -->
+
+            <div class="animate-on-scroll anim-delay-4 group bg-white/[0.03] border border-white/10 rounded-[2rem] overflow-hidden hover:border-yellow-400/30 transition">
+
+                <div class="relative h-48 overflow-hidden">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1551650975-87deedd944c3?auto=format&fit=crop&w=1200&q=85"
+                        class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+                        alt="App Development"
+                    >
+
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#0f0f11] to-transparent"></div>
+
+                </div>
+
+                <div class="p-6">
+
+                    <div class="flex items-center gap-2 text-slate-400 text-xs mb-3">
+                        <span>📱</span>
+                        <span>Mobile Development</span>
+                    </div>
+
+                    <h3 class="font-dm-sans text-xl font-light tracking-tight mb-2 text-white">
+                        App Development
+                    </h3>
+
+                    <p class="text-slate-400 text-sm leading-relaxed mb-4">
+                        Modern Android and iOS applications with
+                        beautiful UI and powerful functionality.
+                    </p>
+
+                    <div class="flex items-center justify-between">
+
+                        <span class="text-yellow-400 font-semibold">
+                            Starting ₹20,000
+                        </span>
+
+                        <button
+                            onclick="showServiceToast('App Development')"
+                            class="text-sm text-slate-300 hover:text-yellow-400 transition flex items-center gap-1"
+                        >
+                            Learn More →
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= SERVICE 5 ================= -->
+
+            <div class="animate-on-scroll anim-delay-5 group bg-white/[0.03] border border-white/10 rounded-[2rem] overflow-hidden hover:border-yellow-400/30 transition">
+
+                <div class="relative h-48 overflow-hidden">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=1200&q=85"
+                        class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+                        alt="Software Development"
+                    >
+
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#0f0f11] to-transparent"></div>
+
+                </div>
+
+                <div class="p-6">
+
+                    <div class="flex items-center gap-2 text-slate-400 text-xs mb-3">
+                        <span>⚙️</span>
+                        <span>Custom Software</span>
+                    </div>
+
+                    <h3 class="font-dm-sans text-xl font-light tracking-tight mb-2 text-white">
+                        Software Development
+                    </h3>
+
+                    <p class="text-slate-400 text-sm leading-relaxed mb-4">
+                        Custom business software, CRM, ERP and management
+                        systems designed according to your requirements.
+                    </p>
+
+                    <div class="flex items-center justify-between">
+
+                        <span class="text-yellow-400 font-semibold">
+                            Starting ₹25,000
+                        </span>
+
+                        <button
+                            onclick="showServiceToast('Software Development')"
+                            class="text-sm text-slate-300 hover:text-yellow-400 transition flex items-center gap-1"
+                        >
+                            Learn More →
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= SERVICE 6 ================= -->
+
+            <div class="animate-on-scroll anim-delay-6 group bg-white/[0.03] border border-white/10 rounded-[2rem] overflow-hidden hover:border-yellow-400/30 transition">
+
+                <div class="relative h-48 overflow-hidden">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1533750349088-cd871a92f312?auto=format&fit=crop&w=1200&q=85"
+                        class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+                        alt="Digital Marketing"
+                    >
+
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#0f0f11] to-transparent"></div>
+
+                </div>
+
+                <div class="p-6">
+
+                    <div class="flex items-center gap-2 text-slate-400 text-xs mb-3">
+                        <span>📈</span>
+                        <span>Marketing</span>
+                    </div>
+
+                    <h3 class="font-dm-sans text-xl font-light tracking-tight mb-2 text-white">
+                        Digital Marketing
+                    </h3>
+
+                    <p class="text-slate-400 text-sm leading-relaxed mb-4">
+                        Complete digital marketing solutions to increase
+                        your online presence, reach and business growth.
+                    </p>
+
+                    <div class="flex items-center justify-between">
+
+                        <span class="text-yellow-400 font-semibold">
+                            Starting ₹5,000/mo
+                        </span>
+
+                        <button
+                            onclick="showServiceToast('Digital Marketing')"
+                            class="text-sm text-slate-300 hover:text-yellow-400 transition flex items-center gap-1"
+                        >
+                            Learn More →
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= SERVICE 7 ================= -->
+
+            <div class="animate-on-scroll anim-delay-1 group bg-white/[0.03] border border-white/10 rounded-[2rem] overflow-hidden hover:border-yellow-400/30 transition">
+
+                <div class="relative h-48 overflow-hidden">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1557838923-2985c318be48?auto=format&fit=crop&w=1200&q=85"
+                        class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+                        alt="Google Ads"
+                    >
+
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#0f0f11] to-transparent"></div>
+
+                </div>
+
+                <div class="p-6">
+
+                    <div class="flex items-center gap-2 text-slate-400 text-xs mb-3">
+                        <span>🔎</span>
+                        <span>Paid Advertising</span>
+                    </div>
+
+                    <h3 class="font-dm-sans text-xl font-light tracking-tight mb-2 text-white">
+                        Google Ads
+                    </h3>
+
+                    <p class="text-slate-400 text-sm leading-relaxed mb-4">
+                        Targeted Google Ads campaigns designed to generate
+                        quality leads, traffic and conversions.
+                    </p>
+
+                    <div class="flex items-center justify-between">
+
+                        <span class="text-yellow-400 font-semibold">
+                            Starting ₹3,000
+                        </span>
+
+                        <button
+                            onclick="showServiceToast('Google Ads')"
+                            class="text-sm text-slate-300 hover:text-yellow-400 transition flex items-center gap-1"
+                        >
+                            Learn More →
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= SERVICE 8 ================= -->
+
+            <div class="animate-on-scroll anim-delay-2 group bg-white/[0.03] border border-white/10 rounded-[2rem] overflow-hidden hover:border-yellow-400/30 transition">
+
+                <div class="relative h-48 overflow-hidden">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1611262588024-d12430b98920?auto=format&fit=crop&w=1200&q=85"
+                        class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+                        alt="Instagram Ads"
+                    >
+
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#0f0f11] to-transparent"></div>
+
+                </div>
+
+                <div class="p-6">
+
+                    <div class="flex items-center gap-2 text-slate-400 text-xs mb-3">
+                        <span>📸</span>
+                        <span>Social Media Advertising</span>
+                    </div>
+
+                    <h3 class="font-dm-sans text-xl font-light tracking-tight mb-2 text-white">
+                        Instagram Ads
+                    </h3>
+
+                    <p class="text-slate-400 text-sm leading-relaxed mb-4">
+                        Creative Instagram advertising campaigns to reach
+                        your target audience and grow your brand.
+                    </p>
+
+                    <div class="flex items-center justify-between">
+
+                        <span class="text-yellow-400 font-semibold">
+                            Starting ₹3,000
+                        </span>
+
+                        <button
+                            onclick="showServiceToast('Instagram Ads')"
+                            class="text-sm text-slate-300 hover:text-yellow-400 transition flex items-center gap-1"
+                        >
+                            Learn More →
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= SERVICE 9 ================= -->
+
+            <div class="animate-on-scroll anim-delay-3 group bg-white/[0.03] border border-white/10 rounded-[2rem] overflow-hidden hover:border-yellow-400/30 transition">
+
+                <div class="relative h-48 overflow-hidden">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&w=1200&q=85"
+                        class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+                        alt="Facebook Ads"
+                    >
+
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#0f0f11] to-transparent"></div>
+
+                </div>
+
+                <div class="p-6">
+
+                    <div class="flex items-center gap-2 text-slate-400 text-xs mb-3">
+                        <span>📣</span>
+                        <span>Social Media Advertising</span>
+                    </div>
+
+                    <h3 class="font-dm-sans text-xl font-light tracking-tight mb-2 text-white">
+                        Facebook Ads
+                    </h3>
+
+                    <p class="text-slate-400 text-sm leading-relaxed mb-4">
+                        Performance-focused Facebook advertising to generate
+                        leads, sales and business awareness.
+                    </p>
+
+                    <div class="flex items-center justify-between">
+
+                        <span class="text-yellow-400 font-semibold">
+                            Starting ₹3,000
+                        </span>
+
+                        <button
+                            onclick="showServiceToast('Facebook Ads')"
+                            class="text-sm text-slate-300 hover:text-yellow-400 transition flex items-center gap-1"
+                        >
+                            Learn More →
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= SERVICE 10 ================= -->
+
+            <div class="animate-on-scroll anim-delay-4 group bg-white/[0.03] border border-white/10 rounded-[2rem] overflow-hidden hover:border-yellow-400/30 transition">
+
+                <div class="relative h-48 overflow-hidden">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1676277791608-ac54525aa94d?auto=format&fit=crop&w=1200&q=85"
+                        class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+                        alt="AI Automation"
+                    >
+
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#0f0f11] to-transparent"></div>
+
+                    <span class="absolute top-4 right-4 bg-green-400 text-neutral-900 text-xs font-semibold px-3 py-1 rounded-full">
+                        Trending
+                    </span>
+
+                </div>
+
+                <div class="p-6">
+
+                    <div class="flex items-center gap-2 text-slate-400 text-xs mb-3">
+                        <span>⚡</span>
+                        <span>Artificial Intelligence</span>
+                    </div>
+
+                    <h3 class="font-dm-sans text-xl font-light tracking-tight mb-2 text-white">
+                        AI Automation
+                    </h3>
+
+                    <p class="text-slate-400 text-sm leading-relaxed mb-4">
+                        Automate repetitive business tasks using AI,
+                        workflows, APIs, chatbots and intelligent automation.
+                    </p>
+
+                    <div class="flex items-center justify-between">
+
+                        <span class="text-yellow-400 font-semibold">
+                            Starting ₹15,000
+                        </span>
+
+                        <button
+                            onclick="showServiceToast('AI Automation')"
+                            class="text-sm text-slate-300 hover:text-yellow-400 transition flex items-center gap-1"
+                        >
+                            Learn More →
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ========== SERVICE TOAST ========== -->
+
+<div
+    id="serviceToast"
+    class="fixed bottom-6 right-6 z-[9999] bg-yellow-400 text-neutral-900 px-5 py-3 rounded-xl shadow-xl font-medium opacity-0 translate-y-5 pointer-events-none transition-all duration-300"
+>
+    Service selected!
+</div>
+
+
+<!-- ========== JAVASCRIPT ========== -->
+
+<script>
+
+function showServiceToast(serviceName) {
+
+    const toast = document.getElementById("serviceToast");
+
+    toast.textContent = "✅ " + serviceName + " selected!";
+
+    toast.classList.remove(
+        "opacity-0",
+        "translate-y-5",
+        "pointer-events-none"
+    );
+
+    toast.classList.add(
+        "opacity-100",
+        "translate-y-0"
+    );
+
+    setTimeout(() => {
+
+        toast.classList.remove(
+            "opacity-100",
+            "translate-y-0"
+        );
+
+        toast.classList.add(
+            "opacity-0",
+            "translate-y-5",
+            "pointer-events-none"
+        );
+
+    }, 2500);
+}
+
+</script>
+
+ <!-- ========== FEATURES ========== -->
     <section id="features" class="py-24">
         <div class="max-w-[90rem] mx-auto px-6 lg:px-8">
-            <div class="text-center mb-16 animate-on-scroll">
-                <span class="text-yellow-400 text-sm font-medium tracking-wider uppercase mb-4 block">Why
-                    M Learning Point</span>
-                <h2 class="font-dm-sans text-[2.25rem] lg:text-[3.75rem] font-light tracking-tight leading-tight">
-                    Not just courses.<br><span class="text-yellow-400">Career transformation.</span>
-                </h2>
+            <div class="text-center mb-14 animate-on-scroll"><span
+                    class="text-yellow-400 text-sm font-medium tracking-wider uppercase block mb-3">Why Ai Codex Learning Point
+                    Point</span>
+                <h2
+                    class="font-dm-sans text-[2.25rem] lg:text-[3.75rem] font-light tracking-tight leading-tight text-white">
+                    Not just courses.<br><span class="text-yellow-400">Career transformation.</span></h2>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <!-- Feature 1 -->
                 <div
-                    class="animate-on-scroll anim-delay-1 group bg-white/[0.03] border border-white/10 rounded-[2rem] p-6 hover:border-yellow-400/30 transition-all duration-300">
+                    class="animate-on-scroll anim-delay-1 group bg-white/[0.03] border border-white/10 rounded-[2rem] p-6 hover:border-yellow-400/30 transition">
                     <div
-                        class="w-14 h-14 bg-yellow-400/10 rounded-2xl flex items-center justify-center mb-5 group-hover:bg-yellow-400/20 transition-colors">
+                        class="w-14 h-14 bg-yellow-400/10 rounded-2xl flex items-center justify-center mb-5 group-hover:bg-yellow-400/20 transition">
                         <iconify-icon icon="solar:monitor-smartphone-bold-duotone"
-                            class="text-yellow-400 text-2xl"></iconify-icon>
-                    </div>
-                    <h3 class="font-dm-sans text-xl font-light tracking-tight mb-3">Live Projects</h3>
+                            class="text-yellow-400 text-2xl"></iconify-icon></div>
+                    <h3 class="font-dm-sans text-xl font-light tracking-tight mb-3 text-white">Live Projects</h3>
                     <p class="text-slate-400 text-sm leading-relaxed">Work on real client projects from day one. Build a
                         production-grade portfolio that employers notice.</p>
                 </div>
-                <!-- Feature 2 -->
                 <div
-                    class="animate-on-scroll anim-delay-2 group bg-white/[0.03] border border-white/10 rounded-[2rem] p-6 hover:border-yellow-400/30 transition-all duration-300">
+                    class="animate-on-scroll anim-delay-2 group bg-white/[0.03] border border-white/10 rounded-[2rem] p-6 hover:border-yellow-400/30 transition">
                     <div
-                        class="w-14 h-14 bg-yellow-400/10 rounded-2xl flex items-center justify-center mb-5 group-hover:bg-yellow-400/20 transition-colors">
+                        class="w-14 h-14 bg-yellow-400/10 rounded-2xl flex items-center justify-center mb-5 group-hover:bg-yellow-400/20 transition">
                         <iconify-icon icon="solar:users-group-rounded-bold-duotone"
-                            class="text-yellow-400 text-2xl"></iconify-icon>
-                    </div>
-                    <h3 class="font-dm-sans text-xl font-light tracking-tight mb-3">1:8 Mentor Ratio</h3>
+                            class="text-yellow-400 text-2xl"></iconify-icon></div>
+                    <h3 class="font-dm-sans text-xl font-light tracking-tight mb-3 text-white">1:8 Mentor Ratio</h3>
                     <p class="text-slate-400 text-sm leading-relaxed">Personal attention from industry mentors with 10+
                         years of experience at top tech companies.</p>
                 </div>
-                <!-- Feature 3 -->
                 <div
-                    class="animate-on-scroll anim-delay-3 group bg-white/[0.03] border border-white/10 rounded-[2rem] p-6 hover:border-yellow-400/30 transition-all duration-300">
+                    class="animate-on-scroll anim-delay-3 group bg-white/[0.03] border border-white/10 rounded-[2rem] p-6 hover:border-yellow-400/30 transition">
                     <div
-                        class="w-14 h-14 bg-yellow-400/10 rounded-2xl flex items-center justify-center mb-5 group-hover:bg-yellow-400/20 transition-colors">
+                        class="w-14 h-14 bg-yellow-400/10 rounded-2xl flex items-center justify-center mb-5 group-hover:bg-yellow-400/20 transition">
                         <iconify-icon icon="solar:shield-check-bold-duotone"
-                            class="text-yellow-400 text-2xl"></iconify-icon>
-                    </div>
-                    <h3 class="font-dm-sans text-xl font-light tracking-tight mb-3">Job Guarantee</h3>
+                            class="text-yellow-400 text-2xl"></iconify-icon></div>
+                    <h3 class="font-dm-sans text-xl font-light tracking-tight mb-3 text-white">Job Guarantee</h3>
                     <p class="text-slate-400 text-sm leading-relaxed">94% placement rate within 6 months. If you don't
                         get placed, we refund your entire fee.</p>
                 </div>
-                <!-- Feature 4 -->
                 <div
-                    class="animate-on-scroll anim-delay-4 group bg-white/[0.03] border border-white/10 rounded-[2rem] p-6 hover:border-yellow-400/30 transition-all duration-300">
+                    class="animate-on-scroll anim-delay-4 group bg-white/[0.03] border border-white/10 rounded-[2rem] p-6 hover:border-yellow-400/30 transition">
                     <div
-                        class="w-14 h-14 bg-yellow-400/10 rounded-2xl flex items-center justify-center mb-5 group-hover:bg-yellow-400/20 transition-colors">
+                        class="w-14 h-14 bg-yellow-400/10 rounded-2xl flex items-center justify-center mb-5 group-hover:bg-yellow-400/20 transition">
                         <iconify-icon icon="solar:clock-circle-bold-duotone"
-                            class="text-yellow-400 text-2xl"></iconify-icon>
-                    </div>
-                    <h3 class="font-dm-sans text-xl font-light tracking-tight mb-3">Lifetime Access</h3>
+                            class="text-yellow-400 text-2xl"></iconify-icon></div>
+                    <h3 class="font-dm-sans text-xl font-light tracking-tight mb-3 text-white">Lifetime Access</h3>
                     <p class="text-slate-400 text-sm leading-relaxed">Once enrolled, get lifetime access to course
                         materials, updates, and alumni community support.</p>
                 </div>
@@ -684,7 +1191,7 @@
         </div>
     </section>
 
-    <!-- Stats -->
+    <!-- ========== STATS ========== -->
     <section class="py-16 border-y border-white/5">
         <div class="max-w-[90rem] mx-auto px-6 lg:px-8">
             <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
@@ -708,327 +1215,276 @@
         </div>
     </section>
 
-    <!-- Courses -->
+    <!-- ========== COURSES ========== -->
     <section id="courses" class="py-24">
         <div class="max-w-[90rem] mx-auto px-6 lg:px-8">
-            <div class="text-center mb-16 animate-on-scroll">
-                <span class="text-yellow-400 text-sm font-medium tracking-wider uppercase mb-4 block">Our
-                    Programs</span>
-                <h2 class="font-dm-sans text-[2.25rem] lg:text-[3.75rem] font-light tracking-tight leading-tight">
-                    Choose your <span class="text-yellow-400">career path</span>
-                </h2>
+            <div class="text-center mb-14 animate-on-scroll"><span
+                    class="text-yellow-400 text-sm font-medium tracking-wider uppercase block mb-3">Our Programs</span>
+                <h2
+                    class="font-dm-sans text-[2.25rem] lg:text-[3.75rem] font-light tracking-tight leading-tight text-white">
+                    Choose your <span class="text-yellow-400">career path</span></h2>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- Course 1 -->
+                <!-- course 1 -->
                 <div
-                    class="animate-on-scroll anim-delay-1 group relative bg-white/[0.03] border border-white/10 rounded-[2rem] overflow-hidden hover:border-yellow-400/30 transition-all duration-300">
-                    <div class="relative h-48 overflow-hidden">
-                        <img src="https://miro.medium.com/v2/resize:fit:1400/0*fEzzo0pDmE4YbZ49"
-                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    class="animate-on-scroll anim-delay-1 group bg-white/[0.03] border border-white/10 rounded-[2rem] overflow-hidden hover:border-yellow-400/30 transition">
+                    <div class="relative h-48 overflow-hidden"><img
+                            src="https://miro.medium.com/v2/resize:fit:1400/0*fEzzo0pDmE4YbZ49"
+                            class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
                             alt="Full Stack">
-                        <div class="absolute inset-0 bg-gradient-to-t from-[#0f0f11] to-transparent"></div>
-                        <span
+                        <div class="absolute inset-0 bg-gradient-to-t from-[#0f0f11] to-transparent"></div><span
                             class="absolute top-4 right-4 bg-yellow-400 text-neutral-900 text-xs font-semibold px-3 py-1 rounded-full">Popular</span>
                     </div>
                     <div class="p-6">
-                        <div class="flex items-center gap-2 text-slate-400 text-xs mb-3">
-                            <iconify-icon icon="solar:clock-circle-linear"></iconify-icon>
-                            <span>6 Months</span>
-                            <span class="mx-1">·</span>
-                            <iconify-icon icon="solar:layers-linear"></iconify-icon>
-                            <span>120+ Hours</span>
-                        </div>
-                        <h3 class="font-dm-sans text-xl font-light tracking-tight mb-2">Full Stack Development</h3>
+                        <div class="flex items-center gap-2 text-slate-400 text-xs mb-3"><iconify-icon
+                                icon="solar:clock-circle-linear"></iconify-icon><span>6 Months</span><span
+                                class="mx-1">·</span><iconify-icon icon="solar:layers-linear"></iconify-icon><span>120+
+                                Hours</span></div>
+                        <h3 class="font-dm-sans text-xl font-light tracking-tight mb-2 text-white">Full Stack
+                            Development</h3>
                         <p class="text-slate-400 text-sm leading-relaxed mb-4">React, Node.js, MongoDB, TypeScript.
-                            Build 5 production-ready projects with CI/CD pipelines.</p>
-                        <div class="flex items-center justify-between">
-                            <span class="text-yellow-400 font-semibold">₹15,000</span>
-                            <button onclick="showToast('📚 Full Stack Development added to cart!')"
-                                class="text-sm text-slate-300 hover:text-yellow-400 transition-colors flex items-center gap-1">
-                                Learn More <iconify-icon icon="solar:arrow-right-linear"></iconify-icon>
-                            </button>
-                        </div>
+                            Build 5 production-ready projects with CI/CD.</p>
+                        <div class="flex items-center justify-between"><span
+                                class="text-yellow-400 font-semibold">₹15,000</span><button
+                                onclick="showToast('📚 Full Stack Development added!')"
+                                class="text-sm text-slate-300 hover:text-yellow-400 transition flex items-center gap-1">Learn
+                                More <iconify-icon icon="solar:arrow-right-linear"></iconify-icon></button></div>
                     </div>
                 </div>
-                <!-- Course 2 -->
+                <!-- course 2 -->
                 <div
-                    class="animate-on-scroll anim-delay-2 group relative bg-white/[0.03] border border-white/10 rounded-[2rem] overflow-hidden hover:border-yellow-400/30 transition-all duration-300">
-                    <div class="relative h-48 overflow-hidden">
-                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRjvBFTHvEuxwVJbX4B41VGtWANWVuz_EvoSw&s"
-                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                            alt="Cloud">
+                    class="animate-on-scroll anim-delay-2 group bg-white/[0.03] border border-white/10 rounded-[2rem] overflow-hidden hover:border-yellow-400/30 transition">
+                    <div class="relative h-48 overflow-hidden"><img
+                            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRjvBFTHvEuxwVJbX4B41VGtWANWVuz_EvoSw&s"
+                            class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+                            alt="Data Analytics">
                         <div class="absolute inset-0 bg-gradient-to-t from-[#0f0f11] to-transparent"></div>
                     </div>
                     <div class="p-6">
-                        <div class="flex items-center gap-2 text-slate-400 text-xs mb-3">
-                            <iconify-icon icon="solar:clock-circle-linear"></iconify-icon>
-                            <span>6 Months</span>
-                            <span class="mx-1">·</span>
-                            <iconify-icon icon="solar:layers-linear"></iconify-icon>
-                            <span>80+ Hours</span>
-                        </div>
-                        <h3 class="font-dm-sans text-xl font-light tracking-tight mb-2">Data Analytics</h3>
-                        <p class="text-slate-400 text-sm leading-relaxed mb-4">learn to import the data using SQL,
-                            Python, R, or web scraping. Data Cleaning: use various Python and R libraries to clean and
-                            process the data.</p>
-                        <div class="flex items-center justify-between">
-                            <span class="text-yellow-400 font-semibold">₹25,000</span>
-                            <button onclick="showToast('☁️ Cloud & DevOps added to cart!')"
-                                class="text-sm text-slate-300 hover:text-yellow-400 transition-colors flex items-center gap-1">
-                                Learn More <iconify-icon icon="solar:arrow-right-linear"></iconify-icon>
-                            </button>
-                        </div>
+                        <div class="flex items-center gap-2 text-slate-400 text-xs mb-3"><iconify-icon
+                                icon="solar:clock-circle-linear"></iconify-icon><span>6 Months</span><span
+                                class="mx-1">·</span><iconify-icon icon="solar:layers-linear"></iconify-icon><span>80+
+                                Hours</span></div>
+                        <h3 class="font-dm-sans text-xl font-light tracking-tight mb-2 text-white">Data Analytics</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed mb-4">Learn to import data using SQL, Python,
+                            R, or web scraping. Clean & process data with various libraries.</p>
+                        <div class="flex items-center justify-between"><span
+                                class="text-yellow-400 font-semibold">₹25,000</span><button
+                                onclick="showToast('📊 Data Analytics added!')"
+                                class="text-sm text-slate-300 hover:text-yellow-400 transition flex items-center gap-1">Learn
+                                More <iconify-icon icon="solar:arrow-right-linear"></iconify-icon></button></div>
                     </div>
                 </div>
-                <!-- Course 3 -->
+                <!-- course 3 -->
                 <div
-                    class="animate-on-scroll anim-delay-3 group relative bg-white/[0.03] border border-white/10 rounded-[2rem] overflow-hidden hover:border-yellow-400/30 transition-all duration-300">
-                    <div class="relative h-48 overflow-hidden">
-                        <img src="https://media.licdn.com/dms/image/v2/D5612AQHa7xiegv6bgw/article-cover_image-shrink_600_2000/article-cover_image-shrink_600_2000/0/1723760089292?e=2147483647&v=beta&t=evG986J3qcaNKM4sXr-4PulPjJJrTDC-YYobaPZess0"
-                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                            alt="Cybersecurity">
-                        <div class="absolute inset-0 bg-gradient-to-t from-[#0f0f11] to-transparent"></div>
-                        <span
+                    class="animate-on-scroll anim-delay-3 group bg-white/[0.03] border border-white/10 rounded-[2rem] overflow-hidden hover:border-yellow-400/30 transition">
+                    <div class="relative h-48 overflow-hidden"><img
+                            src="https://media.licdn.com/dms/image/v2/D5612AQHa7xiegv6bgw/article-cover_image-shrink_600_2000/article-cover_image-shrink_600_2000/0/1723760089292?e=2147483647&v=beta&t=evG986J3qcaNKM4sXr-4PulPjJJrTDC-YYobaPZess0"
+                            class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+                            alt="React">
+                        <div class="absolute inset-0 bg-gradient-to-t from-[#0f0f11] to-transparent"></div><span
                             class="absolute top-4 right-4 bg-green-400 text-neutral-900 text-xs font-semibold px-3 py-1 rounded-full">New</span>
                     </div>
                     <div class="p-6">
-                        <div class="flex items-center gap-2 text-slate-400 text-xs mb-3">
-                            <iconify-icon icon="solar:clock-circle-linear"></iconify-icon>
-                            <span>4 Months</span>
-                            <span class="mx-1">·</span>
-                            <iconify-icon icon="solar:layers-linear"></iconify-icon>
-                            <span>100+ Hours</span>
-                        </div>
-                        <h3 class="font-dm-sans text-xl font-light tracking-tight mb-2">react Developer</h3>
-                        <p class="text-slate-400 text-sm leading-relaxed mb-4">React lets you build user interfaces out
-                            of individual pieces called components. Create your own React components like Thumbnail,
-                            LikeButton, and Video. Then combine them into entire screens, pages, and apps.</p>
-                        <div class="flex items-center justify-between">
-                            <span class="text-yellow-400 font-semibold">₹10,000</span>
-                            <button onclick="showToast('🔒 Cybersecurity added to cart!')"
-                                class="text-sm text-slate-300 hover:text-yellow-400 transition-colors flex items-center gap-1">
-                                Learn More <iconify-icon icon="solar:arrow-right-linear"></iconify-icon>
-                            </button>
-                        </div>
+                        <div class="flex items-center gap-2 text-slate-400 text-xs mb-3"><iconify-icon
+                                icon="solar:clock-circle-linear"></iconify-icon><span>4 Months</span><span
+                                class="mx-1">·</span><iconify-icon icon="solar:layers-linear"></iconify-icon><span>100+
+                                Hours</span></div>
+                        <h3 class="font-dm-sans text-xl font-light tracking-tight mb-2 text-white">React Developer</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed mb-4">Build user interfaces out of components.
+                            Create Thumbnail, LikeButton, Video, and combine them into full apps.</p>
+                        <div class="flex items-center justify-between"><span
+                                class="text-yellow-400 font-semibold">₹10,000</span><button
+                                onclick="showToast('⚛️ React Developer added!')"
+                                class="text-sm text-slate-300 hover:text-yellow-400 transition flex items-center gap-1">Learn
+                                More <iconify-icon icon="solar:arrow-right-linear"></iconify-icon></button></div>
                     </div>
                 </div>
-                <!-- Course 4 -->
+                <!-- course 4 -->
                 <div
-                    class="animate-on-scroll anim-delay-4 group relative bg-white/[0.03] border border-white/10 rounded-[2rem] overflow-hidden hover:border-yellow-400/30 transition-all duration-300">
-                    <div class="relative h-48 overflow-hidden">
-                        <img src="https://www.m.acharya.ac.in/ait/img/cse-ds1.webp"
-                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    class="animate-on-scroll anim-delay-4 group bg-white/[0.03] border border-white/10 rounded-[2rem] overflow-hidden hover:border-yellow-400/30 transition">
+                    <div class="relative h-48 overflow-hidden"><img
+                            src="https://www.m.acharya.ac.in/ait/img/cse-ds1.webp"
+                            class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
                             alt="Data Science">
                         <div class="absolute inset-0 bg-gradient-to-t from-[#0f0f11] to-transparent"></div>
                     </div>
                     <div class="p-6">
-                        <div class="flex items-center gap-2 text-slate-400 text-xs mb-3">
-                            <iconify-icon icon="solar:clock-circle-linear"></iconify-icon>
-                            <span>6 Months</span>
-                            <span class="mx-1">·</span>
-                            <iconify-icon icon="solar:layers-linear"></iconify-icon>
-                            <span>130+ Hours</span>
-                        </div>
-                        <h3 class="font-dm-sans text-xl font-light tracking-tight mb-2">Data Science & AI</h3>
+                        <div class="flex items-center gap-2 text-slate-400 text-xs mb-3"><iconify-icon
+                                icon="solar:clock-circle-linear"></iconify-icon><span>6 Months</span><span
+                                class="mx-1">·</span><iconify-icon icon="solar:layers-linear"></iconify-icon><span>130+
+                                Hours</span></div>
+                        <h3 class="font-dm-sans text-xl font-light tracking-tight mb-2 text-white">Data Science & AI
+                        </h3>
                         <p class="text-slate-400 text-sm leading-relaxed mb-4">Python, TensorFlow, ML, NLP, Computer
                             Vision. From data analysis to deploying AI models.</p>
-                        <div class="flex items-center justify-between">
-                            <span class="text-yellow-400 font-semibold">₹25,000</span>
-                            <button onclick="showToast('🤖 Data Science & AI added to cart!')"
-                                class="text-sm text-slate-300 hover:text-yellow-400 transition-colors flex items-center gap-1">
-                                Learn More <iconify-icon icon="solar:arrow-right-linear"></iconify-icon>
-                            </button>
-                        </div>
+                        <div class="flex items-center justify-between"><span
+                                class="text-yellow-400 font-semibold">₹25,000</span><button
+                                onclick="showToast('🤖 Data Science & AI added!')"
+                                class="text-sm text-slate-300 hover:text-yellow-400 transition flex items-center gap-1">Learn
+                                More <iconify-icon icon="solar:arrow-right-linear"></iconify-icon></button></div>
                     </div>
                 </div>
-                <!-- Course 5 -->
+                <!-- course 5 -->
                 <div
-                    class="animate-on-scroll anim-delay-5 group relative bg-white/[0.03] border border-white/10 rounded-[2rem] overflow-hidden hover:border-yellow-400/30 transition-all duration-300">
-                    <div class="relative h-48 overflow-hidden">
-                        <img src="https://codewave.com/insights/wp-content/uploads/2025/10/unnamed-2025-10-01T184348.185-800x500.jpg"
-                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    class="animate-on-scroll anim-delay-5 group bg-white/[0.03] border border-white/10 rounded-[2rem] overflow-hidden hover:border-yellow-400/30 transition">
+                    <div class="relative h-48 overflow-hidden"><img
+                            src="https://codewave.com/insights/wp-content/uploads/2025/10/unnamed-2025-10-01T184348.185-800x500.jpg"
+                            class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
                             alt="Mobile Dev">
                         <div class="absolute inset-0 bg-gradient-to-t from-[#0f0f11] to-transparent"></div>
                     </div>
                     <div class="p-6">
-                        <div class="flex items-center gap-2 text-slate-400 text-xs mb-3">
-                            <iconify-icon icon="solar:clock-circle-linear"></iconify-icon>
-                            <span>6 Months</span>
-                            <span class="mx-1">·</span>
-                            <iconify-icon icon="solar:layers-linear"></iconify-icon>
-                            <span>90+ Hours</span>
-                        </div>
-                        <h3 class="font-dm-sans text-xl font-light tracking-tight mb-2">Mobile App Development</h3>
+                        <div class="flex items-center gap-2 text-slate-400 text-xs mb-3"><iconify-icon
+                                icon="solar:clock-circle-linear"></iconify-icon><span>6 Months</span><span
+                                class="mx-1">·</span><iconify-icon icon="solar:layers-linear"></iconify-icon><span>90+
+                                Hours</span></div>
+                        <h3 class="font-dm-sans text-xl font-light tracking-tight mb-2 text-white">Mobile App
+                            Development</h3>
                         <p class="text-slate-400 text-sm leading-relaxed mb-4">Flutter, React Native, Swift. Build
                             cross-platform apps and publish to App Store & Play Store.</p>
-                        <div class="flex items-center justify-between">
-                            <span class="text-yellow-400 font-semibold">₹20,000</span>
-                            <button onclick="showToast('📱 Mobile Development added to cart!')"
-                                class="text-sm text-slate-300 hover:text-yellow-400 transition-colors flex items-center gap-1">
-                                Learn More <iconify-icon icon="solar:arrow-right-linear"></iconify-icon>
-                            </button>
-                        </div>
+                        <div class="flex items-center justify-between"><span
+                                class="text-yellow-400 font-semibold">₹20,000</span><button
+                                onclick="showToast('📱 Mobile Dev added!')"
+                                class="text-sm text-slate-300 hover:text-yellow-400 transition flex items-center gap-1">Learn
+                                More <iconify-icon icon="solar:arrow-right-linear"></iconify-icon></button></div>
                     </div>
                 </div>
-                <!-- Course 6 -->
+                <!-- course 6 -->
                 <div
-                    class="animate-on-scroll anim-delay-6 group relative bg-white/[0.03] border border-white/10 rounded-[2rem] overflow-hidden hover:border-yellow-400/30 transition-all duration-300">
-                    <div class="relative h-48 overflow-hidden">
-                        <img src="https://www.dicslaxminagar.com/blog/wp-content/uploads/2025/05/1675242688962.jpeg"
-                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                            alt="UI/UX">
+                    class="animate-on-scroll anim-delay-6 group bg-white/[0.03] border border-white/10 rounded-[2rem] overflow-hidden hover:border-yellow-400/30 transition">
+                    <div class="relative h-48 overflow-hidden"><img
+                            src="https://www.dicslaxminagar.com/blog/wp-content/uploads/2025/05/1675242688962.jpeg"
+                            class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+                            alt="Advance Excel">
                         <div class="absolute inset-0 bg-gradient-to-t from-[#0f0f11] to-transparent"></div>
                     </div>
                     <div class="p-6">
-                        <div class="flex items-center gap-2 text-slate-400 text-xs mb-3">
-                            <iconify-icon icon="solar:clock-circle-linear"></iconify-icon>
-                            <span>3 Months</span>
-                            <span class="mx-1">·</span>
-                            <iconify-icon icon="solar:layers-linear"></iconify-icon>
-                            <span>60+ Hours</span>
-                        </div>
-                        <h3 class="font-dm-sans text-xl font-light tracking-tight mb-2">Advanve Excel</h3>
-                        <p class="text-slate-400 text-sm leading-relaxed mb-4">. Key topics to conquer include modern
-                            lookup functions (XLOOKUP, INDEX/MATCH), data transformation (Power Query), automation
-                            (VBA/Macros), and AI integration (Copilot).</p>
-                        <div class="flex items-center justify-between">
-                            <span class="text-yellow-400 font-semibold">₹10,000</span>
-                            <button onclick="showToast('🎨 UI/UX Design added to cart!')"
-                                class="text-sm text-slate-300 hover:text-yellow-400 transition-colors flex items-center gap-1">
-                                Learn More <iconify-icon icon="solar:arrow-right-linear"></iconify-icon>
-                            </button>
-                        </div>
+                        <div class="flex items-center gap-2 text-slate-400 text-xs mb-3"><iconify-icon
+                                icon="solar:clock-circle-linear"></iconify-icon><span>3 Months</span><span
+                                class="mx-1">·</span><iconify-icon icon="solar:layers-linear"></iconify-icon><span>60+
+                                Hours</span></div>
+                        <h3 class="font-dm-sans text-xl font-light tracking-tight mb-2 text-white">Advance Excel</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed mb-4">Modern lookup functions (XLOOKUP,
+                            INDEX/MATCH), Power Query, VBA/Macros, and Copilot integration.</p>
+                        <div class="flex items-center justify-between"><span
+                                class="text-yellow-400 font-semibold">₹10,000</span><button
+                                onclick="showToast('📊 Advance Excel added!')"
+                                class="text-sm text-slate-300 hover:text-yellow-400 transition flex items-center gap-1">Learn
+                                More <iconify-icon icon="solar:arrow-right-linear"></iconify-icon></button></div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-
-    <!-- Instructors -->
+    <!-- ========== INSTRUCTORS ========== -->
     <section id="instructors" class="py-24 bg-white/[0.02]">
         <div class="max-w-[90rem] mx-auto px-6 lg:px-8">
-            <div class="text-center mb-16 animate-on-scroll">
-                <span class="text-yellow-400 text-sm font-medium tracking-wider uppercase mb-4 block">Expert
+            <div class="text-center mb-14 animate-on-scroll"><span
+                    class="text-yellow-400 text-sm font-medium tracking-wider uppercase block mb-3">Expert
                     Mentors</span>
-                <h2 class="font-dm-sans text-[2.25rem] lg:text-[3.75rem] font-light tracking-tight leading-tight">
-                    Learn from <span class="text-yellow-400">industry leaders</span>
-                </h2>
+                <h2
+                    class="font-dm-sans text-[2.25rem] lg:text-[3.75rem] font-light tracking-tight leading-tight text-white">
+                    Learn from <span class="text-yellow-400">industry leaders</span></h2>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <div class="animate-on-scroll anim-delay-1 group text-center">
+                <div class="animate-on-scroll anim-delay-1 text-center">
                     <div
-                        class="relative w-40 h-40 mx-auto mb-5 rounded-full overflow-hidden border-2 border-white/10 group-hover:border-yellow-400/50 transition-colors">
+                        class="relative w-40 h-40 mx-auto mb-5 rounded-full overflow-hidden border-2 border-white/10 group-hover:border-yellow-400/50 transition">
                         <img src="https://i.pinimg.com/736x/1c/e0/20/1ce020f5a2b55b402833bf7ec5b9e3d6.jpg"
-                            class="w-full h-full object-cover" alt="Rajesh Kumar">
-                    </div>
-                    <h3 class="font-dm-sans text-lg font-medium">Mushahid Khan</h3>
-                    <p class="text-yellow-400 text-sm mb-2">Full Stack Lead</p>
+                            class="w-full h-full object-cover" alt="Mushahid Khan"></div>
+                    <h3 class="font-dm-sans text-lg font-medium text-white">Mushahid Khan</h3>
+                    <p class="text-yellow-400 text-sm mb-1">Full Stack Lead</p>
                     <p class="text-slate-400 text-xs">Ex-Gits · 5 yrs exp</p>
                 </div>
-                <div class="animate-on-scroll anim-delay-2 group text-center">
+                <div class="animate-on-scroll anim-delay-2 text-center">
                     <div
-                        class="relative w-40 h-40 mx-auto mb-5 rounded-full overflow-hidden border-2 border-white/10 group-hover:border-yellow-400/50 transition-colors">
+                        class="relative w-40 h-40 mx-auto mb-5 rounded-full overflow-hidden border-2 border-white/10 group-hover:border-yellow-400/50 transition">
                         <img src="https://springfield.edu/sites/default/files/styles/program_header_1024_x_603_/public/2025-09/student-teacher-data-science.jpg?itok=l0xPIxld"
-                            class="w-full h-full object-cover" alt="Priya Sharma">
-                    </div>
-                    <h3 class="font-dm-sans text-lg font-medium">Harsh</h3>
-                    <p class="text-yellow-400 text-sm mb-2">Data Analyics</p>
+                            class="w-full h-full object-cover" alt="Harsh"></div>
+                    <h3 class="font-dm-sans text-lg font-medium text-white">Harsh</h3>
+                    <p class="text-yellow-400 text-sm mb-1">Data Analytics</p>
                     <p class="text-slate-400 text-xs">Ex-Chetu · 8 yrs exp</p>
                 </div>
-                <div class="animate-on-scroll anim-delay-3 group text-center">
+                <div class="animate-on-scroll anim-delay-3 text-center">
                     <div
-                        class="relative w-40 h-40 mx-auto mb-5 rounded-full overflow-hidden border-2 border-white/10 group-hover:border-yellow-400/50 transition-colors">
+                        class="relative w-40 h-40 mx-auto mb-5 rounded-full overflow-hidden border-2 border-white/10 group-hover:border-yellow-400/50 transition">
                         <img src="https://javabykiran.com/wp-content/uploads/2025/12/ChatGPT-Image-Dec-3-2025-10_28_03-PM-1024x683.png"
-                            class="w-full h-full object-cover" alt="Arjun Patel">
-                    </div>
-                    <h3 class="font-dm-sans text-lg font-medium">Arjun Patel</h3>
-                    <p class="text-yellow-400 text-sm mb-2">Data Science</p>
+                            class="w-full h-full object-cover" alt="Arjun Patel"></div>
+                    <h3 class="font-dm-sans text-lg font-medium text-white">Arjun Patel</h3>
+                    <p class="text-yellow-400 text-sm mb-1">Data Science</p>
                     <p class="text-slate-400 text-xs">Ex-Wipro · 8 yrs exp</p>
                 </div>
-                <div class="animate-on-scroll anim-delay-4 group text-center">
+                <div class="animate-on-scroll anim-delay-4 text-center">
                     <div
-                        class="relative w-40 h-40 mx-auto mb-5 rounded-full overflow-hidden border-2 border-white/10 group-hover:border-yellow-400/50 transition-colors">
+                        class="relative w-40 h-40 mx-auto mb-5 rounded-full overflow-hidden border-2 border-white/10 group-hover:border-yellow-400/50 transition">
                         <img src="https://i.pinimg.com/736x/1c/e0/20/1ce020f5a2b55b402833bf7ec5b9e3d6.jpg"
-                            class="w-full h-full object-cover" alt="Meera Iyer">
-                    </div>
-                    <h3 class="font-dm-sans text-lg font-medium">Mushahid Khan </h3>
-                    <p class="text-yellow-400 text-sm mb-2">React Developer</p>
+                            class="w-full h-full object-cover" alt="Mushahid Khan"></div>
+                    <h3 class="font-dm-sans text-lg font-medium text-white">Mushahid Khan</h3>
+                    <p class="text-yellow-400 text-sm mb-1">React Developer</p>
                     <p class="text-slate-400 text-xs">Ex-Gits · 6 yrs exp</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Testimonials -->
+    <!-- ========== TESTIMONIALS ========== -->
     <section id="testimonials" class="py-24">
         <div class="max-w-[90rem] mx-auto px-6 lg:px-8">
-            <div class="text-center mb-16 animate-on-scroll">
-                <span
-                    class="text-yellow-400 text-sm font-medium tracking-wider uppercase mb-4 block">Testimonials</span>
-                <h2 class="font-dm-sans text-[2.25rem] lg:text-[3.75rem] font-light tracking-tight leading-tight">
-                    Students <span class="text-yellow-400">love us</span>
-                </h2>
+            <div class="text-center mb-14 animate-on-scroll"><span
+                    class="text-yellow-400 text-sm font-medium tracking-wider uppercase block mb-3">Testimonials</span>
+                <h2
+                    class="font-dm-sans text-[2.25rem] lg:text-[3.75rem] font-light tracking-tight leading-tight text-white">
+                    Students <span class="text-yellow-400">love us</span></h2>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <!-- Testimonial 1 -->
                 <div class="animate-on-scroll anim-delay-1 bg-white/[0.03] border border-white/10 rounded-[2rem] p-8">
-                    <div class="flex items-center gap-1 mb-4">
-                        <iconify-icon icon="solar:star-bold" class="text-yellow-400"></iconify-icon>
-                        <iconify-icon icon="solar:star-bold" class="text-yellow-400"></iconify-icon>
-                        <iconify-icon icon="solar:star-bold" class="text-yellow-400"></iconify-icon>
-                        <iconify-icon icon="solar:star-bold" class="text-yellow-400"></iconify-icon>
-                        <iconify-icon icon="solar:star-bold" class="text-yellow-400"></iconify-icon>
-                    </div>
+                    <div class="flex items-center gap-1 mb-4"><iconify-icon icon="solar:star-bold"
+                            class="text-yellow-400"></iconify-icon><iconify-icon icon="solar:star-bold"
+                            class="text-yellow-400"></iconify-icon><iconify-icon icon="solar:star-bold"
+                            class="text-yellow-400"></iconify-icon><iconify-icon icon="solar:star-bold"
+                            class="text-yellow-400"></iconify-icon><iconify-icon icon="solar:star-bold"
+                            class="text-yellow-400"></iconify-icon></div>
                     <p class="text-slate-300 leading-relaxed mb-6">"I switched from a non-IT background and landed a 12
-                        LPA role at a startup within 4 months of graduating. The live projects made all the difference."
-                    </p>
-                    <div class="flex items-center gap-3">
-                        <img src="https://picsum.photos/seed/testimonial1/40/40.jpg" class="w-10 h-10 rounded-full"
-                            alt="">
+                        LPA role at a startup within 4 months. The live projects made all the difference."</p>
+                    <div class="flex items-center gap-3"><img src="https://picsum.photos/seed/testimonial1/40/40"
+                            class="w-10 h-10 rounded-full" alt="">
                         <div>
                             <p class="text-white text-sm font-medium">Ankit Verma</p>
                             <p class="text-slate-400 text-xs">Full Stack Dev @ Wipro</p>
                         </div>
                     </div>
                 </div>
-                <!-- Testimonial 2 -->
                 <div class="animate-on-scroll anim-delay-2 bg-white/[0.03] border border-white/10 rounded-[2rem] p-8">
-                    <div class="flex items-center gap-1 mb-4">
-                        <iconify-icon icon="solar:star-bold" class="text-yellow-400"></iconify-icon>
-                        <iconify-icon icon="solar:star-bold" class="text-yellow-400"></iconify-icon>
-                        <iconify-icon icon="solar:star-bold" class="text-yellow-400"></iconify-icon>
-                        <iconify-icon icon="solar:star-bold" class="text-yellow-400"></iconify-icon>
-                        <iconify-icon icon="solar:star-bold" class="text-yellow-400"></iconify-icon>
-                    </div>
+                    <div class="flex items-center gap-1 mb-4"><iconify-icon icon="solar:star-bold"
+                            class="text-yellow-400"></iconify-icon><iconify-icon icon="solar:star-bold"
+                            class="text-yellow-400"></iconify-icon><iconify-icon icon="solar:star-bold"
+                            class="text-yellow-400"></iconify-icon><iconify-icon icon="solar:star-bold"
+                            class="text-yellow-400"></iconify-icon><iconify-icon icon="solar:star-bold"
+                            class="text-yellow-400"></iconify-icon></div>
                     <p class="text-slate-300 leading-relaxed mb-6">"The Data Analytics program was exactly what I
-                        needed. Got
-                        AWS certified during the course and had 3 offers before the batch ended. Incredible mentors!"
-                    </p>
-                    <div class="flex items-center gap-3">
-                        <img src="https://picsum.photos/seed/testimonial2/40/40.jpg" class="w-10 h-10 rounded-full"
-                            alt="">
+                        needed. Got AWS certified during the course and had 3 offers before the batch ended."</p>
+                    <div class="flex items-center gap-3"><img src="https://picsum.photos/seed/testimonial2/40/40"
+                            class="w-10 h-10 rounded-full" alt="">
                         <div>
                             <p class="text-white text-sm font-medium">Sneha Reddy</p>
                             <p class="text-slate-400 text-xs">Data Analytics Engineer @ Tech Mahindra</p>
                         </div>
                     </div>
                 </div>
-                <!-- Testimonial 3 -->
                 <div class="animate-on-scroll anim-delay-3 bg-white/[0.03] border border-white/10 rounded-[2rem] p-8">
-                    <div class="flex items-center gap-1 mb-4">
-                        <iconify-icon icon="solar:star-bold" class="text-yellow-400"></iconify-icon>
-                        <iconify-icon icon="solar:star-bold" class="text-yellow-400"></iconify-icon>
-                        <iconify-icon icon="solar:star-bold" class="text-yellow-400"></iconify-icon>
-                        <iconify-icon icon="solar:star-bold" class="text-yellow-400"></iconify-icon>
-                        <iconify-icon icon="solar:star-bold" class="text-yellow-400"></iconify-icon>
-                    </div>
+                    <div class="flex items-center gap-1 mb-4"><iconify-icon icon="solar:star-bold"
+                            class="text-yellow-400"></iconify-icon><iconify-icon icon="solar:star-bold"
+                            class="text-yellow-400"></iconify-icon><iconify-icon icon="solar:star-bold"
+                            class="text-yellow-400"></iconify-icon><iconify-icon icon="solar:star-bold"
+                            class="text-yellow-400"></iconify-icon><iconify-icon icon="solar:star-bold"
+                            class="text-yellow-400"></iconify-icon></div>
                     <p class="text-slate-300 leading-relaxed mb-6">"Best investment in my career. The React Developer
                         course was intense but worth every penny. The mock interviews and resume prep were
                         game-changers."</p>
-                    <div class="flex items-center gap-3">
-                        <img src="https://picsum.photos/seed/testimonial3/40/40.jpg" class="w-10 h-10 rounded-full"
-                            alt="">
+                    <div class="flex items-center gap-3"><img src="https://picsum.photos/seed/testimonial3/40/40"
+                            class="w-10 h-10 rounded-full" alt="">
                         <div>
                             <p class="text-white text-sm font-medium">Mohammed Faisal</p>
                             <p class="text-slate-400 text-xs">React Developer @ Infosys</p>
@@ -1039,28 +1495,24 @@
         </div>
     </section>
 
-    <!-- Pricing -->
+    <!-- ========== PRICING ========== -->
     <section id="pricing" class="py-24 bg-white/[0.02]">
         <div class="max-w-[90rem] mx-auto px-6 lg:px-8">
-            <div class="text-center mb-16 animate-on-scroll">
-                <span class="text-yellow-400 text-sm font-medium tracking-wider uppercase mb-4 block">Pricing
-                    Plans</span>
-                <h2 class="font-dm-sans text-[2.25rem] lg:text-[3.75rem] font-light tracking-tight leading-tight">
-                    Invest in your <span class="text-yellow-400">future</span>
-                </h2>
-                <p class="text-slate-400 mt-4 max-w-xl mx-auto">Flexible payment options. EMI available on all plans. No
+            <div class="text-center mb-14 animate-on-scroll"><span
+                    class="text-yellow-400 text-sm font-medium tracking-wider uppercase block mb-3">Pricing Plans</span>
+                <h2
+                    class="font-dm-sans text-[2.25rem] lg:text-[3.75rem] font-light tracking-tight leading-tight text-white">
+                    Invest in your <span class="text-yellow-400">future</span></h2>
+                <p class="text-slate-400 mt-3 max-w-xl mx-auto">Flexible payment options. EMI available on all plans. No
                     hidden costs.</p>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-                <!-- Basic -->
                 <div
-                    class="animate-on-scroll anim-delay-1 bg-white/[0.03] border border-white/10 rounded-[2rem] p-8 hover:border-white/20 transition-all">
-                    <h3 class="font-dm-sans text-lg font-medium mb-2">Self-Paced</h3>
+                    class="animate-on-scroll anim-delay-1 bg-white/[0.03] border border-white/10 rounded-[2rem] p-8 hover:border-white/20 transition">
+                    <h3 class="font-dm-sans text-lg font-medium text-white mb-2">Self-Paced</h3>
                     <p class="text-slate-400 text-sm mb-6">Learn at your own speed</p>
-                    <div class="mb-6">
-                        <span class="font-dm-sans text-4xl font-light text-white">₹10,000</span>
-                        <span class="text-slate-400 text-sm">/course</span>
-                    </div>
+                    <div class="mb-6"><span class="font-dm-sans text-4xl font-light text-white">₹10,000</span><span
+                            class="text-slate-400 text-sm">/course</span></div>
                     <ul class="space-y-3 mb-8">
                         <li class="flex items-center gap-2 text-sm text-slate-300"><iconify-icon
                                 icon="solar:check-circle-bold" class="text-yellow-400"></iconify-icon> Recorded lectures
@@ -1077,25 +1529,21 @@
                         <li class="flex items-center gap-2 text-sm text-slate-500"><iconify-icon
                                 icon="solar:close-circle-linear" class="text-slate-600"></iconify-icon> Placement
                             support</li>
-                    </ul>
-                    <button onclick="showToast('🎉 Redirecting to enrollment...')"
-                        class="bg-yellow-400 text-neutral-900 text-sm font-medium px-5 py-2.5 rounded-full hover:bg-yellow-300 transition-colors duration-150">
-                        <a
-                            href="https://docs.google.com/forms/d/e/1FAIpQLSddmp1XfmcjuXQsfD4Wb2umA5v9BX_Fj-nuW7UkvhCNfO_uiw/viewform?usp=dialog">Enroll
-                            Now</a></button>
+                    </ul><a
+                        href="https://docs.google.com/forms/d/e/1FAIpQLSddmp1XfmcjuXQsfD4Wb2umA5v9BX_Fj-nuW7UkvhCNfO_uiw/viewform?usp=dialog"
+                        target="_blank"
+                        class="block text-center bg-yellow-400 text-neutral-900 text-sm font-medium px-5 py-2.5 rounded-full hover:bg-yellow-300 transition">Enroll
+                        Now</a>
                 </div>
-                <!-- Pro -->
                 <div
                     class="animate-on-scroll anim-delay-2 relative bg-white/[0.03] border-2 border-yellow-400/50 rounded-[2rem] p-8 shadow-2xl gradient-border">
                     <span
                         class="absolute -top-3 left-1/2 -translate-x-1/2 bg-yellow-400 text-neutral-900 text-xs font-bold px-4 py-1 rounded-full">Most
                         Popular</span>
-                    <h3 class="font-dm-sans text-lg font-medium mb-2">Mentor-Led</h3>
+                    <h3 class="font-dm-sans text-lg font-medium text-white mb-2">Mentor-Led</h3>
                     <p class="text-slate-400 text-sm mb-6">Live classes + projects</p>
-                    <div class="mb-6">
-                        <span class="font-dm-sans text-4xl font-light text-yellow-400">₹15,000</span>
-                        <span class="text-slate-400 text-sm">/course</span>
-                    </div>
+                    <div class="mb-6"><span class="font-dm-sans text-4xl font-light text-yellow-400">₹15,000</span><span
+                            class="text-slate-400 text-sm">/course</span></div>
                     <ul class="space-y-3 mb-8">
                         <li class="flex items-center gap-2 text-sm text-slate-300"><iconify-icon
                                 icon="solar:check-circle-bold" class="text-yellow-400"></iconify-icon> Live batch
@@ -1112,25 +1560,18 @@
                         <li class="flex items-center gap-2 text-sm text-slate-300"><iconify-icon
                                 icon="solar:check-circle-bold" class="text-yellow-400"></iconify-icon> 6-month placement
                             support</li>
-                    </ul>
-                    <button onclick="showToast('🎉 Redirecting to enrollment...')"
-                        class="bg-yellow-400 text-neutral-900 text-sm font-medium px-5 py-2.5 rounded-full hover:bg-yellow-300 transition-colors duration-150">
-                        <a
-                            href="https://docs.google.com/forms/d/e/1FAIpQLSddmp1XfmcjuXQsfD4Wb2umA5v9BX_Fj-nuW7UkvhCNfO_uiw/viewform?usp=dialog">
-                            <a
-                                href="https://docs.google.com/forms/d/e/1FAIpQLSddmp1XfmcjuXQsfD4Wb2umA5v9BX_Fj-nuW7UkvhCNfO_uiw/viewform?usp=dialog">Enroll
-                                Now</a></button>
-                    </a></button>
+                    </ul><a
+                        href="https://docs.google.com/forms/d/e/1FAIpQLSddmp1XfmcjuXQsfD4Wb2umA5v9BX_Fj-nuW7UkvhCNfO_uiw/viewform?usp=dialog"
+                        target="_blank"
+                        class="block text-center bg-yellow-400 text-neutral-900 text-sm font-medium px-5 py-2.5 rounded-full hover:bg-yellow-300 transition">Enroll
+                        Now</a>
                 </div>
-                <!-- Enterprise -->
                 <div
-                    class="animate-on-scroll anim-delay-3 bg-white/[0.03] border border-white/10 rounded-[2rem] p-8 hover:border-white/20 transition-all">
-                    <h3 class="font-dm-sans text-lg font-medium mb-2">Intensive</h3>
+                    class="animate-on-scroll anim-delay-3 bg-white/[0.03] border border-white/10 rounded-[2rem] p-8 hover:border-white/20 transition">
+                    <h3 class="font-dm-sans text-lg font-medium text-white mb-2">Intensive</h3>
                     <p class="text-slate-400 text-sm mb-6">Job guarantee program</p>
-                    <div class="mb-6">
-                        <span class="font-dm-sans text-4xl font-light text-white">₹25,000</span>
-                        <span class="text-slate-400 text-sm">/program</span>
-                    </div>
+                    <div class="mb-6"><span class="font-dm-sans text-4xl font-light text-white">₹25,000</span><span
+                            class="text-slate-400 text-sm">/program</span></div>
                     <ul class="space-y-3 mb-8">
                         <li class="flex items-center gap-2 text-sm text-slate-300"><iconify-icon
                                 icon="solar:check-circle-bold" class="text-yellow-400"></iconify-icon> Everything in
@@ -1147,21 +1588,17 @@
                         <li class="flex items-center gap-2 text-sm text-slate-300"><iconify-icon
                                 icon="solar:check-circle-bold" class="text-yellow-400"></iconify-icon> Full refund if
                             not placed</li>
-                    </ul>
-                    <button onclick="showToast('🎉 Redirecting to enrollment...')"
-                        class="bg-yellow-400 text-neutral-900 text-sm font-medium px-5 py-2.5 rounded-full hover:bg-yellow-300 transition-colors duration-150">
-                        <a
-                            href="https://docs.google.com/forms/d/e/1FAIpQLSddmp1XfmcjuXQsfD4Wb2umA5v9BX_Fj-nuW7UkvhCNfO_uiw/viewform?usp=dialog">
-                            <a
-                                href="https://docs.google.com/forms/d/e/1FAIpQLSddmp1XfmcjuXQsfD4Wb2umA5v9BX_Fj-nuW7UkvhCNfO_uiw/viewform?usp=dialog">Enroll
-                                Now</a></button>
-                    </a></button>
+                    </ul><a
+                        href="https://docs.google.com/forms/d/e/1FAIpQLSddmp1XfmcjuXQsfD4Wb2umA5v9BX_Fj-nuW7UkvhCNfO_uiw/viewform?usp=dialog"
+                        target="_blank"
+                        class="block text-center bg-yellow-400 text-neutral-900 text-sm font-medium px-5 py-2.5 rounded-full hover:bg-yellow-300 transition">Enroll
+                        Now</a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- CTA Section -->
+    <!-- ========== CTA ========== -->
     <section class="py-24">
         <div class="max-w-4xl mx-auto px-6 lg:px-8">
             <div
@@ -1169,55 +1606,45 @@
                 <div class="absolute inset-0"
                     style="background: radial-gradient(circle at 50% 0%, rgba(250,204,21,0.08), transparent 70%);">
                 </div>
-                <div class="relative z-10">
-                    <iconify-icon icon="solar:rocket-2-bold-duotone"
+                <div class="relative z-10"><iconify-icon icon="solar:rocket-2-bold-duotone"
                         class="text-yellow-400 text-5xl mb-6"></iconify-icon>
-                    <h2 class="font-dm-sans text-[2.25rem] lg:text-[3rem] font-light tracking-tight leading-tight mb-4">
-                        Ready to transform<br>your career?
-                    </h2>
+                    <h2
+                        class="font-dm-sans text-[2.25rem] lg:text-[3rem] font-light tracking-tight leading-tight text-white mb-4">
+                        Ready to transform<br>your career?</h2>
                     <p class="text-slate-400 text-lg mb-8 max-w-lg mx-auto">Next batch starts September 15, 2026.
-                        Limited
-                        to 120 seats. Reserve yours today with a ₹2,000 booking amount.</p>
+                        Limited to 120 seats. Reserve yours today with a ₹2,000 booking amount.</p>
                     <div class="flex flex-wrap justify-center gap-4">
-                        <button onclick="showToast('🎉 Redirecting to enrollment...')"
-                            class="bg-yellow-400 text-neutral-900 text-sm font-medium px-5 py-2.5 rounded-full hover:bg-yellow-300 transition-colors duration-150">
-                            <a
-                                href="https://docs.google.com/forms/d/e/1FAIpQLSddmp1XfmcjuXQsfD4Wb2umA5v9BX_Fj-nuW7UkvhCNfO_uiw/viewform?usp=dialog">
-                                <a
-                                    href="https://docs.google.com/forms/d/e/1FAIpQLSddmp1XfmcjuXQsfD4Wb2umA5v9BX_Fj-nuW7UkvhCNfO_uiw/viewform?usp=dialog">Reserve
-                                    My Seat</a></button>
-                        </a></button>
-                        <button onclick="showToast('📞 Our counselor will call you within 24 hours!')"
-                            class="bg-white/5 border border-white/10 text-white font-medium px-8 py-4 rounded-full hover:bg-white/10 transition-all duration-150 flex items-center gap-2">
-                            <iconify-icon icon="solar:phone-calling-linear" class="text-lg"></iconify-icon>
-                            Talk to Counselor
-                        </button>
-                    </div>
+                        <a href="https://docs.google.com/forms/d/e/1FAIpQLSddmp1XfmcjuXQsfD4Wb2umA5v9BX_Fj-nuW7UkvhCNfO_uiw/viewform?usp=dialog"
+                            target="_blank"
+                            class="bg-yellow-400 text-neutral-900 text-sm font-medium px-5 py-2.5 rounded-full hover:bg-yellow-300 transition">Reserve
+                            My Seat</a>
+                            <button onclick="showToast('📞 Our counselor will call you within 24 hours!')"
+                            class="bg-white/5 border border-white/10 text-white font-medium px-8 py-4 rounded-full hover:bg-white/10 transition flex items-center gap-2"><iconify-icon
+                                icon="solar:phone-calling-linear" class="text-lg"></iconify-icon>Talk to
+                            Counselor</button></div>
                     <p class="text-slate-500 text-xs mt-6">No credit card required · Free career assessment included</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- FAQ -->
+    <!-- ========== FAQ ========== -->
     <section class="py-24 bg-white/[0.02]">
         <div class="max-w-3xl mx-auto px-6 lg:px-8">
-            <div class="text-center mb-16 animate-on-scroll">
-                <span class="text-yellow-400 text-sm font-medium tracking-wider uppercase mb-4 block">FAQ</span>
-                <h2 class="font-dm-sans text-[2.25rem] lg:text-[3rem] font-light tracking-tight leading-tight">
-                    Common <span class="text-yellow-400">questions</span>
-                </h2>
+            <div class="text-center mb-14 animate-on-scroll"><span
+                    class="text-yellow-400 text-sm font-medium tracking-wider uppercase block mb-3">FAQ</span>
+                <h2
+                    class="font-dm-sans text-[2.25rem] lg:text-[3rem] font-light tracking-tight leading-tight text-white">
+                    Common <span class="text-yellow-400">questions</span></h2>
             </div>
             <div class="space-y-3">
                 <div
                     class="animate-on-scroll anim-delay-1 faq-item bg-white/[0.03] border border-white/10 rounded-2xl overflow-hidden">
                     <button class="faq-toggle w-full flex items-center justify-between p-6 text-left"
-                        onclick="toggleFaq(this)">
-                        <span class="font-medium text-white pr-4">Do I need prior coding experience?</span>
-                        <iconify-icon icon="solar:alt-arrow-down-linear"
-                            class="text-slate-400 text-xl flex-shrink-0 transition-transform duration-200"></iconify-icon>
-                    </button>
-                    <div class="faq-content max-h-0 overflow-hidden transition-all duration-300">
+                        onclick="toggleFaq(this)"><span class="font-medium text-white pr-4">Do I need prior coding
+                            experience?</span><iconify-icon icon="solar:alt-arrow-down-linear"
+                            class="text-slate-400 text-xl flex-shrink-0 transition-transform"></iconify-icon></button>
+                    <div class="faq-content">
                         <p class="px-6 pb-6 text-slate-400 text-sm leading-relaxed">Not at all! Our foundational modules
                             are designed for complete beginners. We start from scratch and build up. 40% of our
                             successful students had zero coding experience before joining.</p>
@@ -1226,12 +1653,10 @@
                 <div
                     class="animate-on-scroll anim-delay-2 faq-item bg-white/[0.03] border border-white/10 rounded-2xl overflow-hidden">
                     <button class="faq-toggle w-full flex items-center justify-between p-6 text-left"
-                        onclick="toggleFaq(this)">
-                        <span class="font-medium text-white pr-4">What is the class schedule?</span>
-                        <iconify-icon icon="solar:alt-arrow-down-linear"
-                            class="text-slate-400 text-xl flex-shrink-0 transition-transform duration-200"></iconify-icon>
-                    </button>
-                    <div class="faq-content max-h-0 overflow-hidden transition-all duration-300">
+                        onclick="toggleFaq(this)"><span class="font-medium text-white pr-4">What is the class
+                            schedule?</span><iconify-icon icon="solar:alt-arrow-down-linear"
+                            class="text-slate-400 text-xl flex-shrink-0 transition-transform"></iconify-icon></button>
+                    <div class="faq-content">
                         <p class="px-6 pb-6 text-slate-400 text-sm leading-relaxed">We offer both weekday (Mon-Fri, 7-9
                             PM) and weekend (Sat-Sun, 10 AM-2 PM) batches. All sessions are recorded and available
                             within 24 hours for review.</p>
@@ -1240,12 +1665,10 @@
                 <div
                     class="animate-on-scroll anim-delay-3 faq-item bg-white/[0.03] border border-white/10 rounded-2xl overflow-hidden">
                     <button class="faq-toggle w-full flex items-center justify-between p-6 text-left"
-                        onclick="toggleFaq(this)">
-                        <span class="font-medium text-white pr-4">How does the job guarantee work?</span>
-                        <iconify-icon icon="solar:alt-arrow-down-linear"
-                            class="text-slate-400 text-xl flex-shrink-0 transition-transform duration-200"></iconify-icon>
-                    </button>
-                    <div class="faq-content max-h-0 overflow-hidden transition-all duration-300">
+                        onclick="toggleFaq(this)"><span class="font-medium text-white pr-4">How does the job guarantee
+                            work?</span><iconify-icon icon="solar:alt-arrow-down-linear"
+                            class="text-slate-400 text-xl flex-shrink-0 transition-transform"></iconify-icon></button>
+                    <div class="faq-content">
                         <p class="px-6 pb-6 text-slate-400 text-sm leading-relaxed">Under the Intensive plan, if you
                             complete all projects, attend 90%+ classes, and still don't get a job within 6 months of
                             graduation, we'll refund your entire course fee — no questions asked.</p>
@@ -1254,12 +1677,10 @@
                 <div
                     class="animate-on-scroll anim-delay-4 faq-item bg-white/[0.03] border border-white/10 rounded-2xl overflow-hidden">
                     <button class="faq-toggle w-full flex items-center justify-between p-6 text-left"
-                        onclick="toggleFaq(this)">
-                        <span class="font-medium text-white pr-4">Can I switch courses mid-program?</span>
-                        <iconify-icon icon="solar:alt-arrow-down-linear"
-                            class="text-slate-400 text-xl flex-shrink-0 transition-transform duration-200"></iconify-icon>
-                    </button>
-                    <div class="faq-content max-h-0 overflow-hidden transition-all duration-300">
+                        onclick="toggleFaq(this)"><span class="font-medium text-white pr-4">Can I switch courses
+                            mid-program?</span><iconify-icon icon="solar:alt-arrow-down-linear"
+                            class="text-slate-400 text-xl flex-shrink-0 transition-transform"></iconify-icon></button>
+                    <div class="faq-content">
                         <p class="px-6 pb-6 text-slate-400 text-sm leading-relaxed">Yes, within the first 2 weeks you
                             can switch to any other course at no extra cost. We understand that sometimes you need to
                             explore before finding the right fit.</p>
@@ -1268,12 +1689,10 @@
                 <div
                     class="animate-on-scroll anim-delay-5 faq-item bg-white/[0.03] border border-white/10 rounded-2xl overflow-hidden">
                     <button class="faq-toggle w-full flex items-center justify-between p-6 text-left"
-                        onclick="toggleFaq(this)">
-                        <span class="font-medium text-white pr-4">Is EMI available?</span>
-                        <iconify-icon icon="solar:alt-arrow-down-linear"
-                            class="text-slate-400 text-xl flex-shrink-0 transition-transform duration-200"></iconify-icon>
-                    </button>
-                    <div class="faq-content max-h-0 overflow-hidden transition-all duration-300">
+                        onclick="toggleFaq(this)"><span class="font-medium text-white pr-4">Is EMI
+                            available?</span><iconify-icon icon="solar:alt-arrow-down-linear"
+                            class="text-slate-400 text-xl flex-shrink-0 transition-transform"></iconify-icon></button>
+                    <div class="faq-content">
                         <p class="px-6 pb-6 text-slate-400 text-sm leading-relaxed">Absolutely! We offer 0% EMI options
                             for up to 6 months on all plans. We also partner with NBFCs for longer tenure (up to 12
                             months) with minimal interest.</p>
@@ -1283,46 +1702,36 @@
         </div>
     </section>
 
-    <!-- contact page start  -->
-    <!-- Contact Page Section -->
-   <!-- Contact Page Section -->
-<section id="contact" class="py-24">
-    <div class="max-w-[90rem] mx-auto px-6 lg:px-8">
-        <div class="text-center mb-12 animate-on-scroll">
-            <span class="text-yellow-400 text-sm font-medium tracking-wider uppercase mb-4 block">Get in
-                    Touch</span>
-                <h2 class="font-dm-sans text-[2rem] lg:text-[3rem] font-light tracking-tight leading-tight">
-                    Let's <span class="text-yellow-400">connect</span>
-                </h2>
+    <!-- ========== CONTACT ========== -->
+    <section id="contact" class="py-24">
+        <div class="max-w-[90rem] mx-auto px-6 lg:px-8">
+            <div class="text-center mb-12 animate-on-scroll"><span
+                    class="text-yellow-400 text-sm font-medium tracking-wider uppercase block mb-3">Get in Touch</span>
+                <h2 class="font-dm-sans text-[2rem] lg:text-[3rem] font-light tracking-tight leading-tight text-white">
+                    Let's <span class="text-yellow-400">connect</span></h2>
                 <p class="text-slate-400 mt-3 max-w-lg mx-auto">Have questions? We're here to help you start your
                     learning journey.</p>
             </div>
-
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
-                <!-- Contact Form -->
                 <div
                     class="animate-on-scroll anim-delay-1 bg-white/[0.03] border border-white/10 rounded-2xl p-6 lg:p-8">
-                    <h3 class="font-dm-sans text-xl font-medium mb-5">Send us a message</h3>
+                    <h3 class="font-dm-sans text-xl font-medium text-white mb-5">Send us a message</h3>
                     <form id="contactForm" onsubmit="submitContactForm(event)">
                         <div class="space-y-4">
-                            <div>
-                                <label class="text-sm text-slate-400 block mb-1">Full Name *</label>
-                                <input type="text" id="contactName" required
+                            <div><label class="text-sm text-slate-400 block mb-1">Full Name *</label><input type="text"
+                                    id="contactName" required
                                     class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:border-yellow-400 outline-none transition">
                             </div>
-                            <div>
-                                <label class="text-sm text-slate-400 block mb-1">Email Address *</label>
-                                <input type="email" id="contactEmail" required
+                            <div><label class="text-sm text-slate-400 block mb-1">Email Address *</label><input
+                                    type="email" id="contactEmail" required
                                     class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:border-yellow-400 outline-none transition">
                             </div>
-                            <div>
-                                <label class="text-sm text-slate-400 block mb-1">Phone Number</label>
-                                <input type="tel" id="contactPhone"
+                            <div><label class="text-sm text-slate-400 block mb-1">Phone Number</label><input type="tel"
+                                    id="contactPhone"
                                     class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:border-yellow-400 outline-none transition">
                             </div>
-                            <div>
-                                <label class="text-sm text-slate-400 block mb-1">Course Interested In</label>
-                                <select id="contactCourse"
+                            <div><label class="text-sm text-slate-400 block mb-1">Course Interested In</label><select
+                                    id="contactCourse"
                                     class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:border-yellow-400 outline-none transition">
                                     <option value="" class="bg-[#1a1a1f]">Select a course</option>
                                     <option value="Full Stack Development" class="bg-[#1a1a1f]">Full Stack Development
@@ -1333,48 +1742,38 @@
                                     <option value="Mobile App Development" class="bg-[#1a1a1f]">Mobile App Development
                                     </option>
                                     <option value="Advance Excel" class="bg-[#1a1a1f]">Advance Excel</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label class="text-sm text-slate-400 block mb-1">Message *</label>
-                                <textarea id="contactMessage" rows="4" required
+                                </select></div>
+                            <div><label class="text-sm text-slate-400 block mb-1">Message *</label><textarea
+                                    id="contactMessage" rows="4" required
                                     placeholder="Tell us about your goals or questions..."
                                     class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:border-yellow-400 outline-none transition resize-none"></textarea>
-                            </div>
-                            <button type="submit"
-                                class="w-full bg-yellow-400 text-neutral-900 font-semibold py-3 rounded-xl hover:bg-yellow-300 transition-all duration-150 mt-2">
-                                Send Message
-                            </button>
+                            </div><button type="submit"
+                                class="w-full bg-yellow-400 text-neutral-900 font-semibold py-3 rounded-xl hover:bg-yellow-300 transition mt-2">Send
+                                Message</button>
                         </div>
                     </form>
                 </div>
-
-                <!-- Contact Info -->
                 <div class="animate-on-scroll anim-delay-2 space-y-6">
                     <div class="bg-white/[0.03] border border-white/10 rounded-2xl p-6">
-                        <h3 class="font-dm-sans text-xl font-medium mb-5">Contact Information</h3>
+                        <h3 class="font-dm-sans text-xl font-medium text-white mb-5">Contact Information</h3>
                         <div class="space-y-4">
                             <div class="flex items-start gap-3">
                                 <div
                                     class="w-10 h-10 bg-yellow-400/10 rounded-xl flex items-center justify-center flex-shrink-0">
                                     <iconify-icon icon="solar:phone-calling-bold"
-                                        class="text-yellow-400 text-xl"></iconify-icon>
-                                </div>
+                                        class="text-yellow-400 text-xl"></iconify-icon></div>
                                 <div>
-                                    <p class="text-slate-400 text-sm">Phone / WhatsApp</p>
-                                    <a href="tel:+9193467559" class="text-white hover:text-yellow-400 transition">+91
-                                        93467 55959</a>
+                                    <p class="text-slate-400 text-sm">Phone / WhatsApp</p><a href="tel:+91 8882787414"
+                                        class="text-white hover:text-yellow-400 transition">+91 8882787414</a>
                                 </div>
                             </div>
                             <div class="flex items-start gap-3">
                                 <div
                                     class="w-10 h-10 bg-yellow-400/10 rounded-xl flex items-center justify-center flex-shrink-0">
                                     <iconify-icon icon="solar:letter-bold"
-                                        class="text-yellow-400 text-xl"></iconify-icon>
-                                </div>
+                                        class="text-yellow-400 text-xl"></iconify-icon></div>
                                 <div>
-                                    <p class="text-slate-400 text-sm">Email</p>
-                                    <a href="mailto:info@mlearningpoint.com"
+                                    <p class="text-slate-400 text-sm">Email</p><a href="mailto:info@mlearningpoint.com"
                                         class="text-white hover:text-yellow-400 transition">info@mlearningpoint.com</a>
                                 </div>
                             </div>
@@ -1382,8 +1781,7 @@
                                 <div
                                     class="w-10 h-10 bg-yellow-400/10 rounded-xl flex items-center justify-center flex-shrink-0">
                                     <iconify-icon icon="solar:map-point-bold"
-                                        class="text-yellow-400 text-xl"></iconify-icon>
-                                </div>
+                                        class="text-yellow-400 text-xl"></iconify-icon></div>
                                 <div>
                                     <p class="text-slate-400 text-sm">Address</p>
                                     <p class="text-white">M Learning Point, IT Training Center<br>India (Online &
@@ -1392,9 +1790,8 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="bg-white/[0.03] border border-white/10 rounded-2xl p-6">
-                        <h3 class="font-dm-sans text-xl font-medium mb-4">Office Hours</h3>
+                        <h3 class="font-dm-sans text-xl font-medium text-white mb-4">Office Hours</h3>
                         <div class="space-y-2">
                             <div class="flex justify-between"><span class="text-slate-400">Monday - Friday</span><span
                                     class="text-white">9:00 AM - 8:00 PM</span></div>
@@ -1404,102 +1801,43 @@
                                     class="text-white">Closed (Support via WhatsApp)</span></div>
                         </div>
                     </div>
-
-                    <!-- Social Links -->
                     <div class="bg-white/[0.03] border border-white/10 rounded-2xl p-6">
-                        <h3 class="font-dm-sans text-xl font-medium mb-4">Follow Us</h3>
-                        <div class="flex gap-3">
-                            <a href="#"
-                                class="w-10 h-10 bg-white/5 border border-white/10 rounded-lg flex items-center justify-center text-slate-400 hover:text-yellow-400 hover:border-yellow-400/30 transition">
-                                <iconify-icon icon="simple-icons:linkedin" class="text-lg"></iconify-icon>
-                            </a>
-                            <a href="#"
-                                class="w-10 h-10 bg-white/5 border border-white/10 rounded-lg flex items-center justify-center text-slate-400 hover:text-yellow-400 hover:border-yellow-400/30 transition">
-                                <iconify-icon icon="simple-icons:instagram" class="text-lg"></iconify-icon>
-                            </a>
-                            <a href="#"
-                                class="w-10 h-10 bg-white/5 border border-white/10 rounded-lg flex items-center justify-center text-slate-400 hover:text-yellow-400 hover:border-yellow-400/30 transition">
-                                <iconify-icon icon="simple-icons:youtube" class="text-lg"></iconify-icon>
-                            </a>
-                            <a href="#"
-                                class="w-10 h-10 bg-white/5 border border-white/10 rounded-lg flex items-center justify-center text-slate-400 hover:text-yellow-400 hover:border-yellow-400/30 transition">
-                                <iconify-icon icon="simple-icons:facebook" class="text-lg"></iconify-icon>
-                            </a>
-                        </div>
+                        <h3 class="font-dm-sans text-xl font-medium text-white mb-4">Follow Us</h3>
+                        <div class="flex gap-3"><a href="#"
+                                class="w-10 h-10 bg-white/5 border border-white/10 rounded-lg flex items-center justify-center text-slate-400 hover:text-yellow-400 hover:border-yellow-400/30 transition"><iconify-icon
+                                    icon="simple-icons:linkedin" class="text-lg"></iconify-icon></a><a href="#"
+                                class="w-10 h-10 bg-white/5 border border-white/10 rounded-lg flex items-center justify-center text-slate-400 hover:text-yellow-400 hover:border-yellow-400/30 transition"><iconify-icon
+                                    icon="simple-icons:instagram" class="text-lg"></iconify-icon></a><a href="#"
+                                class="w-10 h-10 bg-white/5 border border-white/10 rounded-lg flex items-center justify-center text-slate-400 hover:text-yellow-400 hover:border-yellow-400/30 transition"><iconify-icon
+                                    icon="simple-icons:youtube" class="text-lg"></iconify-icon></a><a href="#"
+                                class="w-10 h-10 bg-white/5 border border-white/10 rounded-lg flex items-center justify-center text-slate-400 hover:text-yellow-400 hover:border-yellow-400/30 transition"><iconify-icon
+                                    icon="simple-icons:facebook" class="text-lg"></iconify-icon></a></div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-    <script>
-        // Contact Form Submission Handler
-        function submitContactForm(event) {
-            event.preventDefault();
 
-            const name = document.getElementById('contactName').value;
-            const email = document.getElementById('contactEmail').value;
-            const phone = document.getElementById('contactPhone').value;
-            const course = document.getElementById('contactCourse').value;
-            const message = document.getElementById('contactMessage').value;
-
-            const contactData = {
-                name: name,
-                email: email,
-                phone: phone,
-                course: course,
-                message: message,
-                timestamp: new Date().toISOString(),
-                source: 'Contact Page Form'
-            };
-
-            // Save to localStorage
-            let contacts = JSON.parse(localStorage.getItem('contacts') || '[]');
-            contacts.push(contactData);
-            localStorage.setItem('contacts', JSON.stringify(contacts));
-
-            // Show success message
-            showToast(`✅ Thanks ${name}! We'll get back to you within 24 hours.`);
-
-            // Reset form
-            document.getElementById('contactForm').reset();
-
-            // Log to console
-            console.log('📧 Contact Form Submission:', contactData);
-        }
-    </script>
-
-
-    <!-- Footer -->
+    <!-- ========== FOOTER ========== -->
     <footer class="border-t border-white/10 py-16">
         <div class="max-w-[90rem] mx-auto px-6 lg:px-8">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
-                <div>
-                    <a href="#" class="flex items-center gap-2 mb-4">
-                        <div class="w-9 h-9 bg-yellow-400 rounded-lg flex items-center justify-center">
-                            <iconify-icon icon="solar:code-bold" class="text-neutral-900 text-xl"></iconify-icon>
-                        </div>
-                        <span class="font-dm-sans font-semibold text-xl tracking-tight">CodeElevate</span>
+                <div><a href="#" class="flex items-center gap-2 mb-4">
+                        <div class="w-9 h-9 bg-yellow-400 rounded-lg flex items-center justify-center"><iconify-icon
+                                icon="solar:code-bold" class="text-neutral-900 text-xl"></iconify-icon></div><span
+                            class="font-dm-sans font-semibold text-xl tracking-tight text-white">CodeElevate</span>
                     </a>
                     <p class="text-slate-400 text-sm leading-relaxed mb-6">Empowering the next generation of IT
                         professionals with industry-ready skills and career support.</p>
-                    <div class="flex items-center gap-3">
-                        <a href="#"
-                            class="w-10 h-10 bg-white/5 border border-white/10 rounded-lg flex items-center justify-center text-slate-400 hover:text-yellow-400 hover:border-yellow-400/30 transition-all">
-                            <iconify-icon icon="simple-icons:linkedin" class="text-lg"></iconify-icon>
-                        </a>
-                        <a href="#"
-                            class="w-10 h-10 bg-white/5 border border-white/10 rounded-lg flex items-center justify-center text-slate-400 hover:text-yellow-400 hover:border-yellow-400/30 transition-all">
-                            <iconify-icon icon="simple-icons:twitter" class="text-lg"></iconify-icon>
-                        </a>
-                        <a href="#"
-                            class="w-10 h-10 bg-white/5 border border-white/10 rounded-lg flex items-center justify-center text-slate-400 hover:text-yellow-400 hover:border-yellow-400/30 transition-all">
-                            <iconify-icon icon="simple-icons:youtube" class="text-lg"></iconify-icon>
-                        </a>
-                        <a href="#"
-                            class="w-10 h-10 bg-white/5 border border-white/10 rounded-lg flex items-center justify-center text-slate-400 hover:text-yellow-400 hover:border-yellow-400/30 transition-all">
-                            <iconify-icon icon="simple-icons:instagram" class="text-lg"></iconify-icon>
-                        </a>
-                    </div>
+                    <div class="flex items-center gap-3"><a href="#"
+                            class="w-10 h-10 bg-white/5 border border-white/10 rounded-lg flex items-center justify-center text-slate-400 hover:text-yellow-400 hover:border-yellow-400/30 transition"><iconify-icon
+                                icon="simple-icons:linkedin" class="text-lg"></iconify-icon></a><a href="#"
+                            class="w-10 h-10 bg-white/5 border border-white/10 rounded-lg flex items-center justify-center text-slate-400 hover:text-yellow-400 hover:border-yellow-400/30 transition"><iconify-icon
+                                icon="simple-icons:twitter" class="text-lg"></iconify-icon></a><a href="#"
+                            class="w-10 h-10 bg-white/5 border border-white/10 rounded-lg flex items-center justify-center text-slate-400 hover:text-yellow-400 hover:border-yellow-400/30 transition"><iconify-icon
+                                icon="simple-icons:youtube" class="text-lg"></iconify-icon></a><a href="#"
+                            class="w-10 h-10 bg-white/5 border border-white/10 rounded-lg flex items-center justify-center text-slate-400 hover:text-yellow-400 hover:border-yellow-400/30 transition"><iconify-icon
+                                icon="simple-icons:instagram" class="text-lg"></iconify-icon></a></div>
                 </div>
                 <div>
                     <h4 class="font-medium text-white mb-4">Programs</h4>
@@ -1532,13 +1870,11 @@
                         <li><a href="#" class="footer-link text-slate-400 text-sm">Terms of Service</a></li>
                         <li><a href="#" class="footer-link text-slate-400 text-sm">Refund Policy</a></li>
                     </ul>
-                    <div class="mt-6 flex items-center gap-2 text-slate-400">
-                        <iconify-icon icon="solar:phone-calling-linear" class="text-yellow-400"></iconify-icon>
-                        <span class="text-sm">+91 8882165226</span>
-                    </div>
-                    <div class="mt-2 flex items-center gap-2 text-slate-400">
-                        <iconify-icon icon="solar:letter-linear" class="text-yellow-400"></iconify-icon>
-                        <span class="text-sm">AI Codex Learning Point</span>
+                    <div class="mt-6 flex items-center gap-2 text-slate-400"><iconify-icon
+                            icon="solar:phone-calling-linear" class="text-yellow-400"></iconify-icon><span
+                            class="text-sm">+91 8882787414</span></div>
+                    <div class="mt-2 flex items-center gap-2 text-slate-400"><iconify-icon icon="solar:letter-linear"
+                            class="text-yellow-400"></iconify-icon><span class="text-sm">AI Codex Learning Point</span>
                     </div>
                 </div>
             </div>
@@ -1550,244 +1886,141 @@
         </div>
     </footer>
 
-<!-- footer close  -->
-
+    <!-- ========== JAVASCRIPT ========== -->
     <script>
-        // Intersection Observer for scroll animations
-        const observer = new IntersectionObserver((entries) => {
+        // ----- TOAST -----
+        function showToast(msg) {
+            const c = document.getElementById('toastContainer');
+            const t = document.createElement('div');
+            t.className = 'toast';
+            t.textContent = msg;
+            c.appendChild(t);
+            setTimeout(() => { if (t.parentNode) t.remove(); }, 3000);
+        }
+
+        // ----- MOBILE MENU -----
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const btn = document.getElementById('mobile-toggle');
+            const isOpen = menu.style.maxHeight && menu.style.maxHeight !== '0px';
+            menu.style.maxHeight = isOpen ? '0px' : '400px';
+            btn.innerHTML = isOpen ? '<iconify-icon icon="solar:hamburger-menu-linear" class="text-2xl"></iconify-icon>' :
+                '<iconify-icon icon="solar:close-circle-linear" class="text-2xl"></iconify-icon>';
+        }
+
+        // ----- FAQ -----
+        function toggleFaq(btn) {
+            const item = btn.closest('.faq-item');
+            const isOpen = item.classList.contains('open');
+            document.querySelectorAll('.faq-item').forEach(el => el.classList.remove('open'));
+            if (!isOpen) item.classList.add('open');
+        }
+
+        // ----- SCROLL ANIMATIONS + COUNTERS -----
+        const animObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('animate');
-
-                    // Stats counter animation
-                    if (entry.target.querySelector('#stat1') || entry.target.querySelector('#stat2') || entry.target.querySelector('#stat3') || entry.target.querySelector('#stat4')) {
-                        animateStats();
-                    }
+                    // stats
+                    if (entry.target.querySelector('#stat1')) animateStats();
                 }
             });
-        }, {
-            threshold: 0.1,
-            rootMargin: '0px 0px -5% 0px'
-        });
+        }, { threshold: 0.15 });
+        document.querySelectorAll('.animate-on-scroll').forEach(el => animObserver.observe(el));
 
-        document.querySelectorAll('.animate-on-scroll').forEach(el => {
-            observer.observe(el);
-        });
-
-        // Stats animation
-        let statsAnimated = false;
+        let statsDone = false;
         function animateStats() {
-            if (statsAnimated) return;
-            statsAnimated = true;
-
-            const stats = [
+            if (statsDone) return;
+            statsDone = true;
+            const targets = [
                 { el: document.getElementById('stat1'), target: 500, suffix: '+' },
                 { el: document.getElementById('stat2'), target: 94, suffix: '%' },
                 { el: document.getElementById('stat3'), target: 50, suffix: '+' },
-                { el: document.getElementById('stat4'), target: 25, suffix: '+' },
+                { el: document.getElementById('stat4'), target: 15, suffix: '+' },
             ];
-
-            stats.forEach(stat => {
+            targets.forEach(({ el, target, suffix }) => {
                 let current = 0;
-                const increment = stat.target / 60;
+                const step = Math.ceil(target / 50);
                 const timer = setInterval(() => {
-                    current += increment;
-                    if (current >= stat.target) {
-                        current = stat.target;
-                        clearInterval(timer);
-                    }
-                    stat.el.textContent = Math.floor(current).toLocaleString() + stat.suffix;
-                }, 16);
+                    current += step;
+                    if (current >= target) { current = target; clearInterval(timer); }
+                    el.textContent = Math.floor(current) + suffix;
+                }, 25);
             });
         }
 
-        // Mobile menu toggle
-        function toggleMobileMenu() {
-            const menu = document.getElementById('mobile-menu');
-            const toggle = document.getElementById('mobile-toggle');
-            menu.classList.toggle('open');
-            if (menu.classList.contains('open')) {
-                toggle.innerHTML = '<iconify-icon icon="solar:close-circle-linear" class="text-2xl"></iconify-icon>';
-            } else {
-                toggle.innerHTML = '<iconify-icon icon="solar:hamburger-menu-linear" class="text-2xl"></iconify-icon>';
-            }
-        }
-
-        // FAQ toggle
-        function toggleFaq(btn) {
-            const content = btn.nextElementSibling;
-            const icon = btn.querySelector('iconify-icon');
-            const isOpen = content.style.maxHeight && content.style.maxHeight !== '0px';
-
-            // Close all
-            document.querySelectorAll('.faq-content').forEach(c => {
-                c.style.maxHeight = '0px';
-            });
-            document.querySelectorAll('.faq-toggle iconify-icon').forEach(i => {
-                i.style.transform = 'rotate(0deg)';
-            });
-
-            if (!isOpen) {
-                content.style.maxHeight = content.scrollHeight + 'px';
-                icon.style.transform = 'rotate(180deg)';
-            }
-        }
-
-        // Smooth scroll for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }
-            });
-        });
-
-
-
-
-
-
-
-        // whatsapp icon js 
-
-        let currentAction = '';
+        // ----- MODAL (WhatsApp / Call) -----
+        const modal = document.getElementById('userModal');
+        const actionInput = document.getElementById('actionType');
 
         function openWhatsAppModal() {
-            currentAction = 'whatsapp';
-            document.getElementById('modalTitle').innerText = 'Chat on WhatsApp';
-            document.getElementById('actionType').value = 'whatsapp';
-            document.getElementById('userModal').classList.add('active');
+            actionInput.value = 'whatsapp';
+            document.getElementById('modalTitle').textContent = 'Chat on WhatsApp';
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
         }
-
         function openCallModal() {
-            currentAction = 'call';
-            document.getElementById('modalTitle').innerText = 'Request a Callback';
-            document.getElementById('actionType').value = 'call';
-            document.getElementById('userModal').classList.add('active');
+            actionInput.value = 'call';
+            document.getElementById('modalTitle').textContent = 'Request a Call Back';
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
         }
-
         function closeModal() {
-            document.getElementById('userModal').classList.remove('active');
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
             document.getElementById('userDataForm').reset();
         }
+        modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 
-        function showToast(message) {
-            const container = document.getElementById('toastContainer');
-            const toast = document.createElement('div');
-            toast.className = 'toast';
-            toast.innerHTML = message;
-            container.appendChild(toast);
-            setTimeout(() => {
-                toast.remove();
-            }, 3000);
-        }
+        // ----- SUBMIT USER DATA (Modal) -----
+        function submitUserData(e) {
+            e.preventDefault();
+            const name = document.getElementById('userName').value.trim();
+            const phone = document.getElementById('userPhone').value.trim();
+            const email = document.getElementById('userEmail').value.trim();
+            const action = actionInput.value;
+            if (!name || !phone || !email) { showToast('⚠️ Please fill all fields'); return; }
 
-        // ========== REPLACE THIS WITH YOUR WEBHOOK URL ==========
-        // You can use:
-        // 1. Google Apps Script Webhook
-        // 2. Zapier / Make.com Webhook
-        // 3. Your own API endpoint
-        const YOUR_WEBHOOK_URL = 'https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec';
-        // ========================================================
-
-        // WhatsApp number (replace with your actual WhatsApp number)
-        const WHATSAPP_NUMBER = '919876543210'; // Format: countrycode + number (no + or spaces)
-
-        async function submitUserData(event) {
-            event.preventDefault();
-
-            const name = document.getElementById('userName').value;
-            const phone = document.getElementById('userPhone').value;
-            const email = document.getElementById('userEmail').value;
-            const action = document.getElementById('actionType').value;
-
-            const userData = {
-                name: name,
-                phone: phone,
-                email: email,
-                action: action,
-                timestamp: new Date().toISOString(),
-                source: 'Website - WhatsApp/Call Button',
-                page: window.location.href
-            };
-
-            // Send data to your webhook/backend
-            try {
-                await fetch(YOUR_WEBHOOK_URL, {
-                    method: 'POST',
-                    mode: 'no-cors',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(userData)
-                });
-            } catch (error) {
-                console.error('Webhook error:', error);
-            }
-
-            // Save to localStorage as backup
-            let leads = JSON.parse(localStorage.getItem('leads') || '[]');
-            leads.push(userData);
-            localStorage.setItem('leads', JSON.stringify(leads));
-
-            // Close modal
-            closeModal();
-
+            const msg = `Hello! I'm ${name}.\nPhone: ${phone}\nEmail: ${email}\nI'm interested in your courses. Please contact me.`;
             if (action === 'whatsapp') {
-                showToast(`✅ Thanks ${name}! Redirecting to WhatsApp...`);
-                setTimeout(() => {
-                    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=Hi%20${encodeURIComponent(name)}%2C%20I%27m%20interested%20in%20your%20courses.%20My%20number%20is%20${encodeURIComponent(phone)}`, '_blank');
-                }, 500);
+                window.open(`https://wa.me/8882787414?text=${encodeURIComponent(msg)}`, '_blank');
+                showToast('✅ Redirecting to WhatsApp...');
             } else {
-                showToast(`📞 Thanks ${name}! We'll call you within 24 hours.`);
+                window.location.href = `tel:8882787414`;
+                showToast('📞 Connecting your call...');
             }
-
-            // Also log to console so you can see the data
-            console.log('📋 User Data Collected:', userData);
-            console.log('💾 All leads in localStorage:', JSON.parse(localStorage.getItem('leads') || '[]'));
+            closeModal();
         }
 
-        // Close modal on outside click
-        document.getElementById('userModal').addEventListener('click', function (e) {
-            if (e.target === this) closeModal();
+        // ----- CONTACT FORM (WhatsApp) -----
+        function submitContactForm(e) {
+            e.preventDefault();
+            const name = document.getElementById('contactName').value;
+            const email = document.getElementById('contactEmail').value;
+            const phone = document.getElementById('contactPhone').value;
+            const course = document.getElementById('contactCourse').value;
+            const message = document.getElementById('contactMessage').value;
+            const whatsappMsg =
+                `*📞 New Contact Form Submission* 📞%0A%0A*👤 Name:* ${name}%0A*📧 Email:* ${email}%0A*📱 Phone:* ${phone || 'Not provided'}%0A*📚 Course:* ${course || 'Not selected'}%0A*💬 Message:* ${message}%0A%0A🕐 Time: ${new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })}`;
+            window.open(`https://wa.me/8882787414?text=${whatsappMsg}`, '_blank');
+            // backup to localStorage
+            const contacts = JSON.parse(localStorage.getItem('contacts') || '[]');
+            contacts.push({ name, email, phone, course, message, timestamp: new Date().toISOString() });
+            localStorage.setItem('contacts', JSON.stringify(contacts));
+            showToast(`✅ Thanks ${name}! WhatsApp opening...`);
+            document.getElementById('contactForm').reset();
+        }
+
+        // ----- SMOOTH SCROLL -----
+        document.querySelectorAll('a[href^="#"]').forEach(a => {
+            a.addEventListener('click', function (e) {
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); }
+            });
         });
 
-
-
-
-// form script 
-// Contact Form Submission - Direct WhatsApp
-function submitContactForm(event) {
-    event.preventDefault();
-    
-    const name = document.getElementById('contactName').value;
-    const email = document.getElementById('contactEmail').value;
-    const phone = document.getElementById('contactPhone').value;
-    const course = document.getElementById('contactCourse').value;
-    const message = document.getElementById('contactMessage').value;
-    
-    // Your WhatsApp Number
-    const whatsappNumber = '9193467559';
-    
-    // Create WhatsApp message
-    const whatsappMsg = `*📞 New Contact Form Submission* 📞%0A%0A*👤 Name:* ${name}%0A*📧 Email:* ${email}%0A*📱 Phone:* ${phone || 'Not provided'}%0A*📚 Course:* ${course || 'Not selected'}%0A*💬 Message:* ${message}%0A%0A🕐 Time: ${new Date().toLocaleString('en-IN', {timeZone: 'Asia/Kolkata'})}`;
-    
-    // Open WhatsApp
-    window.open(`https://wa.me/${whatsappNumber}?text=${whatsappMsg}`, '_blank');
-    
-    // Save backup
-    const contactData = {
-        name: name, email: email, phone: phone,
-        course: course, message: message,
-        timestamp: new Date().toLocaleString('en-IN', {timeZone: 'Asia/Kolkata'})
-    };
-    let contacts = JSON.parse(localStorage.getItem('contacts') || '[]');
-    contacts.push(contactData);
-    localStorage.setItem('contacts', JSON.stringify(contacts));
-    
-    showToast(`✅ Thanks ${name}! WhatsApp opening...`);
-    document.getElementById('contactForm').reset();
-}
+        console.log('🚀 AI Codex Learning Point website ready.');
     </script>
 </body>
 
