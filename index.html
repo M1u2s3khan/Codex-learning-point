@@ -1763,8 +1763,8 @@ function showServiceToast(serviceName) {
                                     <iconify-icon icon="solar:phone-calling-bold"
                                         class="text-yellow-400 text-xl"></iconify-icon></div>
                                 <div>
-                                    <p class="text-slate-400 text-sm">Phone / WhatsApp</p><a href="tel:+91 8882787414"
-                                        class="text-white hover:text-yellow-400 transition">+91 8882787414</a>
+                                    <p class="text-slate-400 text-sm">Phone / WhatsApp</p><a href="tel:+91 8882165226"
+                                        class="text-white hover:text-yellow-400 transition">+91 8882165226</a>
                                 </div>
                             </div>
                             <div class="flex items-start gap-3">
@@ -1787,6 +1787,7 @@ function showServiceToast(serviceName) {
                                     <p class="text-white">M Learning Point, IT Training Center<br>India (Online &
                                         Classroom)</p>
                                 </div>
+                                
                             </div>
                         </div>
                     </div>
@@ -1844,11 +1845,15 @@ function showServiceToast(serviceName) {
                     <ul class="space-y-3">
                         <li><a href="#courses" class="footer-link text-slate-400 text-sm">Full Stack Development</a>
                         </li>
-                        <li><a href="#courses" class="footer-link text-slate-400 text-sm">Cloud & DevOps</a></li>
+                        <li><a href="#courses" class="footer-link text-slate-400 text-sm">Frontend Development</a></li>
+                         <li><a href="#courses" class="footer-link text-slate-400 text-sm">backend Development</a></li>
+                         <li><a href="#courses" class="footer-link text-slate-400 text-sm">React Development</a></li>
+                        <li><a href="#courses" class="footer-link text-slate-400 text-sm">data Analytics</a></li>
+                         <li><a href="#courses" class="footer-link text-slate-400 text-sm">Cloud & DevOps</a></li>
                         <li><a href="#courses" class="footer-link text-slate-400 text-sm">Cybersecurity</a></li>
                         <li><a href="#courses" class="footer-link text-slate-400 text-sm">Data Science & AI</a></li>
                         <li><a href="#courses" class="footer-link text-slate-400 text-sm">Mobile Development</a></li>
-                        <li><a href="#courses" class="footer-link text-slate-400 text-sm">UI/UX Design</a></li>
+                        <li><a href="#courses" class="footer-link text-slate-400 text-sm">UI Design</a></li>
                     </ul>
                 </div>
                 <div>
@@ -1872,7 +1877,7 @@ function showServiceToast(serviceName) {
                     </ul>
                     <div class="mt-6 flex items-center gap-2 text-slate-400"><iconify-icon
                             icon="solar:phone-calling-linear" class="text-yellow-400"></iconify-icon><span
-                            class="text-sm">+91 8882787414</span></div>
+                            class="text-sm">+91 8882165226</span></div>
                     <div class="mt-2 flex items-center gap-2 text-slate-400"><iconify-icon icon="solar:letter-linear"
                             class="text-yellow-400"></iconify-icon><span class="text-sm">AI Codex Learning Point</span>
                     </div>
@@ -1984,10 +1989,10 @@ function showServiceToast(serviceName) {
 
             const msg = `Hello! I'm ${name}.\nPhone: ${phone}\nEmail: ${email}\nI'm interested in your courses. Please contact me.`;
             if (action === 'whatsapp') {
-                window.open(`https://wa.me/8882787414?text=${encodeURIComponent(msg)}`, '_blank');
+                window.open(`https://wa.me/+91 8882165226?text=${encodeURIComponent(msg)}`, '_blank');
                 showToast('✅ Redirecting to WhatsApp...');
             } else {
-                window.location.href = `tel:8882787414`;
+                window.location.href = `tel:+91 8882165226`;
                 showToast('📞 Connecting your call...');
             }
             closeModal();
@@ -2003,7 +2008,7 @@ function showServiceToast(serviceName) {
             const message = document.getElementById('contactMessage').value;
             const whatsappMsg =
                 `*📞 New Contact Form Submission* 📞%0A%0A*👤 Name:* ${name}%0A*📧 Email:* ${email}%0A*📱 Phone:* ${phone || 'Not provided'}%0A*📚 Course:* ${course || 'Not selected'}%0A*💬 Message:* ${message}%0A%0A🕐 Time: ${new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })}`;
-            window.open(`https://wa.me/8882787414?text=${whatsappMsg}`, '_blank');
+            window.open(`https://wa.me/+91 8882165226?text=${whatsappMsg}`, '_blank');
             // backup to localStorage
             const contacts = JSON.parse(localStorage.getItem('contacts') || '[]');
             contacts.push({ name, email, phone, course, message, timestamp: new Date().toISOString() });
