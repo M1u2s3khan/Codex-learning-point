@@ -15,356 +15,130 @@
         href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=DM+Sans:wght@300;400;500;600;700&display=swap"
         rel="stylesheet" />
     <style>
-        /* base & utilities */
-        * {
-            -webkit-tap-highlight-color: transparent;
-        }
+        * { -webkit-tap-highlight-color: transparent; }
+        html, body { overflow-x: hidden; max-width: 100%; }
+        body { background: #0f0f11; font-family: 'Inter', sans-serif; }
+        img { max-width: 100%; height: auto; }
+        section[id] { scroll-margin-top: 84px; }
+        .font-dm-sans { font-family: 'DM Sans', sans-serif; }
+        .nav-blur { -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); }
 
-        html,
-        body {
-            overflow-x: hidden;
-            max-width: 100%;
-        }
-
-        body {
-            background: #0f0f11;
-            font-family: 'Inter', sans-serif;
-        }
-
-        img {
-            max-width: 100%;
-            height: auto;
-        }
-
-        /* fixed header offset for anchor links */
-        section[id] {
-            scroll-margin-top: 84px;
-        }
-
-        .font-dm-sans {
-            font-family: 'DM Sans', sans-serif;
-        }
-
-        .nav-blur {
-            -webkit-backdrop-filter: blur(12px);
-            backdrop-filter: blur(12px);
-        }
-
-        /* floating icons */
         .floating-icons {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            z-index: 1000;
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
+            position: fixed; bottom: 30px; right: 30px; z-index: 1000;
+            display: flex; flex-direction: column; gap: 16px;
         }
-
         .float-icon {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: 0.2s;
+            width: 60px; height: 60px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; transition: 0.2s;
             box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
         }
+        .float-icon:hover { transform: scale(1.08); }
+        .whatsapp { background: #25D366; }
+        .whatsapp:hover { background: #128C7E; }
+        .call { background: #3b82f6; }
+        .call:hover { background: #2563eb; }
 
-        .float-icon:hover {
-            transform: scale(1.08);
-        }
-
-        .whatsapp {
-            background: #25D366;
-        }
-
-        .whatsapp:hover {
-            background: #128C7E;
-        }
-
-        .call {
-            background: #3b82f6;
-        }
-
-        .call:hover {
-            background: #2563eb;
-        }
-
-        /* modal */
         .modal-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(6px);
-            -webkit-backdrop-filter: blur(6px);
-            z-index: 2000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 16px;
-            visibility: hidden;
-            opacity: 0;
-            transition: 0.25s;
+            position: fixed; inset: 0; background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+            z-index: 2000; display: flex; align-items: center; justify-content: center;
+            padding: 16px; visibility: hidden; opacity: 0; transition: 0.25s;
         }
-
-        .modal-overlay.active {
-            visibility: visible;
-            opacity: 1;
-        }
-
+        .modal-overlay.active { visibility: visible; opacity: 1; }
         .modal-content {
-            background: #1a1a1f;
-            border: 1px solid rgba(250, 204, 21, 0.25);
-            border-radius: 2rem;
-            padding: 2rem;
-            max-width: 420px;
-            width: 100%;
-            max-height: calc(100vh - 32px);
-            overflow-y: auto;
-            position: relative;
-            transform: scale(0.94);
-            transition: 0.25s;
+            background: #1a1a1f; border: 1px solid rgba(250, 204, 21, 0.25);
+            border-radius: 2rem; padding: 2rem; max-width: 420px; width: 100%;
+            max-height: calc(100vh - 32px); overflow-y: auto; position: relative;
+            transform: scale(0.94); transition: 0.25s;
         }
-
-        .modal-overlay.active .modal-content {
-            transform: scale(1);
-        }
-
+        .modal-overlay.active .modal-content { transform: scale(1); }
         .modal-close {
-            position: absolute;
-            top: 18px;
-            right: 20px;
-            color: #94a3b8;
-            cursor: pointer;
-            transition: 0.2s;
+            position: absolute; top: 18px; right: 20px;
+            color: #94a3b8; cursor: pointer; transition: 0.2s;
         }
-
-        .modal-close:hover {
-            color: #FACC15;
-        }
-
+        .modal-close:hover { color: #FACC15; }
         .input-field {
-            width: 100%;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 1rem;
-            padding: 12px 16px;
-            color: #fff;
-            font-size: 14px;
-            outline: none;
-            transition: 0.2s;
-            box-sizing: border-box;
+            width: 100%; background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 1rem;
+            padding: 12px 16px; color: #fff; font-size: 14px;
+            outline: none; transition: 0.2s; box-sizing: border-box;
         }
-
         .input-field:focus {
-            border-color: #FACC15;
-            background: rgba(255, 255, 255, 0.08);
+            border-color: #FACC15; background: rgba(255, 255, 255, 0.08);
         }
-
         .submit-btn {
-            background: #FACC15;
-            color: #0f0f11;
-            font-weight: 600;
-            padding: 12px;
-            border-radius: 2rem;
-            width: 100%;
-            border: none;
-            font-size: 16px;
-            cursor: pointer;
-            transition: 0.2s;
+            background: #FACC15; color: #0f0f11; font-weight: 600;
+            padding: 12px; border-radius: 2rem; width: 100%; border: none;
+            font-size: 16px; cursor: pointer; transition: 0.2s;
         }
+        .submit-btn:hover { background: #e5b800; transform: scale(1.01); }
 
-        .submit-btn:hover {
-            background: #e5b800;
-            transform: scale(1.01);
-        }
-
-        /* toast */
         #toastContainer {
-            position: fixed;
-            bottom: 130px;
-            right: 30px;
-            z-index: 3000;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            pointer-events: none;
+            position: fixed; bottom: 130px; right: 30px; z-index: 3000;
+            display: flex; flex-direction: column; gap: 10px; pointer-events: none;
         }
-
         .toast {
-            background: #1a1a1f;
-            border: 1px solid rgba(250, 204, 21, 0.3);
-            color: #fff;
-            padding: 12px 22px;
-            border-radius: 1.2rem;
-            font-size: 14px;
-            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
+            background: #1a1a1f; border: 1px solid rgba(250, 204, 21, 0.3);
+            color: #fff; padding: 12px 22px; border-radius: 1.2rem;
+            font-size: 14px; box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
             animation: slideIn 0.35s ease-out forwards;
         }
-
         @keyframes slideIn {
-            0% {
-                opacity: 0;
-                transform: translateX(60px);
-            }
-
-            100% {
-                opacity: 1;
-                transform: translateX(0);
-            }
+            0% { opacity: 0; transform: translateX(60px); }
+            100% { opacity: 1; transform: translateX(0); }
         }
 
-        /* scroll animation */
         .animate-on-scroll {
-            opacity: 0;
-            transform: translateY(30px);
-            filter: blur(4px);
+            opacity: 0; transform: translateY(30px); filter: blur(4px);
             transition: all 0.8s ease;
         }
-
         .animate-on-scroll.animate {
-            opacity: 1;
-            transform: translateY(0);
-            filter: blur(0);
+            opacity: 1; transform: translateY(0); filter: blur(0);
         }
-
-        .hero-animate {
-            animation: fadeUp 1s ease forwards;
-        }
-
-        .hero-animate-slow {
-            animation: fadeUp 1.2s ease 0.2s forwards;
-            opacity: 0;
-        }
-
-        .hero-animate-slower {
-            animation: fadeUp 1.2s ease 0.5s forwards;
-            opacity: 0;
-        }
-
+        .hero-animate { animation: fadeUp 1s ease forwards; }
+        .hero-animate-slow { animation: fadeUp 1.2s ease 0.2s forwards; opacity: 0; }
+        .hero-animate-slower { animation: fadeUp 1.2s ease 0.5s forwards; opacity: 0; }
         @keyframes fadeUp {
-            0% {
-                opacity: 0;
-                transform: translateY(24px);
-                filter: blur(6px);
-            }
-
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-                filter: blur(0);
-            }
+            0% { opacity: 0; transform: translateY(24px); filter: blur(6px); }
+            100% { opacity: 1; transform: translateY(0); filter: blur(0); }
         }
 
-        /* marquee */
         .marquee-track {
-            display: flex;
-            gap: 2.5rem;
-            animation: scrollMarquee 24s linear infinite;
-            width: max-content;
+            display: flex; gap: 2.5rem;
+            animation: scrollMarquee 24s linear infinite; width: max-content;
         }
-
         @keyframes scrollMarquee {
-            0% {
-                transform: translateX(0);
-            }
-
-            100% {
-                transform: translateX(-50%);
-            }
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
         }
 
-        /* faq */
-        .faq-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.35s ease;
-        }
+        .faq-content { max-height: 0; overflow: hidden; transition: max-height 0.35s ease; }
+        .faq-item.open .faq-content { max-height: 400px; }
+        .faq-toggle iconify-icon { transition: transform 0.25s; }
+        .faq-item.open .faq-toggle iconify-icon { transform: rotate(180deg); }
 
-        .faq-item.open .faq-content {
-            max-height: 400px;
-        }
+        .gradient-border { position: relative; }
+        .footer-link { transition: color 0.15s; }
+        .footer-link:hover { color: #FACC15; }
+        a { text-decoration: none; }
 
-        .faq-toggle iconify-icon {
-            transition: transform 0.25s;
-        }
-
-        .faq-item.open .faq-toggle iconify-icon {
-            transform: rotate(180deg);
-        }
-
-        /* misc */
-        .gradient-border {
-            position: relative;
-        }
-
-        .footer-link {
-            transition: color 0.15s;
-        }
-
-        .footer-link:hover {
-            color: #FACC15;
-        }
-
-        a {
-            text-decoration: none;
-        }
-
-        /* ============ MOBILE TWEAKS ============ */
         @media (max-width: 640px) {
-
-            .floating-icons {
-                bottom: 16px;
-                right: 16px;
-                gap: 10px;
-            }
-
-            .float-icon {
-                width: 48px;
-                height: 48px;
-            }
-
-            .float-icon iconify-icon {
-                font-size: 1.3rem !important;
-            }
-
+            .floating-icons { bottom: 16px; right: 16px; gap: 10px; }
+            .float-icon { width: 48px; height: 48px; }
+            .float-icon iconify-icon { font-size: 1.3rem !important; }
             #toastContainer {
-                left: 16px;
-                right: 16px;
-                bottom: 84px;
-                align-items: center;
+                left: 16px; right: 16px; bottom: 84px; align-items: center;
             }
-
             .toast {
-                font-size: 13px;
-                padding: 10px 18px;
-                text-align: center;
-                width: 100%;
+                font-size: 13px; padding: 10px 18px; text-align: center; width: 100%;
             }
-
-            .modal-content {
-                padding: 1.5rem 1.25rem;
-                border-radius: 1.5rem;
-            }
-
-            /* 16px prevents iOS auto-zoom on input focus */
-            .input-field {
-                font-size: 16px;
-            }
-
-            .marquee-track {
-                gap: 1.5rem;
-            }
+            .modal-content { padding: 1.5rem 1.25rem; border-radius: 1.5rem; }
+            .input-field { font-size: 16px; }
+            .marquee-track { gap: 1.5rem; }
         }
-
         @media (max-width: 380px) {
-            .float-icon {
-                width: 44px;
-                height: 44px;
-            }
+            .float-icon { width: 44px; height: 44px; }
         }
     </style>
 </head>
@@ -414,12 +188,10 @@
     <header class="fixed top-0 left-0 right-0 z-50 border-b border-white/10 nav-blur bg-[#0f0f11]/80">
         <div class="max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-8 py-3 sm:py-4 flex items-center justify-between gap-3">
             <a href="/" class="flex items-center gap-2 min-w-0" aria-label="Ai Codex Learning Point">
-                <div
-                    class="w-8 h-8 sm:w-9 sm:h-9 bg-yellow-400 rounded-lg flex items-center justify-center flex-shrink-0">
+                <div class="w-8 h-8 sm:w-9 sm:h-9 bg-yellow-400 rounded-lg flex items-center justify-center flex-shrink-0">
                     <iconify-icon icon="solar:code-bold" class="text-neutral-900 text-lg sm:text-xl"></iconify-icon>
                 </div>
-                <span
-                    class="font-dm-sans font-semibold text-sm sm:text-lg lg:text-xl tracking-tight text-white whitespace-nowrap">AI
+                <span class="font-dm-sans font-semibold text-sm sm:text-lg lg:text-xl tracking-tight text-white whitespace-nowrap">AI
                     Codex <span class="text-yellow-400">Learning Point</span></span>
             </a>
             <nav class="hidden md:flex items-center gap-7 text-sm">
@@ -433,9 +205,7 @@
             <div class="hidden md:flex items-center gap-4">
                 <a href="https://docs.google.com/forms/d/e/1FAIpQLSddmp1XfmcjuXQsfD4Wb2umA5v9BX_Fj-nuW7UkvhCNfO_uiw/viewform?usp=dialog"
                     target="_blank" rel="noopener noreferrer"
-                    aria-label="Enroll in AI Codex Learning Point courses"
-                    class="bg-yellow-400 text-neutral-900 text-sm font-medium px-5 py-2.5 rounded-full hover:bg-yellow-300 transition">Enroll
-                    Now</a>
+                    class="bg-yellow-400 text-neutral-900 text-sm font-medium px-5 py-2.5 rounded-full hover:bg-yellow-300 transition">Enroll Now</a>
             </div>
             <button id="mobile-toggle"
                 class="md:hidden text-white text-2xl flex-shrink-0 w-10 h-10 flex items-center justify-center -mr-2"
@@ -446,43 +216,29 @@
         <div id="mobile-menu"
             class="max-h-0 overflow-hidden transition-all duration-300 md:hidden bg-[#0f0f11]/95 nav-blur border-t border-white/10">
             <div class="px-5 sm:px-6 py-4 flex flex-col gap-1">
-                <a href="#courses" class="text-slate-300 hover:text-yellow-400 py-2.5 border-b border-white/5"
-                    onclick="toggleMobileMenu()">Courses</a>
-                <a href="#features" class="text-slate-300 hover:text-yellow-400 py-2.5 border-b border-white/5"
-                    onclick="toggleMobileMenu()">Why Us</a>
-                <a href="#instructors" class="text-slate-300 hover:text-yellow-400 py-2.5 border-b border-white/5"
-                    onclick="toggleMobileMenu()">Instructors</a>
-                <a href="#testimonials" class="text-slate-300 hover:text-yellow-400 py-2.5 border-b border-white/5"
-                    onclick="toggleMobileMenu()">Reviews</a>
-                <a href="#pricing" class="text-slate-300 hover:text-yellow-400 py-2.5 border-b border-white/5"
-                    onclick="toggleMobileMenu()">Pricing</a>
-                <a href="#contact" class="text-slate-300 hover:text-yellow-400 py-2.5"
-                    onclick="toggleMobileMenu()">Contact</a>
+                <a href="#courses" class="text-slate-300 hover:text-yellow-400 py-2.5 border-b border-white/5" onclick="toggleMobileMenu()">Courses</a>
+                <a href="#features" class="text-slate-300 hover:text-yellow-400 py-2.5 border-b border-white/5" onclick="toggleMobileMenu()">Why Us</a>
+                <a href="#instructors" class="text-slate-300 hover:text-yellow-400 py-2.5 border-b border-white/5" onclick="toggleMobileMenu()">Instructors</a>
+                <a href="#testimonials" class="text-slate-300 hover:text-yellow-400 py-2.5 border-b border-white/5" onclick="toggleMobileMenu()">Reviews</a>
+                <a href="#pricing" class="text-slate-300 hover:text-yellow-400 py-2.5 border-b border-white/5" onclick="toggleMobileMenu()">Pricing</a>
+                <a href="#contact" class="text-slate-300 hover:text-yellow-400 py-2.5" onclick="toggleMobileMenu()">Contact</a>
                 <a href="https://docs.google.com/forms/d/e/1FAIpQLSddmp1XfmcjuXQsfD4Wb2umA5v9BX_Fj-nuW7UkvhCNfO_uiw/viewform?usp=dialog"
                     target="_blank" rel="noopener noreferrer"
-                    class="bg-yellow-400 text-neutral-900 text-center text-sm font-medium px-5 py-3 rounded-full hover:bg-yellow-300 transition mt-3">Enroll
-                    Now</a>
+                    class="bg-yellow-400 text-neutral-900 text-center text-sm font-medium px-5 py-3 rounded-full hover:bg-yellow-300 transition mt-3">Enroll Now</a>
             </div>
         </div>
     </header>
 
     <!-- ========== HERO ========== -->
     <section class="relative overflow-hidden pt-24 sm:pt-28 pb-16 sm:pb-20 lg:min-h-[90vh] lg:flex lg:items-center">
-        <div
-            class="absolute top-0 left-1/2 -translate-x-1/2 w-[22rem] sm:w-[32rem] lg:w-[40rem] h-[22rem] sm:h-[32rem] lg:h-[40rem] bg-yellow-400/5 rounded-full blur-3xl pointer-events-none">
-        </div>
-        <div
-            class="relative max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-x-12 gap-y-14 lg:gap-y-12 items-center w-full">
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[22rem] sm:w-[32rem] lg:w-[40rem] h-[22rem] sm:h-[32rem] lg:h-[40rem] bg-yellow-400/5 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="relative max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-x-12 gap-y-14 lg:gap-y-12 items-center w-full">
             <div>
-                <div
-                    class="hero-animate inline-flex items-center gap-2 bg-yellow-400/10 border border-yellow-400/20 rounded-full px-3.5 py-1.5 mb-5 sm:mb-6 max-w-full">
-                    <iconify-icon icon="solar:star-bold"
-                        class="text-yellow-400 text-sm flex-shrink-0"></iconify-icon>
-                    <span class="text-yellow-400 text-xs sm:text-sm font-medium">New batch starting Immediately
-                        2026</span>
+                <div class="hero-animate inline-flex items-center gap-2 bg-yellow-400/10 border border-yellow-400/20 rounded-full px-3.5 py-1.5 mb-5 sm:mb-6 max-w-full">
+                    <iconify-icon icon="solar:star-bold" class="text-yellow-400 text-sm flex-shrink-0"></iconify-icon>
+                    <span class="text-yellow-400 text-xs sm:text-sm font-medium">New batch starting Immediately 2026</span>
                 </div>
-                <h1
-                    class="hero-animate font-dm-sans text-[2rem] xs:text-[2.25rem] sm:text-[2.75rem] md:text-[3.5rem] lg:text-[4.5rem] font-light leading-[1.15] sm:leading-[1.1] tracking-tight mb-5 text-white">
+                <h1 class="hero-animate font-dm-sans text-[2rem] sm:text-[2.75rem] md:text-[3.5rem] lg:text-[4.5rem] font-light leading-[1.15] sm:leading-[1.1] tracking-tight mb-5 text-white">
                     Master IT Skills.<br><span class="text-yellow-400">Launch Your Career in Noida.</span>
                 </h1>
                 <p class="hero-animate-slow text-base sm:text-lg lg:text-xl text-slate-300 leading-relaxed max-w-lg mb-8">
@@ -492,8 +248,7 @@
                 <div class="hero-animate-slower flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4">
                     <a href="https://docs.google.com/forms/d/e/1FAIpQLSddmp1XfmcjuXQsfD4Wb2umA5v9BX_Fj-nuW7UkvhCNfO_uiw/viewform?usp=dialog"
                         target="_blank" rel="noopener noreferrer"
-                        class="bg-yellow-400 text-neutral-900 font-medium px-6 sm:px-8 py-3.5 sm:py-4 rounded-full hover:bg-yellow-300 transition hover:scale-105 shadow-xl text-center">Start
-                        Free Trial</a>
+                        class="bg-yellow-400 text-neutral-900 font-medium px-6 sm:px-8 py-3.5 sm:py-4 rounded-full hover:bg-yellow-300 transition hover:scale-105 shadow-xl text-center">Start Free Trial</a>
                     <button onclick="document.getElementById('courses').scrollIntoView({behavior:'smooth'})"
                         class="bg-white/5 border border-white/10 text-white font-medium px-6 sm:px-8 py-3.5 sm:py-4 rounded-full hover:bg-white/10 transition flex items-center justify-center gap-2">
                         <iconify-icon icon="solar:play-circle-linear" class="text-xl"></iconify-icon> Explore Courses
@@ -501,18 +256,18 @@
                 </div>
                 <div class="hero-animate-slower flex items-center gap-4 mt-8">
                     <div class="flex -space-x-2 flex-shrink-0">
-                        <img src="https://i.pinimg.com/236x/f0/2a/2f/f02a2f976adae346fca770a54b0cdb2c.jpg"
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg"
                             class="w-9 h-9 sm:w-10 sm:h-10 rounded-full border-2 border-[#0f0f11] object-cover"
-                            alt="Ai Codex Learning Point It Courses in Noida">
-                        <img src="https://static.vecteezy.com/system/resources/thumbnails/060/422/133/small/portrait-of-a-young-male-student-with-books-and-backpack-representing-education-and-academic-success-free-png.png"
+                            alt="Student 1">
+                        <img src="https://randomuser.me/api/portraits/men/45.jpg"
                             class="w-9 h-9 sm:w-10 sm:h-10 rounded-full border-2 border-[#0f0f11] object-cover"
-                            alt="Ai Codex Learning Point It Courses in Noida">
-                        <img src="https://images.rawpixel.com/image_png_social_portrait/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDI0LTEyL3Jhd3BpeGVsX29mZmljZV8zNl9waG90b19vZl95b3VuZ19pbmRpYW5fZ2lybF9ob2xkaW5nX3N0dWRlbnRfYl81ZmVkNmMzMy01ZWU0LTRjY2MtYmNiZS1kZWVlOWQyNTBmMWYtbTRzODZ3b2gucG5n.png"
+                            alt="Student 2">
+                        <img src="https://randomuser.me/api/portraits/women/44.jpg"
                             class="w-9 h-9 sm:w-10 sm:h-10 rounded-full border-2 border-[#0f0f11] object-cover"
-                            alt="Ai Codex Learning Point It Courses in Noida">
-                        <img src="https://img.magnific.com/premium-psd/happy-young-indian-college-student-png_920413-860.jpg?semt=ais_hybrid&w=740&q=80"
+                            alt="Student 3">
+                        <img src="https://randomuser.me/api/portraits/men/67.jpg"
                             class="w-9 h-9 sm:w-10 sm:h-10 rounded-full border-2 border-[#0f0f11] object-cover"
-                            alt="Ai Codex Learning Point It Courses in Noida">
+                            alt="Student 4">
                     </div>
                     <div>
                         <p class="text-white text-sm font-medium">500+ students trained</p>
@@ -522,28 +277,24 @@
             </div>
             <div class="hero-animate-slow relative">
                 <div class="relative rounded-[1.5rem] sm:rounded-[2rem] overflow-hidden shadow-2xl">
-                    <img src="https://img.freepik.com/premium-photo/large-it-office-environment-with-computer-workstations-productive-teamwork_901408-28084.jpg?semt=ais_incoming&w=740&q=80"
-                        alt="Ai Codex Learning Point It Courses in Noida"
+                    <img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1200&q=85"
+                        alt="AI Codex Learning Point IT Office"
                         class="w-full h-60 sm:h-[26rem] lg:h-[34rem] object-cover">
                     <div class="absolute inset-0"
                         style="background:linear-gradient(to top, rgba(234,179,8,0.15), transparent, rgba(15,15,17,0.3))">
                     </div>
                 </div>
-                <div
-                    class="absolute bottom-3 left-3 sm:-bottom-6 sm:-left-6 bg-white/10 backdrop-blur-md border border-white/10 rounded-xl sm:rounded-2xl p-3 sm:p-5 shadow-2xl">
+                <div class="absolute bottom-3 left-3 sm:-bottom-6 sm:-left-6 bg-white/10 backdrop-blur-md border border-white/10 rounded-xl sm:rounded-2xl p-3 sm:p-5 shadow-2xl">
                     <div class="flex items-center gap-2 sm:gap-3">
-                        <div
-                            class="w-9 h-9 sm:w-12 sm:h-12 bg-yellow-400/20 rounded-lg sm:rounded-xl flex items-center justify-center">
-                            <iconify-icon icon="solar:diploma-verified-bold"
-                                class="text-yellow-400 text-lg sm:text-2xl"></iconify-icon></div>
+                        <div class="w-9 h-9 sm:w-12 sm:h-12 bg-yellow-400/20 rounded-lg sm:rounded-xl flex items-center justify-center">
+                            <iconify-icon icon="solar:diploma-verified-bold" class="text-yellow-400 text-lg sm:text-2xl"></iconify-icon></div>
                         <div>
                             <p class="text-white font-medium text-xs sm:text-sm">ISO Certified</p>
                             <p class="text-slate-400 text-[10px] sm:text-xs">Training Partner</p>
                         </div>
                     </div>
                 </div>
-                <div
-                    class="absolute top-3 right-3 sm:-top-4 sm:-right-4 bg-white/10 backdrop-blur-md border border-white/10 rounded-xl sm:rounded-2xl p-2.5 sm:p-4 shadow-2xl">
+                <div class="absolute top-3 right-3 sm:-top-4 sm:-right-4 bg-white/10 backdrop-blur-md border border-white/10 rounded-xl sm:rounded-2xl p-2.5 sm:p-4 shadow-2xl">
                     <div class="flex items-center gap-1.5 sm:gap-2">
                         <iconify-icon icon="solar:star-bold" class="text-yellow-400 text-sm sm:text-base"></iconify-icon>
                         <span class="text-white font-semibold text-sm sm:text-base">4.9</span>
@@ -557,471 +308,249 @@
     <!-- ========== MARQUEE ========== -->
     <section class="border-y border-white/5 py-5 overflow-hidden">
         <div class="marquee-track">
-            <span class="text-slate-500 font-dm-sans text-base sm:text-lg font-medium flex items-center gap-2"><iconify-icon
-                    icon="simple-icons:react" class="text-xl"></iconify-icon> React</span>
-            <span class="text-slate-500 font-dm-sans text-base sm:text-lg font-medium flex items-center gap-2"><iconify-icon
-                    icon="simple-icons:python" class="text-xl"></iconify-icon> Python</span>
-            <span class="text-slate-500 font-dm-sans text-base sm:text-lg font-medium flex items-center gap-2"><iconify-icon
-                    icon="simple-icons:amazonaws" class="text-xl"></iconify-icon> Full Stack</span>
-            <span class="text-slate-500 font-dm-sans text-base sm:text-lg font-medium flex items-center gap-2"><iconify-icon
-                    icon="simple-icons:docker" class="text-xl"></iconify-icon> Frontend</span>
-            <span class="text-slate-500 font-dm-sans text-base sm:text-lg font-medium flex items-center gap-2"><iconify-icon
-                    icon="simple-icons:kubernetes" class="text-xl"></iconify-icon> C</span>
-            <span class="text-slate-500 font-dm-sans text-base sm:text-lg font-medium flex items-center gap-2"><iconify-icon
-                    icon="simple-icons:terraform" class="text-xl"></iconify-icon> C++</span>
-            <span class="text-slate-500 font-dm-sans text-base sm:text-lg font-medium flex items-center gap-2"><iconify-icon
-                    icon="simple-icons:nodedotjs" class="text-xl"></iconify-icon> Node.js</span>
-            <span class="text-slate-500 font-dm-sans text-base sm:text-lg font-medium flex items-center gap-2"><iconify-icon
-                    icon="simple-icons:typescript" class="text-xl"></iconify-icon> TypeScript</span>
-            <span class="text-slate-500 font-dm-sans text-base sm:text-lg font-medium flex items-center gap-2"><iconify-icon
-                    icon="simple-icons:microsoftazure" class="text-xl"></iconify-icon> Azure</span>
-            <span class="text-slate-500 font-dm-sans text-base sm:text-lg font-medium flex items-center gap-2"><iconify-icon
-                    icon="simple-icons:linux" class="text-xl"></iconify-icon> Linux</span>
-            <span class="text-slate-500 font-dm-sans text-base sm:text-lg font-medium flex items-center gap-2"><iconify-icon
-                    icon="simple-icons:docker" class="text-xl"></iconify-icon> Web Dev</span>
-            <span class="text-slate-500 font-dm-sans text-base sm:text-lg font-medium flex items-center gap-2"><iconify-icon
-                    icon="simple-icons:microsoftazure" class="text-xl"></iconify-icon> Advance Excel</span>
-            <!-- duplicate for seamless loop -->
-            <span class="text-slate-500 font-dm-sans text-base sm:text-lg font-medium flex items-center gap-2"><iconify-icon
-                    icon="simple-icons:react" class="text-xl"></iconify-icon> React</span>
-            <span class="text-slate-500 font-dm-sans text-base sm:text-lg font-medium flex items-center gap-2"><iconify-icon
-                    icon="simple-icons:python" class="text-xl"></iconify-icon> Python</span>
-            <span class="text-slate-500 font-dm-sans text-base sm:text-lg font-medium flex items-center gap-2"><iconify-icon
-                    icon="simple-icons:amazonaws" class="text-xl"></iconify-icon> Full Stack</span>
-            <span class="text-slate-500 font-dm-sans text-base sm:text-lg font-medium flex items-center gap-2"><iconify-icon
-                    icon="simple-icons:docker" class="text-xl"></iconify-icon> Frontend</span>
-            <span class="text-slate-500 font-dm-sans text-base sm:text-lg font-medium flex items-center gap-2"><iconify-icon
-                    icon="simple-icons:kubernetes" class="text-xl"></iconify-icon> C</span>
-            <span class="text-slate-500 font-dm-sans text-base sm:text-lg font-medium flex items-center gap-2"><iconify-icon
-                    icon="simple-icons:terraform" class="text-xl"></iconify-icon> C++</span>
-            <span class="text-slate-500 font-dm-sans text-base sm:text-lg font-medium flex items-center gap-2"><iconify-icon
-                    icon="simple-icons:nodedotjs" class="text-xl"></iconify-icon> Node.js</span>
-            <span class="text-slate-500 font-dm-sans text-base sm:text-lg font-medium flex items-center gap-2"><iconify-icon
-                    icon="simple-icons:typescript" class="text-xl"></iconify-icon> TypeScript</span>
-            <span class="text-slate-500 font-dm-sans text-base sm:text-lg font-medium flex items-center gap-2"><iconify-icon
-                    icon="simple-icons:microsoftazure" class="text-xl"></iconify-icon> Azure</span>
-            <span class="text-slate-500 font-dm-sans text-base sm:text-lg font-medium flex items-center gap-2"><iconify-icon
-                    icon="simple-icons:linux" class="text-xl"></iconify-icon> Linux</span>
-            <span class="text-slate-500 font-dm-sans text-base sm:text-lg font-medium flex items-center gap-2"><iconify-icon
-                    icon="simple-icons:docker" class="text-xl"></iconify-icon> Web Dev</span>
-            <span class="text-slate-500 font-dm-sans text-base sm:text-lg font-medium flex items-center gap-2"><iconify-icon
-                    icon="simple-icons:microsoftazure" class="text-xl"></iconify-icon> Advance Excel</span>
+            <span class="text-slate-500 font-dm-sans text-base sm:text-lg font-medium flex items-center gap-2"><iconify-icon icon="simple-icons:react" class="text-xl"></iconify-icon> React</span>
+            <span class="text-slate-500 font-dm-sans text-base sm:text-lg font-medium flex items-center gap-2"><iconify-icon icon="simple-icons:python" class="text-xl"></iconify-icon> Python</span>
+            <span class="text-slate-500 font-dm-sans text-base sm:text-lg font-medium flex items-center gap-2"><iconify-icon icon="simple-icons:amazonaws" class="text-xl"></iconify-icon> Full Stack</span>
+            <span class="text-slate-500 font-dm-sans text-base sm:text-lg font-medium flex items-center gap-2"><iconify-icon icon="simple-icons:docker" class="text-xl"></iconify-icon> Frontend</span>
+            <span class="text-slate-500 font-dm-sans text-base sm:text-lg font-medium flex items-center gap-2"><iconify-icon icon="simple-icons:kubernetes" class="text-xl"></iconify-icon> C</span>
+            <span class="text-slate-500 font-dm-sans text-base sm:text-lg font-medium flex items-center gap-2"><iconify-icon icon="simple-icons:terraform" class="text-xl"></iconify-icon> C++</span>
+            <span class="text-slate-500 font-dm-sans text-base sm:text-lg font-medium flex items-center gap-2"><iconify-icon icon="simple-icons:nodedotjs" class="text-xl"></iconify-icon> Node.js</span>
+            <span class="text-slate-500 font-dm-sans text-base sm:text-lg font-medium flex items-center gap-2"><iconify-icon icon="simple-icons:typescript" class="text-xl"></iconify-icon> TypeScript</span>
+            <span class="text-slate-500 font-dm-sans text-base sm:text-lg font-medium flex items-center gap-2"><iconify-icon icon="simple-icons:microsoftazure" class="text-xl"></iconify-icon> Azure</span>
+            <span class="text-slate-500 font-dm-sans text-base sm:text-lg font-medium flex items-center gap-2"><iconify-icon icon="simple-icons:linux" class="text-xl"></iconify-icon> Linux</span>
+            <span class="text-slate-500 font-dm-sans text-base sm:text-lg font-medium flex items-center gap-2"><iconify-icon icon="simple-icons:docker" class="text-xl"></iconify-icon> Web Dev</span>
+            <span class="text-slate-500 font-dm-sans text-base sm:text-lg font-medium flex items-center gap-2"><iconify-icon icon="simple-icons:microsoftazure" class="text-xl"></iconify-icon> Advance Excel</span>
+            <span class="text-slate-500 font-dm-sans text-base sm:text-lg font-medium flex items-center gap-2"><iconify-icon icon="simple-icons:react" class="text-xl"></iconify-icon> React</span>
+            <span class="text-slate-500 font-dm-sans text-base sm:text-lg font-medium flex items-center gap-2"><iconify-icon icon="simple-icons:python" class="text-xl"></iconify-icon> Python</span>
+            <span class="text-slate-500 font-dm-sans text-base sm:text-lg font-medium flex items-center gap-2"><iconify-icon icon="simple-icons:amazonaws" class="text-xl"></iconify-icon> Full Stack</span>
+            <span class="text-slate-500 font-dm-sans text-base sm:text-lg font-medium flex items-center gap-2"><iconify-icon icon="simple-icons:docker" class="text-xl"></iconify-icon> Frontend</span>
+            <span class="text-slate-500 font-dm-sans text-base sm:text-lg font-medium flex items-center gap-2"><iconify-icon icon="simple-icons:kubernetes" class="text-xl"></iconify-icon> C</span>
+            <span class="text-slate-500 font-dm-sans text-base sm:text-lg font-medium flex items-center gap-2"><iconify-icon icon="simple-icons:terraform" class="text-xl"></iconify-icon> C++</span>
+            <span class="text-slate-500 font-dm-sans text-base sm:text-lg font-medium flex items-center gap-2"><iconify-icon icon="simple-icons:nodedotjs" class="text-xl"></iconify-icon> Node.js</span>
+            <span class="text-slate-500 font-dm-sans text-base sm:text-lg font-medium flex items-center gap-2"><iconify-icon icon="simple-icons:typescript" class="text-xl"></iconify-icon> TypeScript</span>
+            <span class="text-slate-500 font-dm-sans text-base sm:text-lg font-medium flex items-center gap-2"><iconify-icon icon="simple-icons:microsoftazure" class="text-xl"></iconify-icon> Azure</span>
+            <span class="text-slate-500 font-dm-sans text-base sm:text-lg font-medium flex items-center gap-2"><iconify-icon icon="simple-icons:linux" class="text-xl"></iconify-icon> Linux</span>
+            <span class="text-slate-500 font-dm-sans text-base sm:text-lg font-medium flex items-center gap-2"><iconify-icon icon="simple-icons:docker" class="text-xl"></iconify-icon> Web Dev</span>
+            <span class="text-slate-500 font-dm-sans text-base sm:text-lg font-medium flex items-center gap-2"><iconify-icon icon="simple-icons:microsoftazure" class="text-xl"></iconify-icon> Advance Excel</span>
         </div>
     </section>
 
     <!-- ========== OUR SERVICES ========== -->
     <section id="services" class="py-16 sm:py-20 lg:py-24">
-
         <div class="max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-8">
-
-            <!-- Section Heading -->
             <div class="text-center mb-10 sm:mb-14">
-
-                <span class="text-yellow-400 text-xs sm:text-sm font-medium tracking-wider uppercase block mb-3">
-                    Our Services
-                </span>
-
-                <h2
-                    class="font-dm-sans text-[1.6rem] xs:text-[1.85rem] sm:text-[2.25rem] lg:text-[3.75rem] font-light tracking-tight leading-tight text-white">
+                <span class="text-yellow-400 text-xs sm:text-sm font-medium tracking-wider uppercase block mb-3">Our Services</span>
+                <h2 class="font-dm-sans text-[1.6rem] sm:text-[2.25rem] lg:text-[3.75rem] font-light tracking-tight leading-tight text-white">
                     Web Development & Digital Marketing
-                    <span class="text-yellow-400">
-                        Services in Noida
-                    </span>
+                    <span class="text-yellow-400">Services in Noida</span>
                 </h2>
-
                 <p class="text-slate-400 max-w-2xl mx-auto mt-4 sm:mt-5 text-sm lg:text-base leading-relaxed px-2">
                     We provide modern technology, AI and digital marketing
                     solutions to help your business grow and succeed.
                 </p>
-
             </div>
 
-            <!-- Services Grid -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
 
-                <!-- ================= SERVICE 1 ================= -->
-                <div
-                    class="animate-on-scroll anim-delay-1 group bg-white/[0.03] border border-white/10 rounded-[1.5rem] sm:rounded-[2rem] overflow-hidden hover:border-yellow-400/30 transition">
-
+                <!-- SERVICE 1 -->
+                <div class="animate-on-scroll anim-delay-1 group bg-white/[0.03] border border-white/10 rounded-[1.5rem] sm:rounded-[2rem] overflow-hidden hover:border-yellow-400/30 transition">
                     <div class="relative h-44 sm:h-48 overflow-hidden">
                         <img src="https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?auto=format&fit=crop&w=1200&q=85"
                             class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
-                            alt="Static website development service by AI Codex Learning Point">
+                            alt="Static website development service">
                         <div class="absolute inset-0 bg-gradient-to-t from-[#0f0f11] to-transparent"></div>
-                        <span
-                            class="absolute top-4 right-4 bg-yellow-400 text-neutral-900 text-xs font-semibold px-3 py-1 rounded-full">
-                            Popular
-                        </span>
+                        <span class="absolute top-4 right-4 bg-yellow-400 text-neutral-900 text-xs font-semibold px-3 py-1 rounded-full">Popular</span>
                     </div>
-
                     <div class="p-5 sm:p-6">
-                        <div class="flex items-center gap-2 text-slate-400 text-xs mb-3">
-                            <span>🌐</span>
-                            <span>Web Development</span>
-                        </div>
-                        <h3 class="font-dm-sans text-lg sm:text-xl font-light tracking-tight mb-2 text-white">
-                            Static Website
-                        </h3>
-                        <p class="text-slate-400 text-sm leading-relaxed mb-4">
-                            Fast, responsive and professional websites for
-                            businesses, institutes, portfolios and personal brands.
-                        </p>
+                        <div class="flex items-center gap-2 text-slate-400 text-xs mb-3"><span>🌐</span><span>Web Development</span></div>
+                        <h3 class="font-dm-sans text-lg sm:text-xl font-light tracking-tight mb-2 text-white">Static Website</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed mb-4">Fast, responsive and professional websites for businesses, institutes, portfolios and personal brands.</p>
                         <div class="flex items-center justify-between gap-3 flex-wrap">
-                            <span class="text-yellow-400 font-semibold">
-                                Starting ₹5,000
-                            </span>
-                            <button onclick="showServiceToast('Static Website')"
-                                class="text-sm text-slate-300 hover:text-yellow-400 transition flex items-center gap-1">
-                                Learn More →
-                            </button>
+                            <span class="text-yellow-400 font-semibold">Starting ₹5,000</span>
+                            <button onclick="showServiceToast('Static Website')" class="text-sm text-slate-300 hover:text-yellow-400 transition flex items-center gap-1">Learn More →</button>
                         </div>
                     </div>
-
                 </div>
 
-                <!-- ================= SERVICE 2 ================= -->
-                <div
-                    class="animate-on-scroll anim-delay-2 group bg-white/[0.03] border border-white/10 rounded-[1.5rem] sm:rounded-[2rem] overflow-hidden hover:border-yellow-400/30 transition">
-
+                <!-- SERVICE 2 -->
+                <div class="animate-on-scroll anim-delay-2 group bg-white/[0.03] border border-white/10 rounded-[1.5rem] sm:rounded-[2rem] overflow-hidden hover:border-yellow-400/30 transition">
                     <div class="relative h-44 sm:h-48 overflow-hidden">
                         <img src="https://images.unsplash.com/photo-1558655146-d09347e92766?auto=format&fit=crop&w=1200&q=85"
                             class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
-                            alt="Dynamic website development service by AI Codex Learning Point">
+                            alt="Dynamic website development service">
                         <div class="absolute inset-0 bg-gradient-to-t from-[#0f0f11] to-transparent"></div>
-                        <span
-                            class="absolute top-4 right-4 bg-yellow-400 text-neutral-900 text-xs font-semibold px-3 py-1 rounded-full">
-                            Business
-                        </span>
+                        <span class="absolute top-4 right-4 bg-yellow-400 text-neutral-900 text-xs font-semibold px-3 py-1 rounded-full">Business</span>
                     </div>
-
                     <div class="p-5 sm:p-6">
-                        <div class="flex items-center gap-2 text-slate-400 text-xs mb-3">
-                            <span>💻</span>
-                            <span>Web Development</span>
-                        </div>
-                        <h3 class="font-dm-sans text-lg sm:text-xl font-light tracking-tight mb-2 text-white">
-                            Dynamic Website
-                        </h3>
-                        <p class="text-slate-400 text-sm leading-relaxed mb-4">
-                            Powerful websites with admin panels, databases,
-                            authentication and custom business features.
-                        </p>
+                        <div class="flex items-center gap-2 text-slate-400 text-xs mb-3"><span>💻</span><span>Web Development</span></div>
+                        <h3 class="font-dm-sans text-lg sm:text-xl font-light tracking-tight mb-2 text-white">Dynamic Website</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed mb-4">Powerful websites with admin panels, databases, authentication and custom business features.</p>
                         <div class="flex items-center justify-between gap-3 flex-wrap">
-                            <span class="text-yellow-400 font-semibold">
-                                Starting ₹15,000
-                            </span>
-                            <button onclick="showServiceToast('Dynamic Website')"
-                                class="text-sm text-slate-300 hover:text-yellow-400 transition flex items-center gap-1">
-                                Learn More →
-                            </button>
+                            <span class="text-yellow-400 font-semibold">Starting ₹15,000</span>
+                            <button onclick="showServiceToast('Dynamic Website')" class="text-sm text-slate-300 hover:text-yellow-400 transition flex items-center gap-1">Learn More →</button>
                         </div>
                     </div>
-
                 </div>
 
-                <!-- ================= SERVICE 3 ================= -->
-                <div
-                    class="animate-on-scroll anim-delay-3 group bg-white/[0.03] border border-white/10 rounded-[1.5rem] sm:rounded-[2rem] overflow-hidden hover:border-yellow-400/30 transition">
-
+                <!-- SERVICE 3 -->
+                <div class="animate-on-scroll anim-delay-3 group bg-white/[0.03] border border-white/10 rounded-[1.5rem] sm:rounded-[2rem] overflow-hidden hover:border-yellow-400/30 transition">
                     <div class="relative h-44 sm:h-48 overflow-hidden">
                         <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=1200&q=85"
                             class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
-                            alt="AI chatbot development service by AI Codex Learning Point">
+                            alt="AI chatbot development service">
                         <div class="absolute inset-0 bg-gradient-to-t from-[#0f0f11] to-transparent"></div>
-                        <span
-                            class="absolute top-4 right-4 bg-green-400 text-neutral-900 text-xs font-semibold px-3 py-1 rounded-full">
-                            New
-                        </span>
+                        <span class="absolute top-4 right-4 bg-green-400 text-neutral-900 text-xs font-semibold px-3 py-1 rounded-full">New</span>
                     </div>
-
                     <div class="p-5 sm:p-6">
-                        <div class="flex items-center gap-2 text-slate-400 text-xs mb-3">
-                            <span>🤖</span>
-                            <span>Artificial Intelligence</span>
-                        </div>
-                        <h3 class="font-dm-sans text-lg sm:text-xl font-light tracking-tight mb-2 text-white">
-                            AI Chatbot
-                        </h3>
-                        <p class="text-slate-400 text-sm leading-relaxed mb-4">
-                            AI-powered chatbots for websites and businesses
-                            to answer customer questions and generate leads 24/7.
-                        </p>
+                        <div class="flex items-center gap-2 text-slate-400 text-xs mb-3"><span>🤖</span><span>Artificial Intelligence</span></div>
+                        <h3 class="font-dm-sans text-lg sm:text-xl font-light tracking-tight mb-2 text-white">AI Chatbot</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed mb-4">AI-powered chatbots for websites and businesses to answer customer questions and generate leads 24/7.</p>
                         <div class="flex items-center justify-between gap-3 flex-wrap">
-                            <span class="text-yellow-400 font-semibold">
-                                Starting ₹10,000
-                            </span>
-                            <button onclick="showServiceToast('AI Chatbot')"
-                                class="text-sm text-slate-300 hover:text-yellow-400 transition flex items-center gap-1">
-                                Learn More →
-                            </button>
+                            <span class="text-yellow-400 font-semibold">Starting ₹10,000</span>
+                            <button onclick="showServiceToast('AI Chatbot')" class="text-sm text-slate-300 hover:text-yellow-400 transition flex items-center gap-1">Learn More →</button>
                         </div>
                     </div>
-
                 </div>
 
-                <!-- ================= SERVICE 4 ================= -->
-                <div
-                    class="animate-on-scroll anim-delay-4 group bg-white/[0.03] border border-white/10 rounded-[1.5rem] sm:rounded-[2rem] overflow-hidden hover:border-yellow-400/30 transition">
-
+                <!-- SERVICE 4 -->
+                <div class="animate-on-scroll anim-delay-4 group bg-white/[0.03] border border-white/10 rounded-[1.5rem] sm:rounded-[2rem] overflow-hidden hover:border-yellow-400/30 transition">
                     <div class="relative h-44 sm:h-48 overflow-hidden">
                         <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?auto=format&fit=crop&w=1200&q=85"
                             class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
-                            alt="Mobile app development service by AI Codex Learning Point">
+                            alt="Mobile app development service">
                         <div class="absolute inset-0 bg-gradient-to-t from-[#0f0f11] to-transparent"></div>
                     </div>
-
                     <div class="p-5 sm:p-6">
-                        <div class="flex items-center gap-2 text-slate-400 text-xs mb-3">
-                            <span>📱</span>
-                            <span>Mobile Development</span>
-                        </div>
-                        <h3 class="font-dm-sans text-lg sm:text-xl font-light tracking-tight mb-2 text-white">
-                            App Development
-                        </h3>
-                        <p class="text-slate-400 text-sm leading-relaxed mb-4">
-                            Modern Android and iOS applications with
-                            beautiful UI and powerful functionality.
-                        </p>
+                        <div class="flex items-center gap-2 text-slate-400 text-xs mb-3"><span>📱</span><span>Mobile Development</span></div>
+                        <h3 class="font-dm-sans text-lg sm:text-xl font-light tracking-tight mb-2 text-white">App Development</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed mb-4">Modern Android and iOS applications with beautiful UI and powerful functionality.</p>
                         <div class="flex items-center justify-between gap-3 flex-wrap">
-                            <span class="text-yellow-400 font-semibold">
-                                Starting ₹20,000
-                            </span>
-                            <button onclick="showServiceToast('App Development')"
-                                class="text-sm text-slate-300 hover:text-yellow-400 transition flex items-center gap-1">
-                                Learn More →
-                            </button>
+                            <span class="text-yellow-400 font-semibold">Starting ₹20,000</span>
+                            <button onclick="showServiceToast('App Development')" class="text-sm text-slate-300 hover:text-yellow-400 transition flex items-center gap-1">Learn More →</button>
                         </div>
                     </div>
-
                 </div>
 
-                <!-- ================= SERVICE 5 ================= -->
-                <div
-                    class="animate-on-scroll anim-delay-5 group bg-white/[0.03] border border-white/10 rounded-[1.5rem] sm:rounded-[2rem] overflow-hidden hover:border-yellow-400/30 transition">
-
+                <!-- SERVICE 5 -->
+                <div class="animate-on-scroll anim-delay-5 group bg-white/[0.03] border border-white/10 rounded-[1.5rem] sm:rounded-[2rem] overflow-hidden hover:border-yellow-400/30 transition">
                     <div class="relative h-44 sm:h-48 overflow-hidden">
                         <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=1200&q=85"
                             class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
-                            alt="Custom software development service by AI Codex Learning Point">
+                            alt="Custom software development service">
                         <div class="absolute inset-0 bg-gradient-to-t from-[#0f0f11] to-transparent"></div>
                     </div>
-
                     <div class="p-5 sm:p-6">
-                        <div class="flex items-center gap-2 text-slate-400 text-xs mb-3">
-                            <span>⚙️</span>
-                            <span>Custom Software</span>
-                        </div>
-                        <h3 class="font-dm-sans text-lg sm:text-xl font-light tracking-tight mb-2 text-white">
-                            Software Development
-                        </h3>
-                        <p class="text-slate-400 text-sm leading-relaxed mb-4">
-                            Custom business software, CRM, ERP and management
-                            systems designed according to your requirements.
-                        </p>
+                        <div class="flex items-center gap-2 text-slate-400 text-xs mb-3"><span>⚙️</span><span>Custom Software</span></div>
+                        <h3 class="font-dm-sans text-lg sm:text-xl font-light tracking-tight mb-2 text-white">Software Development</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed mb-4">Custom business software, CRM, ERP and management systems designed according to your requirements.</p>
                         <div class="flex items-center justify-between gap-3 flex-wrap">
-                            <span class="text-yellow-400 font-semibold">
-                                Starting ₹25,000
-                            </span>
-                            <button onclick="showServiceToast('Software Development')"
-                                class="text-sm text-slate-300 hover:text-yellow-400 transition flex items-center gap-1">
-                                Learn More →
-                            </button>
+                            <span class="text-yellow-400 font-semibold">Starting ₹25,000</span>
+                            <button onclick="showServiceToast('Software Development')" class="text-sm text-slate-300 hover:text-yellow-400 transition flex items-center gap-1">Learn More →</button>
                         </div>
                     </div>
-
                 </div>
 
-                <!-- ================= SERVICE 6 ================= -->
-                <div
-                    class="animate-on-scroll anim-delay-6 group bg-white/[0.03] border border-white/10 rounded-[1.5rem] sm:rounded-[2rem] overflow-hidden hover:border-yellow-400/30 transition">
-
+                <!-- SERVICE 6 -->
+                <div class="animate-on-scroll anim-delay-6 group bg-white/[0.03] border border-white/10 rounded-[1.5rem] sm:rounded-[2rem] overflow-hidden hover:border-yellow-400/30 transition">
                     <div class="relative h-44 sm:h-48 overflow-hidden">
                         <img src="https://images.unsplash.com/photo-1533750349088-cd871a92f312?auto=format&fit=crop&w=1200&q=85"
                             class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
-                            alt="Digital marketing services by AI Codex Learning Point">
+                            alt="Digital marketing services">
                         <div class="absolute inset-0 bg-gradient-to-t from-[#0f0f11] to-transparent"></div>
                     </div>
-
                     <div class="p-5 sm:p-6">
-                        <div class="flex items-center gap-2 text-slate-400 text-xs mb-3">
-                            <span>📈</span>
-                            <span>Marketing</span>
-                        </div>
-                        <h3 class="font-dm-sans text-lg sm:text-xl font-light tracking-tight mb-2 text-white">
-                            Digital Marketing
-                        </h3>
-                        <p class="text-slate-400 text-sm leading-relaxed mb-4">
-                            Complete digital marketing solutions to increase
-                            your online presence, reach and business growth.
-                        </p>
+                        <div class="flex items-center gap-2 text-slate-400 text-xs mb-3"><span>📈</span><span>Marketing</span></div>
+                        <h3 class="font-dm-sans text-lg sm:text-xl font-light tracking-tight mb-2 text-white">Digital Marketing</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed mb-4">Complete digital marketing solutions to increase your online presence, reach and business growth.</p>
                         <div class="flex items-center justify-between gap-3 flex-wrap">
-                            <span class="text-yellow-400 font-semibold">
-                                Starting ₹5,000/mo
-                            </span>
-                            <button onclick="showServiceToast('Digital Marketing')"
-                                class="text-sm text-slate-300 hover:text-yellow-400 transition flex items-center gap-1">
-                                Learn More →
-                            </button>
+                            <span class="text-yellow-400 font-semibold">Starting ₹5,000/mo</span>
+                            <button onclick="showServiceToast('Digital Marketing')" class="text-sm text-slate-300 hover:text-yellow-400 transition flex items-center gap-1">Learn More →</button>
                         </div>
                     </div>
-
                 </div>
 
-                <!-- ================= SERVICE 7 ================= -->
-                <div
-                    class="animate-on-scroll anim-delay-1 group bg-white/[0.03] border border-white/10 rounded-[1.5rem] sm:rounded-[2rem] overflow-hidden hover:border-yellow-400/30 transition">
-
+                <!-- SERVICE 7 -->
+                <div class="animate-on-scroll anim-delay-1 group bg-white/[0.03] border border-white/10 rounded-[1.5rem] sm:rounded-[2rem] overflow-hidden hover:border-yellow-400/30 transition">
                     <div class="relative h-44 sm:h-48 overflow-hidden">
                         <img src="https://images.unsplash.com/photo-1557838923-2985c318be48?auto=format&fit=crop&w=1200&q=85"
                             class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
-                            alt="Google Ads management service by AI Codex Learning Point">
+                            alt="Google Ads management service">
                         <div class="absolute inset-0 bg-gradient-to-t from-[#0f0f11] to-transparent"></div>
                     </div>
-
                     <div class="p-5 sm:p-6">
-                        <div class="flex items-center gap-2 text-slate-400 text-xs mb-3">
-                            <span>🔎</span>
-                            <span>Paid Advertising</span>
-                        </div>
-                        <h3 class="font-dm-sans text-lg sm:text-xl font-light tracking-tight mb-2 text-white">
-                            Google Ads
-                        </h3>
-                        <p class="text-slate-400 text-sm leading-relaxed mb-4">
-                            Targeted Google Ads campaigns designed to generate
-                            quality leads, traffic and conversions.
-                        </p>
+                        <div class="flex items-center gap-2 text-slate-400 text-xs mb-3"><span>🔎</span><span>Paid Advertising</span></div>
+                        <h3 class="font-dm-sans text-lg sm:text-xl font-light tracking-tight mb-2 text-white">Google Ads</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed mb-4">Targeted Google Ads campaigns designed to generate quality leads, traffic and conversions.</p>
                         <div class="flex items-center justify-between gap-3 flex-wrap">
-                            <span class="text-yellow-400 font-semibold">
-                                Starting ₹3,000
-                            </span>
-                            <button onclick="showServiceToast('Google Ads')"
-                                class="text-sm text-slate-300 hover:text-yellow-400 transition flex items-center gap-1">
-                                Learn More →
-                            </button>
+                            <span class="text-yellow-400 font-semibold">Starting ₹3,000</span>
+                            <button onclick="showServiceToast('Google Ads')" class="text-sm text-slate-300 hover:text-yellow-400 transition flex items-center gap-1">Learn More →</button>
                         </div>
                     </div>
-
                 </div>
 
-                <!-- ================= SERVICE 8 ================= -->
-                <div
-                    class="animate-on-scroll anim-delay-2 group bg-white/[0.03] border border-white/10 rounded-[1.5rem] sm:rounded-[2rem] overflow-hidden hover:border-yellow-400/30 transition">
-
+                <!-- SERVICE 8 -->
+                <div class="animate-on-scroll anim-delay-2 group bg-white/[0.03] border border-white/10 rounded-[1.5rem] sm:rounded-[2rem] overflow-hidden hover:border-yellow-400/30 transition">
                     <div class="relative h-44 sm:h-48 overflow-hidden">
                         <img src="https://images.unsplash.com/photo-1611262588024-d12430b98920?auto=format&fit=crop&w=1200&q=85"
                             class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
-                            alt="Instagram advertising service by AI Codex Learning Point">
+                            alt="Instagram advertising service">
                         <div class="absolute inset-0 bg-gradient-to-t from-[#0f0f11] to-transparent"></div>
                     </div>
-
                     <div class="p-5 sm:p-6">
-                        <div class="flex items-center gap-2 text-slate-400 text-xs mb-3">
-                            <span>📸</span>
-                            <span>Social Media Advertising</span>
-                        </div>
-                        <h3 class="font-dm-sans text-lg sm:text-xl font-light tracking-tight mb-2 text-white">
-                            Instagram Ads
-                        </h3>
-                        <p class="text-slate-400 text-sm leading-relaxed mb-4">
-                            Creative Instagram advertising campaigns to reach
-                            your target audience and grow your brand.
-                        </p>
+                        <div class="flex items-center gap-2 text-slate-400 text-xs mb-3"><span>📸</span><span>Social Media Advertising</span></div>
+                        <h3 class="font-dm-sans text-lg sm:text-xl font-light tracking-tight mb-2 text-white">Instagram Ads</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed mb-4">Creative Instagram advertising campaigns to reach your target audience and grow your brand.</p>
                         <div class="flex items-center justify-between gap-3 flex-wrap">
-                            <span class="text-yellow-400 font-semibold">
-                                Starting ₹3,000
-                            </span>
-                            <button onclick="showServiceToast('Instagram Ads')"
-                                class="text-sm text-slate-300 hover:text-yellow-400 transition flex items-center gap-1">
-                                Learn More →
-                            </button>
+                            <span class="text-yellow-400 font-semibold">Starting ₹3,000</span>
+                            <button onclick="showServiceToast('Instagram Ads')" class="text-sm text-slate-300 hover:text-yellow-400 transition flex items-center gap-1">Learn More →</button>
                         </div>
                     </div>
-
                 </div>
 
-                <!-- ================= SERVICE 9 ================= -->
-                <div
-                    class="animate-on-scroll anim-delay-3 group bg-white/[0.03] border border-white/10 rounded-[1.5rem] sm:rounded-[2rem] overflow-hidden hover:border-yellow-400/30 transition">
-
+                <!-- SERVICE 9 -->
+                <div class="animate-on-scroll anim-delay-3 group bg-white/[0.03] border border-white/10 rounded-[1.5rem] sm:rounded-[2rem] overflow-hidden hover:border-yellow-400/30 transition">
                     <div class="relative h-44 sm:h-48 overflow-hidden">
                         <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&w=1200&q=85"
                             class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
-                            alt="Facebook advertising service by AI Codex Learning Point">
+                            alt="Facebook advertising service">
                         <div class="absolute inset-0 bg-gradient-to-t from-[#0f0f11] to-transparent"></div>
                     </div>
-
                     <div class="p-5 sm:p-6">
-                        <div class="flex items-center gap-2 text-slate-400 text-xs mb-3">
-                            <span>📣</span>
-                            <span>Social Media Advertising</span>
-                        </div>
-                        <h3 class="font-dm-sans text-lg sm:text-xl font-light tracking-tight mb-2 text-white">
-                            Facebook Ads
-                        </h3>
-                        <p class="text-slate-400 text-sm leading-relaxed mb-4">
-                            Performance-focused Facebook advertising to generate
-                            leads, sales and business awareness.
-                        </p>
+                        <div class="flex items-center gap-2 text-slate-400 text-xs mb-3"><span>📣</span><span>Social Media Advertising</span></div>
+                        <h3 class="font-dm-sans text-lg sm:text-xl font-light tracking-tight mb-2 text-white">Facebook Ads</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed mb-4">Performance-focused Facebook advertising to generate leads, sales and business awareness.</p>
                         <div class="flex items-center justify-between gap-3 flex-wrap">
-                            <span class="text-yellow-400 font-semibold">
-                                Starting ₹3,000
-                            </span>
-                            <button onclick="showServiceToast('Facebook Ads')"
-                                class="text-sm text-slate-300 hover:text-yellow-400 transition flex items-center gap-1">
-                                Learn More →
-                            </button>
+                            <span class="text-yellow-400 font-semibold">Starting ₹3,000</span>
+                            <button onclick="showServiceToast('Facebook Ads')" class="text-sm text-slate-300 hover:text-yellow-400 transition flex items-center gap-1">Learn More →</button>
                         </div>
                     </div>
-
                 </div>
 
-                <!-- ================= SERVICE 10 ================= -->
-                <div
-                    class="animate-on-scroll anim-delay-4 group bg-white/[0.03] border border-white/10 rounded-[1.5rem] sm:rounded-[2rem] overflow-hidden hover:border-yellow-400/30 transition">
-
+                <!-- SERVICE 10 -->
+                <div class="animate-on-scroll anim-delay-4 group bg-white/[0.03] border border-white/10 rounded-[1.5rem] sm:rounded-[2rem] overflow-hidden hover:border-yellow-400/30 transition">
                     <div class="relative h-44 sm:h-48 overflow-hidden">
                         <img src="https://images.unsplash.com/photo-1676277791608-ac54525aa94d?auto=format&fit=crop&w=1200&q=85"
                             class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
-                            alt="AI automation service by AI Codex Learning Point">
+                            alt="AI automation service">
                         <div class="absolute inset-0 bg-gradient-to-t from-[#0f0f11] to-transparent"></div>
-                        <span
-                            class="absolute top-4 right-4 bg-green-400 text-neutral-900 text-xs font-semibold px-3 py-1 rounded-full">
-                            Trending
-                        </span>
+                        <span class="absolute top-4 right-4 bg-green-400 text-neutral-900 text-xs font-semibold px-3 py-1 rounded-full">Trending</span>
                     </div>
-
                     <div class="p-5 sm:p-6">
-                        <div class="flex items-center gap-2 text-slate-400 text-xs mb-3">
-                            <span>⚡</span>
-                            <span>Artificial Intelligence</span>
-                        </div>
-                        <h3 class="font-dm-sans text-lg sm:text-xl font-light tracking-tight mb-2 text-white">
-                            AI Automation
-                        </h3>
-                        <p class="text-slate-400 text-sm leading-relaxed mb-4">
-                            Automate repetitive business tasks using AI,
-                            workflows, APIs, chatbots and intelligent automation.
-                        </p>
+                        <div class="flex items-center gap-2 text-slate-400 text-xs mb-3"><span>⚡</span><span>Artificial Intelligence</span></div>
+                        <h3 class="font-dm-sans text-lg sm:text-xl font-light tracking-tight mb-2 text-white">AI Automation</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed mb-4">Automate repetitive business tasks using AI, workflows, APIs, chatbots and intelligent automation.</p>
                         <div class="flex items-center justify-between gap-3 flex-wrap">
-                            <span class="text-yellow-400 font-semibold">
-                                Starting ₹15,000
-                            </span>
-                            <button onclick="showServiceToast('AI Automation')"
-                                class="text-sm text-slate-300 hover:text-yellow-400 transition flex items-center gap-1">
-                                Learn More →
-                            </button>
+                            <span class="text-yellow-400 font-semibold">Starting ₹15,000</span>
+                            <button onclick="showServiceToast('AI Automation')" class="text-sm text-slate-300 hover:text-yellow-400 transition flex items-center gap-1">Learn More →</button>
                         </div>
                     </div>
-
                 </div>
 
             </div>
-
         </div>
-
     </section>
 
-    <!-- ========== SERVICE TOAST ========== -->
+    <!-- SERVICE TOAST -->
     <div id="serviceToast"
         class="fixed bottom-24 left-4 right-4 sm:left-auto sm:right-6 sm:bottom-6 z-[9999] bg-yellow-400 text-neutral-900 px-5 py-3 rounded-xl shadow-xl font-medium text-center sm:text-left opacity-0 translate-y-5 pointer-events-none transition-all duration-300">
         Service selected!
@@ -1030,57 +559,35 @@
     <!-- ========== FEATURES ========== -->
     <section id="features" class="py-16 sm:py-20 lg:py-24">
         <div class="max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-10 sm:mb-14 animate-on-scroll"><span
-                    class="text-yellow-400 text-xs sm:text-sm font-medium tracking-wider uppercase block mb-3">Why Ai
-                    Codex Learning Point</span>
-                <h2
-                    class="font-dm-sans text-[1.6rem] xs:text-[1.85rem] sm:text-[2.25rem] lg:text-[3.75rem] font-light tracking-tight leading-tight text-white">
+            <div class="text-center mb-10 sm:mb-14 animate-on-scroll">
+                <span class="text-yellow-400 text-xs sm:text-sm font-medium tracking-wider uppercase block mb-3">Why Ai Codex Learning Point</span>
+                <h2 class="font-dm-sans text-[1.6rem] sm:text-[2.25rem] lg:text-[3.75rem] font-light tracking-tight leading-tight text-white">
                     Not just courses.<br><span class="text-yellow-400">Career transformation.</span></h2>
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6">
-                <div
-                    class="animate-on-scroll anim-delay-1 group bg-white/[0.03] border border-white/10 rounded-[1.5rem] sm:rounded-[2rem] p-5 sm:p-6 hover:border-yellow-400/30 transition">
-                    <div
-                        class="w-12 h-12 sm:w-14 sm:h-14 bg-yellow-400/10 rounded-2xl flex items-center justify-center mb-4 sm:mb-5 group-hover:bg-yellow-400/20 transition">
-                        <iconify-icon icon="solar:monitor-smartphone-bold-duotone"
-                            class="text-yellow-400 text-2xl"></iconify-icon></div>
-                    <h3 class="font-dm-sans text-lg sm:text-xl font-light tracking-tight mb-3 text-white">Live Projects
-                    </h3>
-                    <p class="text-slate-400 text-sm leading-relaxed">Work on real client projects from day one. Build a
-                        production-grade portfolio that employers notice.</p>
+                <div class="animate-on-scroll anim-delay-1 group bg-white/[0.03] border border-white/10 rounded-[1.5rem] sm:rounded-[2rem] p-5 sm:p-6 hover:border-yellow-400/30 transition">
+                    <div class="w-12 h-12 sm:w-14 sm:h-14 bg-yellow-400/10 rounded-2xl flex items-center justify-center mb-4 sm:mb-5 group-hover:bg-yellow-400/20 transition">
+                        <iconify-icon icon="solar:monitor-smartphone-bold-duotone" class="text-yellow-400 text-2xl"></iconify-icon></div>
+                    <h3 class="font-dm-sans text-lg sm:text-xl font-light tracking-tight mb-3 text-white">Live Projects</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">Work on real client projects from day one. Build a production-grade portfolio that employers notice.</p>
                 </div>
-                <div
-                    class="animate-on-scroll anim-delay-2 group bg-white/[0.03] border border-white/10 rounded-[1.5rem] sm:rounded-[2rem] p-5 sm:p-6 hover:border-yellow-400/30 transition">
-                    <div
-                        class="w-12 h-12 sm:w-14 sm:h-14 bg-yellow-400/10 rounded-2xl flex items-center justify-center mb-4 sm:mb-5 group-hover:bg-yellow-400/20 transition">
-                        <iconify-icon icon="solar:users-group-rounded-bold-duotone"
-                            class="text-yellow-400 text-2xl"></iconify-icon></div>
-                    <h3 class="font-dm-sans text-lg sm:text-xl font-light tracking-tight mb-3 text-white">1:8 Mentor
-                        Ratio</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed">Personal attention from industry mentors with 10+
-                        years of experience at top tech companies.</p>
+                <div class="animate-on-scroll anim-delay-2 group bg-white/[0.03] border border-white/10 rounded-[1.5rem] sm:rounded-[2rem] p-5 sm:p-6 hover:border-yellow-400/30 transition">
+                    <div class="w-12 h-12 sm:w-14 sm:h-14 bg-yellow-400/10 rounded-2xl flex items-center justify-center mb-4 sm:mb-5 group-hover:bg-yellow-400/20 transition">
+                        <iconify-icon icon="solar:users-group-rounded-bold-duotone" class="text-yellow-400 text-2xl"></iconify-icon></div>
+                    <h3 class="font-dm-sans text-lg sm:text-xl font-light tracking-tight mb-3 text-white">1:8 Mentor Ratio</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">Personal attention from industry mentors with 10+ years of experience at top tech companies.</p>
                 </div>
-                <div
-                    class="animate-on-scroll anim-delay-3 group bg-white/[0.03] border border-white/10 rounded-[1.5rem] sm:rounded-[2rem] p-5 sm:p-6 hover:border-yellow-400/30 transition">
-                    <div
-                        class="w-12 h-12 sm:w-14 sm:h-14 bg-yellow-400/10 rounded-2xl flex items-center justify-center mb-4 sm:mb-5 group-hover:bg-yellow-400/20 transition">
-                        <iconify-icon icon="solar:shield-check-bold-duotone"
-                            class="text-yellow-400 text-2xl"></iconify-icon></div>
-                    <h3 class="font-dm-sans text-lg sm:text-xl font-light tracking-tight mb-3 text-white">Job Guarantee
-                    </h3>
-                    <p class="text-slate-400 text-sm leading-relaxed">94% placement rate within 6 months. If you don't
-                        get placed, we refund your entire fee.</p>
+                <div class="animate-on-scroll anim-delay-3 group bg-white/[0.03] border border-white/10 rounded-[1.5rem] sm:rounded-[2rem] p-5 sm:p-6 hover:border-yellow-400/30 transition">
+                    <div class="w-12 h-12 sm:w-14 sm:h-14 bg-yellow-400/10 rounded-2xl flex items-center justify-center mb-4 sm:mb-5 group-hover:bg-yellow-400/20 transition">
+                        <iconify-icon icon="solar:shield-check-bold-duotone" class="text-yellow-400 text-2xl"></iconify-icon></div>
+                    <h3 class="font-dm-sans text-lg sm:text-xl font-light tracking-tight mb-3 text-white">Job Guarantee</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">94% placement rate within 6 months. If you don't get placed, we refund your entire fee.</p>
                 </div>
-                <div
-                    class="animate-on-scroll anim-delay-4 group bg-white/[0.03] border border-white/10 rounded-[1.5rem] sm:rounded-[2rem] p-5 sm:p-6 hover:border-yellow-400/30 transition">
-                    <div
-                        class="w-12 h-12 sm:w-14 sm:h-14 bg-yellow-400/10 rounded-2xl flex items-center justify-center mb-4 sm:mb-5 group-hover:bg-yellow-400/20 transition">
-                        <iconify-icon icon="solar:clock-circle-bold-duotone"
-                            class="text-yellow-400 text-2xl"></iconify-icon></div>
-                    <h3 class="font-dm-sans text-lg sm:text-xl font-light tracking-tight mb-3 text-white">Lifetime Access
-                    </h3>
-                    <p class="text-slate-400 text-sm leading-relaxed">Once enrolled, get lifetime access to course
-                        materials, updates, and alumni community support.</p>
+                <div class="animate-on-scroll anim-delay-4 group bg-white/[0.03] border border-white/10 rounded-[1.5rem] sm:rounded-[2rem] p-5 sm:p-6 hover:border-yellow-400/30 transition">
+                    <div class="w-12 h-12 sm:w-14 sm:h-14 bg-yellow-400/10 rounded-2xl flex items-center justify-center mb-4 sm:mb-5 group-hover:bg-yellow-400/20 transition">
+                        <iconify-icon icon="solar:clock-circle-bold-duotone" class="text-yellow-400 text-2xl"></iconify-icon></div>
+                    <h3 class="font-dm-sans text-lg sm:text-xl font-light tracking-tight mb-3 text-white">Lifetime Access</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">Once enrolled, get lifetime access to course materials, updates, and alumni community support.</p>
                 </div>
             </div>
         </div>
@@ -1091,23 +598,19 @@
         <div class="max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 text-center">
                 <div class="animate-on-scroll anim-delay-1">
-                    <p class="font-dm-sans text-3xl sm:text-4xl lg:text-5xl font-light text-yellow-400 mb-2" id="stat1">
-                        0</p>
+                    <p class="font-dm-sans text-3xl sm:text-4xl lg:text-5xl font-light text-yellow-400 mb-2" id="stat1">0</p>
                     <p class="text-slate-400 text-xs sm:text-sm">Students Trained</p>
                 </div>
                 <div class="animate-on-scroll anim-delay-2">
-                    <p class="font-dm-sans text-3xl sm:text-4xl lg:text-5xl font-light text-yellow-400 mb-2" id="stat2">
-                        0%</p>
+                    <p class="font-dm-sans text-3xl sm:text-4xl lg:text-5xl font-light text-yellow-400 mb-2" id="stat2">0%</p>
                     <p class="text-slate-400 text-xs sm:text-sm">Placement Rate</p>
                 </div>
                 <div class="animate-on-scroll anim-delay-3">
-                    <p class="font-dm-sans text-3xl sm:text-4xl lg:text-5xl font-light text-yellow-400 mb-2" id="stat3">
-                        0+</p>
+                    <p class="font-dm-sans text-3xl sm:text-4xl lg:text-5xl font-light text-yellow-400 mb-2" id="stat3">0+</p>
                     <p class="text-slate-400 text-xs sm:text-sm">Hiring Partners</p>
                 </div>
                 <div class="animate-on-scroll anim-delay-4">
-                    <p class="font-dm-sans text-3xl sm:text-4xl lg:text-5xl font-light text-yellow-400 mb-2" id="stat4">
-                        0+</p>
+                    <p class="font-dm-sans text-3xl sm:text-4xl lg:text-5xl font-light text-yellow-400 mb-2" id="stat4">0+</p>
                     <p class="text-slate-400 text-xs sm:text-sm">Courses Offered</p>
                 </div>
             </div>
@@ -1117,164 +620,138 @@
     <!-- ========== COURSES ========== -->
     <section id="courses" class="py-16 sm:py-20 lg:py-24">
         <div class="max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-10 sm:mb-14 animate-on-scroll"><span
-                    class="text-yellow-400 text-xs sm:text-sm font-medium tracking-wider uppercase block mb-3">Our
-                    Programs</span>
-                <h2
-                    class="font-dm-sans text-[1.6rem] xs:text-[1.85rem] sm:text-[2.25rem] lg:text-[3.75rem] font-light tracking-tight leading-tight text-white">
+            <div class="text-center mb-10 sm:mb-14 animate-on-scroll">
+                <span class="text-yellow-400 text-xs sm:text-sm font-medium tracking-wider uppercase block mb-3">Our Programs</span>
+                <h2 class="font-dm-sans text-[1.6rem] sm:text-[2.25rem] lg:text-[3.75rem] font-light tracking-tight leading-tight text-white">
                     Choose your <span class="text-yellow-400">career path</span></h2>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
                 <!-- course 1 -->
-                <div
-                    class="animate-on-scroll anim-delay-1 group bg-white/[0.03] border border-white/10 rounded-[1.5rem] sm:rounded-[2rem] overflow-hidden hover:border-yellow-400/30 transition">
-                    <div class="relative h-44 sm:h-48 overflow-hidden"><img
-                            src="https://miro.medium.com/v2/resize:fit:1400/0*fEzzo0pDmE4YbZ49"
+                <div class="animate-on-scroll anim-delay-1 group bg-white/[0.03] border border-white/10 rounded-[1.5rem] sm:rounded-[2rem] overflow-hidden hover:border-yellow-400/30 transition">
+                    <div class="relative h-44 sm:h-48 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1517180102446-f3ece451e9d8?auto=format&fit=crop&w=1200&q=85"
                             class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
-                            alt="Full Stack">
-                        <div class="absolute inset-0 bg-gradient-to-t from-[#0f0f11] to-transparent"></div><span
-                            class="absolute top-4 right-4 bg-yellow-400 text-neutral-900 text-xs font-semibold px-3 py-1 rounded-full">Popular</span>
+                            alt="Full Stack Development">
+                        <div class="absolute inset-0 bg-gradient-to-t from-[#0f0f11] to-transparent"></div>
+                        <span class="absolute top-4 right-4 bg-yellow-400 text-neutral-900 text-xs font-semibold px-3 py-1 rounded-full">Popular</span>
                     </div>
                     <div class="p-5 sm:p-6">
-                        <div class="flex items-center gap-2 text-slate-400 text-xs mb-3 flex-wrap"><iconify-icon
-                                icon="solar:clock-circle-linear"></iconify-icon><span>6 Months</span><span
-                                class="mx-1">·</span><iconify-icon icon="solar:layers-linear"></iconify-icon><span>120+
-                                Hours</span></div>
-                        <h3 class="font-dm-sans text-lg sm:text-xl font-light tracking-tight mb-2 text-white">Full Stack
-                            Development</h3>
-                        <p class="text-slate-400 text-sm leading-relaxed mb-4">React, Node.js, MongoDB, TypeScript.
-                            Build 5 production-ready projects with CI/CD.</p>
-                        <div class="flex items-center justify-between gap-3 flex-wrap"><span
-                                class="text-yellow-400 font-semibold">₹15,000</span><button
-                                onclick="showToast('📚 Full Stack Development added!')"
-                                class="text-sm text-slate-300 hover:text-yellow-400 transition flex items-center gap-1">Learn
-                                More <iconify-icon icon="solar:arrow-right-linear"></iconify-icon></button></div>
+                        <div class="flex items-center gap-2 text-slate-400 text-xs mb-3 flex-wrap">
+                            <iconify-icon icon="solar:clock-circle-linear"></iconify-icon><span>6 Months</span><span class="mx-1">·</span>
+                            <iconify-icon icon="solar:layers-linear"></iconify-icon><span>120+ Hours</span>
+                        </div>
+                        <h3 class="font-dm-sans text-lg sm:text-xl font-light tracking-tight mb-2 text-white">Full Stack Development</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed mb-4">React, Node.js, MongoDB, TypeScript. Build 5 production-ready projects with CI/CD.</p>
+                        <div class="flex items-center justify-between gap-3 flex-wrap">
+                            <span class="text-yellow-400 font-semibold">₹15,000</span>
+                            <button onclick="showToast('📚 Full Stack Development added!')" class="text-sm text-slate-300 hover:text-yellow-400 transition flex items-center gap-1">Learn More <iconify-icon icon="solar:arrow-right-linear"></iconify-icon></button>
+                        </div>
                     </div>
                 </div>
                 <!-- course 2 -->
-                <div
-                    class="animate-on-scroll anim-delay-2 group bg-white/[0.03] border border-white/10 rounded-[1.5rem] sm:rounded-[2rem] overflow-hidden hover:border-yellow-400/30 transition">
-                    <div class="relative h-44 sm:h-48 overflow-hidden"><img
-                            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRjvBFTHvEuxwVJbX4B41VGtWANWVuz_EvoSw&s"
+                <div class="animate-on-scroll anim-delay-2 group bg-white/[0.03] border border-white/10 rounded-[1.5rem] sm:rounded-[2rem] overflow-hidden hover:border-yellow-400/30 transition">
+                    <div class="relative h-44 sm:h-48 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=85"
                             class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
                             alt="Data Analytics">
                         <div class="absolute inset-0 bg-gradient-to-t from-[#0f0f11] to-transparent"></div>
                     </div>
                     <div class="p-5 sm:p-6">
-                        <div class="flex items-center gap-2 text-slate-400 text-xs mb-3 flex-wrap"><iconify-icon
-                                icon="solar:clock-circle-linear"></iconify-icon><span>6 Months</span><span
-                                class="mx-1">·</span><iconify-icon icon="solar:layers-linear"></iconify-icon><span>80+
-                                Hours</span></div>
-                        <h3 class="font-dm-sans text-lg sm:text-xl font-light tracking-tight mb-2 text-white">Data
-                            Analytics</h3>
-                        <p class="text-slate-400 text-sm leading-relaxed mb-4">Learn to import data using SQL, Python,
-                            R, or web scraping. Clean & process data with various libraries.</p>
-                        <div class="flex items-center justify-between gap-3 flex-wrap"><span
-                                class="text-yellow-400 font-semibold">₹25,000</span><button
-                                onclick="showToast('📊 Data Analytics added!')"
-                                class="text-sm text-slate-300 hover:text-yellow-400 transition flex items-center gap-1">Learn
-                                More <iconify-icon icon="solar:arrow-right-linear"></iconify-icon></button></div>
+                        <div class="flex items-center gap-2 text-slate-400 text-xs mb-3 flex-wrap">
+                            <iconify-icon icon="solar:clock-circle-linear"></iconify-icon><span>6 Months</span><span class="mx-1">·</span>
+                            <iconify-icon icon="solar:layers-linear"></iconify-icon><span>80+ Hours</span>
+                        </div>
+                        <h3 class="font-dm-sans text-lg sm:text-xl font-light tracking-tight mb-2 text-white">Data Analytics</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed mb-4">Learn to import data using SQL, Python, R, or web scraping. Clean & process data with various libraries.</p>
+                        <div class="flex items-center justify-between gap-3 flex-wrap">
+                            <span class="text-yellow-400 font-semibold">₹25,000</span>
+                            <button onclick="showToast('📊 Data Analytics added!')" class="text-sm text-slate-300 hover:text-yellow-400 transition flex items-center gap-1">Learn More <iconify-icon icon="solar:arrow-right-linear"></iconify-icon></button>
+                        </div>
                     </div>
                 </div>
                 <!-- course 3 -->
-                <div
-                    class="animate-on-scroll anim-delay-3 group bg-white/[0.03] border border-white/10 rounded-[1.5rem] sm:rounded-[2rem] overflow-hidden hover:border-yellow-400/30 transition">
-                    <div class="relative h-44 sm:h-48 overflow-hidden"><img
-                            src="https://media.licdn.com/dms/image/v2/D5612AQHa7xiegv6bgw/article-cover_image-shrink_600_2000/article-cover_image-shrink_600_2000/0/1723760089292?e=2147483647&v=beta&t=evG986J3qcaNKM4sXr-4PulPjJJrTDC-YYobaPZess0"
+                <div class="animate-on-scroll anim-delay-3 group bg-white/[0.03] border border-white/10 rounded-[1.5rem] sm:rounded-[2rem] overflow-hidden hover:border-yellow-400/30 transition">
+                    <div class="relative h-44 sm:h-48 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1633356122544-f134324a6cee?auto=format&fit=crop&w=1200&q=85"
                             class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
-                            alt="React">
-                        <div class="absolute inset-0 bg-gradient-to-t from-[#0f0f11] to-transparent"></div><span
-                            class="absolute top-4 right-4 bg-green-400 text-neutral-900 text-xs font-semibold px-3 py-1 rounded-full">New</span>
+                            alt="React Developer">
+                        <div class="absolute inset-0 bg-gradient-to-t from-[#0f0f11] to-transparent"></div>
+                        <span class="absolute top-4 right-4 bg-green-400 text-neutral-900 text-xs font-semibold px-3 py-1 rounded-full">New</span>
                     </div>
                     <div class="p-5 sm:p-6">
-                        <div class="flex items-center gap-2 text-slate-400 text-xs mb-3 flex-wrap"><iconify-icon
-                                icon="solar:clock-circle-linear"></iconify-icon><span>4 Months</span><span
-                                class="mx-1">·</span><iconify-icon icon="solar:layers-linear"></iconify-icon><span>100+
-                                Hours</span></div>
-                        <h3 class="font-dm-sans text-lg sm:text-xl font-light tracking-tight mb-2 text-white">React
-                            Developer</h3>
-                        <p class="text-slate-400 text-sm leading-relaxed mb-4">Build user interfaces out of components.
-                            Create Thumbnail, LikeButton, Video, and combine them into full apps.</p>
-                        <div class="flex items-center justify-between gap-3 flex-wrap"><span
-                                class="text-yellow-400 font-semibold">₹10,000</span><button
-                                onclick="showToast('⚛️ React Developer added!')"
-                                class="text-sm text-slate-300 hover:text-yellow-400 transition flex items-center gap-1">Learn
-                                More <iconify-icon icon="solar:arrow-right-linear"></iconify-icon></button></div>
+                        <div class="flex items-center gap-2 text-slate-400 text-xs mb-3 flex-wrap">
+                            <iconify-icon icon="solar:clock-circle-linear"></iconify-icon><span>4 Months</span><span class="mx-1">·</span>
+                            <iconify-icon icon="solar:layers-linear"></iconify-icon><span>100+ Hours</span>
+                        </div>
+                        <h3 class="font-dm-sans text-lg sm:text-xl font-light tracking-tight mb-2 text-white">React Developer</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed mb-4">Build user interfaces out of components. Create Thumbnail, LikeButton, Video, and combine them into full apps.</p>
+                        <div class="flex items-center justify-between gap-3 flex-wrap">
+                            <span class="text-yellow-400 font-semibold">₹10,000</span>
+                            <button onclick="showToast('⚛️ React Developer added!')" class="text-sm text-slate-300 hover:text-yellow-400 transition flex items-center gap-1">Learn More <iconify-icon icon="solar:arrow-right-linear"></iconify-icon></button>
+                        </div>
                     </div>
                 </div>
                 <!-- course 4 -->
-                <div
-                    class="animate-on-scroll anim-delay-4 group bg-white/[0.03] border border-white/10 rounded-[1.5rem] sm:rounded-[2rem] overflow-hidden hover:border-yellow-400/30 transition">
-                    <div class="relative h-44 sm:h-48 overflow-hidden"><img
-                            src="https://www.m.acharya.ac.in/ait/img/cse-ds1.webp"
+                <div class="animate-on-scroll anim-delay-4 group bg-white/[0.03] border border-white/10 rounded-[1.5rem] sm:rounded-[2rem] overflow-hidden hover:border-yellow-400/30 transition">
+                    <div class="relative h-44 sm:h-48 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1555949963-aa79dcee981c?auto=format&fit=crop&w=1200&q=85"
                             class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
                             alt="Data Science">
                         <div class="absolute inset-0 bg-gradient-to-t from-[#0f0f11] to-transparent"></div>
                     </div>
                     <div class="p-5 sm:p-6">
-                        <div class="flex items-center gap-2 text-slate-400 text-xs mb-3 flex-wrap"><iconify-icon
-                                icon="solar:clock-circle-linear"></iconify-icon><span>6 Months</span><span
-                                class="mx-1">·</span><iconify-icon icon="solar:layers-linear"></iconify-icon><span>130+
-                                Hours</span></div>
-                        <h3 class="font-dm-sans text-lg sm:text-xl font-light tracking-tight mb-2 text-white">Data
-                            Science & AI</h3>
-                        <p class="text-slate-400 text-sm leading-relaxed mb-4">Python, TensorFlow, ML, NLP, Computer
-                            Vision. From data analysis to deploying AI models.</p>
-                        <div class="flex items-center justify-between gap-3 flex-wrap"><span
-                                class="text-yellow-400 font-semibold">₹25,000</span><button
-                                onclick="showToast('🤖 Data Science & AI added!')"
-                                class="text-sm text-slate-300 hover:text-yellow-400 transition flex items-center gap-1">Learn
-                                More <iconify-icon icon="solar:arrow-right-linear"></iconify-icon></button></div>
+                        <div class="flex items-center gap-2 text-slate-400 text-xs mb-3 flex-wrap">
+                            <iconify-icon icon="solar:clock-circle-linear"></iconify-icon><span>6 Months</span><span class="mx-1">·</span>
+                            <iconify-icon icon="solar:layers-linear"></iconify-icon><span>130+ Hours</span>
+                        </div>
+                        <h3 class="font-dm-sans text-lg sm:text-xl font-light tracking-tight mb-2 text-white">Data Science & AI</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed mb-4">Python, TensorFlow, ML, NLP, Computer Vision. From data analysis to deploying AI models.</p>
+                        <div class="flex items-center justify-between gap-3 flex-wrap">
+                            <span class="text-yellow-400 font-semibold">₹25,000</span>
+                            <button onclick="showToast('🤖 Data Science & AI added!')" class="text-sm text-slate-300 hover:text-yellow-400 transition flex items-center gap-1">Learn More <iconify-icon icon="solar:arrow-right-linear"></iconify-icon></button>
+                        </div>
                     </div>
                 </div>
                 <!-- course 5 -->
-                <div
-                    class="animate-on-scroll anim-delay-5 group bg-white/[0.03] border border-white/10 rounded-[1.5rem] sm:rounded-[2rem] overflow-hidden hover:border-yellow-400/30 transition">
-                    <div class="relative h-44 sm:h-48 overflow-hidden"><img
-                            src="https://codewave.com/insights/wp-content/uploads/2025/10/unnamed-2025-10-01T184348.185-800x500.jpg"
+                <div class="animate-on-scroll anim-delay-5 group bg-white/[0.03] border border-white/10 rounded-[1.5rem] sm:rounded-[2rem] overflow-hidden hover:border-yellow-400/30 transition">
+                    <div class="relative h-44 sm:h-48 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=1200&q=85"
                             class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
-                            alt="Mobile Dev">
+                            alt="Mobile Development">
                         <div class="absolute inset-0 bg-gradient-to-t from-[#0f0f11] to-transparent"></div>
                     </div>
                     <div class="p-5 sm:p-6">
-                        <div class="flex items-center gap-2 text-slate-400 text-xs mb-3 flex-wrap"><iconify-icon
-                                icon="solar:clock-circle-linear"></iconify-icon><span>6 Months</span><span
-                                class="mx-1">·</span><iconify-icon icon="solar:layers-linear"></iconify-icon><span>90+
-                                Hours</span></div>
-                        <h3 class="font-dm-sans text-lg sm:text-xl font-light tracking-tight mb-2 text-white">Mobile App
-                            Development</h3>
-                        <p class="text-slate-400 text-sm leading-relaxed mb-4">Flutter, React Native, Swift. Build
-                            cross-platform apps and publish to App Store & Play Store.</p>
-                        <div class="flex items-center justify-between gap-3 flex-wrap"><span
-                                class="text-yellow-400 font-semibold">₹20,000</span><button
-                                onclick="showToast('📱 Mobile Dev added!')"
-                                class="text-sm text-slate-300 hover:text-yellow-400 transition flex items-center gap-1">Learn
-                                More <iconify-icon icon="solar:arrow-right-linear"></iconify-icon></button></div>
+                        <div class="flex items-center gap-2 text-slate-400 text-xs mb-3 flex-wrap">
+                            <iconify-icon icon="solar:clock-circle-linear"></iconify-icon><span>6 Months</span><span class="mx-1">·</span>
+                            <iconify-icon icon="solar:layers-linear"></iconify-icon><span>90+ Hours</span>
+                        </div>
+                        <h3 class="font-dm-sans text-lg sm:text-xl font-light tracking-tight mb-2 text-white">Mobile App Development</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed mb-4">Flutter, React Native, Swift. Build cross-platform apps and publish to App Store & Play Store.</p>
+                        <div class="flex items-center justify-between gap-3 flex-wrap">
+                            <span class="text-yellow-400 font-semibold">₹20,000</span>
+                            <button onclick="showToast('📱 Mobile Dev added!')" class="text-sm text-slate-300 hover:text-yellow-400 transition flex items-center gap-1">Learn More <iconify-icon icon="solar:arrow-right-linear"></iconify-icon></button>
+                        </div>
                     </div>
                 </div>
                 <!-- course 6 -->
-                <div
-                    class="animate-on-scroll anim-delay-6 group bg-white/[0.03] border border-white/10 rounded-[1.5rem] sm:rounded-[2rem] overflow-hidden hover:border-yellow-400/30 transition">
-                    <div class="relative h-44 sm:h-48 overflow-hidden"><img
-                            src="https://www.dicslaxminagar.com/blog/wp-content/uploads/2025/05/1675242688962.jpeg"
+                <div class="animate-on-scroll anim-delay-6 group bg-white/[0.03] border border-white/10 rounded-[1.5rem] sm:rounded-[2rem] overflow-hidden hover:border-yellow-400/30 transition">
+                    <div class="relative h-44 sm:h-48 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=85"
                             class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
                             alt="Advance Excel">
                         <div class="absolute inset-0 bg-gradient-to-t from-[#0f0f11] to-transparent"></div>
                     </div>
                     <div class="p-5 sm:p-6">
-                        <div class="flex items-center gap-2 text-slate-400 text-xs mb-3 flex-wrap"><iconify-icon
-                                icon="solar:clock-circle-linear"></iconify-icon><span>3 Months</span><span
-                                class="mx-1">·</span><iconify-icon icon="solar:layers-linear"></iconify-icon><span>60+
-                                Hours</span></div>
-                        <h3 class="font-dm-sans text-lg sm:text-xl font-light tracking-tight mb-2 text-white">Advance
-                            Excel</h3>
-                        <p class="text-slate-400 text-sm leading-relaxed mb-4">Modern lookup functions (XLOOKUP,
-                            INDEX/MATCH), Power Query, VBA/Macros, and Copilot integration.</p>
-                        <div class="flex items-center justify-between gap-3 flex-wrap"><span
-                                class="text-yellow-400 font-semibold">₹10,000</span><button
-                                onclick="showToast('📊 Advance Excel added!')"
-                                class="text-sm text-slate-300 hover:text-yellow-400 transition flex items-center gap-1">Learn
-                                More <iconify-icon icon="solar:arrow-right-linear"></iconify-icon></button></div>
+                        <div class="flex items-center gap-2 text-slate-400 text-xs mb-3 flex-wrap">
+                            <iconify-icon icon="solar:clock-circle-linear"></iconify-icon><span>3 Months</span><span class="mx-1">·</span>
+                            <iconify-icon icon="solar:layers-linear"></iconify-icon><span>60+ Hours</span>
+                        </div>
+                        <h3 class="font-dm-sans text-lg sm:text-xl font-light tracking-tight mb-2 text-white">Advance Excel</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed mb-4">Modern lookup functions (XLOOKUP, INDEX/MATCH), Power Query, VBA/Macros, and Copilot integration.</p>
+                        <div class="flex items-center justify-between gap-3 flex-wrap">
+                            <span class="text-yellow-400 font-semibold">₹10,000</span>
+                            <button onclick="showToast('📊 Advance Excel added!')" class="text-sm text-slate-300 hover:text-yellow-400 transition flex items-center gap-1">Learn More <iconify-icon icon="solar:arrow-right-linear"></iconify-icon></button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1284,46 +761,40 @@
     <!-- ========== INSTRUCTORS ========== -->
     <section id="instructors" class="py-16 sm:py-20 lg:py-24 bg-white/[0.02]">
         <div class="max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-10 sm:mb-14 animate-on-scroll"><span
-                    class="text-yellow-400 text-xs sm:text-sm font-medium tracking-wider uppercase block mb-3">Expert
-                    Mentors</span>
-                <h2
-                    class="font-dm-sans text-[1.6rem] xs:text-[1.85rem] sm:text-[2.25rem] lg:text-[3.75rem] font-light tracking-tight leading-tight text-white">
+            <div class="text-center mb-10 sm:mb-14 animate-on-scroll">
+                <span class="text-yellow-400 text-xs sm:text-sm font-medium tracking-wider uppercase block mb-3">Expert Mentors</span>
+                <h2 class="font-dm-sans text-[1.6rem] sm:text-[2.25rem] lg:text-[3.75rem] font-light tracking-tight leading-tight text-white">
                     Learn from <span class="text-yellow-400">industry leaders</span></h2>
             </div>
             <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-6">
                 <div class="animate-on-scroll anim-delay-1 text-center">
-                    <div
-                        class="relative w-28 h-28 sm:w-36 sm:h-36 lg:w-40 lg:h-40 mx-auto mb-4 sm:mb-5 rounded-full overflow-hidden border-2 border-white/10 group-hover:border-yellow-400/50 transition">
-                        <img src="https://i.pinimg.com/736x/1c/e0/20/1ce020f5a2b55b402833bf7ec5b9e3d6.jpg"
-                            class="w-full h-full object-cover" alt="Mushahid Khan"></div>
+                    <div class="relative w-28 h-28 sm:w-36 sm:h-36 lg:w-40 lg:h-40 mx-auto mb-4 sm:mb-5 rounded-full overflow-hidden border-2 border-white/10">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" class="w-full h-full object-cover" alt="Mushahid Khan">
+                    </div>
                     <h3 class="font-dm-sans text-base sm:text-lg font-medium text-white">Mushahid Khan</h3>
                     <p class="text-yellow-400 text-xs sm:text-sm mb-1">Full Stack Lead</p>
                     <p class="text-slate-400 text-xs">Ex-Gits · 5 yrs exp</p>
                 </div>
                 <div class="animate-on-scroll anim-delay-2 text-center">
-                    <div
-                        class="relative w-28 h-28 sm:w-36 sm:h-36 lg:w-40 lg:h-40 mx-auto mb-4 sm:mb-5 rounded-full overflow-hidden border-2 border-white/10 group-hover:border-yellow-400/50 transition">
-                        <img src="https://springfield.edu/sites/default/files/styles/program_header_1024_x_603_/public/2025-09/student-teacher-data-science.jpg?itok=l0xPIxld"
-                            class="w-full h-full object-cover" alt="Harsh"></div>
+                    <div class="relative w-28 h-28 sm:w-36 sm:h-36 lg:w-40 lg:h-40 mx-auto mb-4 sm:mb-5 rounded-full overflow-hidden border-2 border-white/10">
+                        <img src="https://randomuser.me/api/portraits/men/75.jpg" class="w-full h-full object-cover" alt="Harsh">
+                    </div>
                     <h3 class="font-dm-sans text-base sm:text-lg font-medium text-white">Harsh</h3>
                     <p class="text-yellow-400 text-xs sm:text-sm mb-1">Data Analytics</p>
                     <p class="text-slate-400 text-xs">Ex-Chetu · 8 yrs exp</p>
                 </div>
                 <div class="animate-on-scroll anim-delay-3 text-center">
-                    <div
-                        class="relative w-28 h-28 sm:w-36 sm:h-36 lg:w-40 lg:h-40 mx-auto mb-4 sm:mb-5 rounded-full overflow-hidden border-2 border-white/10 group-hover:border-yellow-400/50 transition">
-                        <img src="https://javabykiran.com/wp-content/uploads/2025/12/ChatGPT-Image-Dec-3-2025-10_28_03-PM-1024x683.png"
-                            class="w-full h-full object-cover" alt="Arjun Patel"></div>
+                    <div class="relative w-28 h-28 sm:w-36 sm:h-36 lg:w-40 lg:h-40 mx-auto mb-4 sm:mb-5 rounded-full overflow-hidden border-2 border-white/10">
+                        <img src="https://randomuser.me/api/portraits/men/41.jpg" class="w-full h-full object-cover" alt="Arjun Patel">
+                    </div>
                     <h3 class="font-dm-sans text-base sm:text-lg font-medium text-white">Arjun Patel</h3>
                     <p class="text-yellow-400 text-xs sm:text-sm mb-1">Data Science</p>
                     <p class="text-slate-400 text-xs">Ex-Wipro · 8 yrs exp</p>
                 </div>
                 <div class="animate-on-scroll anim-delay-4 text-center">
-                    <div
-                        class="relative w-28 h-28 sm:w-36 sm:h-36 lg:w-40 lg:h-40 mx-auto mb-4 sm:mb-5 rounded-full overflow-hidden border-2 border-white/10 group-hover:border-yellow-400/50 transition">
-                        <img src="https://i.pinimg.com/736x/1c/e0/20/1ce020f5a2b55b402833bf7ec5b9e3d6.jpg"
-                            class="w-full h-full object-cover" alt="Mushahid Khan"></div>
+                    <div class="relative w-28 h-28 sm:w-36 sm:h-36 lg:w-40 lg:h-40 mx-auto mb-4 sm:mb-5 rounded-full overflow-hidden border-2 border-white/10">
+                        <img src="https://randomuser.me/api/portraits/men/52.jpg" class="w-full h-full object-cover" alt="Mushahid Khan">
+                    </div>
                     <h3 class="font-dm-sans text-base sm:text-lg font-medium text-white">Mushahid Khan</h3>
                     <p class="text-yellow-400 text-xs sm:text-sm mb-1">React Developer</p>
                     <p class="text-slate-400 text-xs">Ex-Gits · 6 yrs exp</p>
@@ -1335,64 +806,57 @@
     <!-- ========== TESTIMONIALS ========== -->
     <section id="testimonials" class="py-16 sm:py-20 lg:py-24">
         <div class="max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-10 sm:mb-14 animate-on-scroll"><span
-                    class="text-yellow-400 text-xs sm:text-sm font-medium tracking-wider uppercase block mb-3">Testimonials</span>
-                <h2
-                    class="font-dm-sans text-[1.6rem] xs:text-[1.85rem] sm:text-[2.25rem] lg:text-[3.75rem] font-light tracking-tight leading-tight text-white">
+            <div class="text-center mb-10 sm:mb-14 animate-on-scroll">
+                <span class="text-yellow-400 text-xs sm:text-sm font-medium tracking-wider uppercase block mb-3">Testimonials</span>
+                <h2 class="font-dm-sans text-[1.6rem] sm:text-[2.25rem] lg:text-[3.75rem] font-light tracking-tight leading-tight text-white">
                     Students <span class="text-yellow-400">love us</span></h2>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6">
-                <div
-                    class="animate-on-scroll anim-delay-1 bg-white/[0.03] border border-white/10 rounded-[1.5rem] sm:rounded-[2rem] p-6 sm:p-8">
-                    <div class="flex items-center gap-1 mb-4"><iconify-icon icon="solar:star-bold"
-                            class="text-yellow-400"></iconify-icon><iconify-icon icon="solar:star-bold"
-                            class="text-yellow-400"></iconify-icon><iconify-icon icon="solar:star-bold"
-                            class="text-yellow-400"></iconify-icon><iconify-icon icon="solar:star-bold"
-                            class="text-yellow-400"></iconify-icon><iconify-icon icon="solar:star-bold"
-                            class="text-yellow-400"></iconify-icon></div>
-                    <p class="text-slate-300 leading-relaxed mb-6 text-sm sm:text-base">"I switched from a non-IT
-                        background and landed a 12 LPA role at a startup within 4 months. The live projects made all the
-                        difference."</p>
-                    <div class="flex items-center gap-3"><img src="https://picsum.photos/seed/testimonial1/40/40"
-                            class="w-10 h-10 rounded-full object-cover" alt="">
+                <div class="animate-on-scroll anim-delay-1 bg-white/[0.03] border border-white/10 rounded-[1.5rem] sm:rounded-[2rem] p-6 sm:p-8">
+                    <div class="flex items-center gap-1 mb-4">
+                        <iconify-icon icon="solar:star-bold" class="text-yellow-400"></iconify-icon>
+                        <iconify-icon icon="solar:star-bold" class="text-yellow-400"></iconify-icon>
+                        <iconify-icon icon="solar:star-bold" class="text-yellow-400"></iconify-icon>
+                        <iconify-icon icon="solar:star-bold" class="text-yellow-400"></iconify-icon>
+                        <iconify-icon icon="solar:star-bold" class="text-yellow-400"></iconify-icon>
+                    </div>
+                    <p class="text-slate-300 leading-relaxed mb-6 text-sm sm:text-base">"I switched from a non-IT background and landed a 12 LPA role at a startup within 4 months. The live projects made all the difference."</p>
+                    <div class="flex items-center gap-3">
+                        <img src="https://randomuser.me/api/portraits/men/22.jpg" class="w-10 h-10 rounded-full object-cover" alt="Ankit Verma">
                         <div>
                             <p class="text-white text-sm font-medium">Ankit Verma</p>
                             <p class="text-slate-400 text-xs">Full Stack Dev @ Wipro</p>
                         </div>
                     </div>
                 </div>
-                <div
-                    class="animate-on-scroll anim-delay-2 bg-white/[0.03] border border-white/10 rounded-[1.5rem] sm:rounded-[2rem] p-6 sm:p-8">
-                    <div class="flex items-center gap-1 mb-4"><iconify-icon icon="solar:star-bold"
-                            class="text-yellow-400"></iconify-icon><iconify-icon icon="solar:star-bold"
-                            class="text-yellow-400"></iconify-icon><iconify-icon icon="solar:star-bold"
-                            class="text-yellow-400"></iconify-icon><iconify-icon icon="solar:star-bold"
-                            class="text-yellow-400"></iconify-icon><iconify-icon icon="solar:star-bold"
-                            class="text-yellow-400"></iconify-icon></div>
-                    <p class="text-slate-300 leading-relaxed mb-6 text-sm sm:text-base">"The Data Analytics program was
-                        exactly what I needed. Got AWS certified during the course and had 3 offers before the batch
-                        ended."</p>
-                    <div class="flex items-center gap-3"><img src="https://picsum.photos/seed/testimonial2/40/40"
-                            class="w-10 h-10 rounded-full object-cover" alt="">
+                <div class="animate-on-scroll anim-delay-2 bg-white/[0.03] border border-white/10 rounded-[1.5rem] sm:rounded-[2rem] p-6 sm:p-8">
+                    <div class="flex items-center gap-1 mb-4">
+                        <iconify-icon icon="solar:star-bold" class="text-yellow-400"></iconify-icon>
+                        <iconify-icon icon="solar:star-bold" class="text-yellow-400"></iconify-icon>
+                        <iconify-icon icon="solar:star-bold" class="text-yellow-400"></iconify-icon>
+                        <iconify-icon icon="solar:star-bold" class="text-yellow-400"></iconify-icon>
+                        <iconify-icon icon="solar:star-bold" class="text-yellow-400"></iconify-icon>
+                    </div>
+                    <p class="text-slate-300 leading-relaxed mb-6 text-sm sm:text-base">"The Data Analytics program was exactly what I needed. Got AWS certified during the course and had 3 offers before the batch ended."</p>
+                    <div class="flex items-center gap-3">
+                        <img src="https://randomuser.me/api/portraits/women/65.jpg" class="w-10 h-10 rounded-full object-cover" alt="Sneha Reddy">
                         <div>
                             <p class="text-white text-sm font-medium">Sneha Reddy</p>
                             <p class="text-slate-400 text-xs">Data Analytics Engineer @ Tech Mahindra</p>
                         </div>
                     </div>
                 </div>
-                <div
-                    class="animate-on-scroll anim-delay-3 bg-white/[0.03] border border-white/10 rounded-[1.5rem] sm:rounded-[2rem] p-6 sm:p-8">
-                    <div class="flex items-center gap-1 mb-4"><iconify-icon icon="solar:star-bold"
-                            class="text-yellow-400"></iconify-icon><iconify-icon icon="solar:star-bold"
-                            class="text-yellow-400"></iconify-icon><iconify-icon icon="solar:star-bold"
-                            class="text-yellow-400"></iconify-icon><iconify-icon icon="solar:star-bold"
-                            class="text-yellow-400"></iconify-icon><iconify-icon icon="solar:star-bold"
-                            class="text-yellow-400"></iconify-icon></div>
-                    <p class="text-slate-300 leading-relaxed mb-6 text-sm sm:text-base">"Best investment in my career.
-                        The React Developer course was intense but worth every penny. The mock interviews and resume
-                        prep were game-changers."</p>
-                    <div class="flex items-center gap-3"><img src="https://picsum.photos/seed/testimonial3/40/40"
-                            class="w-10 h-10 rounded-full object-cover" alt="">
+                <div class="animate-on-scroll anim-delay-3 bg-white/[0.03] border border-white/10 rounded-[1.5rem] sm:rounded-[2rem] p-6 sm:p-8">
+                    <div class="flex items-center gap-1 mb-4">
+                        <iconify-icon icon="solar:star-bold" class="text-yellow-400"></iconify-icon>
+                        <iconify-icon icon="solar:star-bold" class="text-yellow-400"></iconify-icon>
+                        <iconify-icon icon="solar:star-bold" class="text-yellow-400"></iconify-icon>
+                        <iconify-icon icon="solar:star-bold" class="text-yellow-400"></iconify-icon>
+                        <iconify-icon icon="solar:star-bold" class="text-yellow-400"></iconify-icon>
+                    </div>
+                    <p class="text-slate-300 leading-relaxed mb-6 text-sm sm:text-base">"Best investment in my career. The React Developer course was intense but worth every penny. The mock interviews and resume prep were game-changers."</p>
+                    <div class="flex items-center gap-3">
+                        <img src="https://randomuser.me/api/portraits/men/85.jpg" class="w-10 h-10 rounded-full object-cover" alt="Mohammed Faisal">
                         <div>
                             <p class="text-white text-sm font-medium">Mohammed Faisal</p>
                             <p class="text-slate-400 text-xs">React Developer @ Infosys</p>
@@ -1406,105 +870,52 @@
     <!-- ========== PRICING ========== -->
     <section id="pricing" class="py-16 sm:py-20 lg:py-24 bg-white/[0.02]">
         <div class="max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-10 sm:mb-14 animate-on-scroll"><span
-                    class="text-yellow-400 text-xs sm:text-sm font-medium tracking-wider uppercase block mb-3">Pricing
-                    Plans</span>
-                <h2
-                    class="font-dm-sans text-[1.6rem] xs:text-[1.85rem] sm:text-[2.25rem] lg:text-[3.75rem] font-light tracking-tight leading-tight text-white">
+            <div class="text-center mb-10 sm:mb-14 animate-on-scroll">
+                <span class="text-yellow-400 text-xs sm:text-sm font-medium tracking-wider uppercase block mb-3">Pricing Plans</span>
+                <h2 class="font-dm-sans text-[1.6rem] sm:text-[2.25rem] lg:text-[3.75rem] font-light tracking-tight leading-tight text-white">
                     Invest in your <span class="text-yellow-400">future</span></h2>
-                <p class="text-slate-400 mt-3 max-w-xl mx-auto text-sm sm:text-base px-2">Flexible payment options. EMI
-                    available on all plans. No hidden costs.</p>
+                <p class="text-slate-400 mt-3 max-w-xl mx-auto text-sm sm:text-base px-2">Flexible payment options. EMI available on all plans. No hidden costs.</p>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6 max-w-5xl mx-auto">
-                <div
-                    class="animate-on-scroll anim-delay-1 bg-white/[0.03] border border-white/10 rounded-[1.5rem] sm:rounded-[2rem] p-6 sm:p-8 hover:border-white/20 transition">
+                <div class="animate-on-scroll anim-delay-1 bg-white/[0.03] border border-white/10 rounded-[1.5rem] sm:rounded-[2rem] p-6 sm:p-8 hover:border-white/20 transition">
                     <h3 class="font-dm-sans text-lg font-medium text-white mb-2">Self-Paced</h3>
                     <p class="text-slate-400 text-sm mb-6">Learn at your own speed</p>
-                    <div class="mb-6"><span
-                            class="font-dm-sans text-3xl sm:text-4xl font-light text-white">₹10,000</span><span
-                            class="text-slate-400 text-sm">/course</span></div>
+                    <div class="mb-6"><span class="font-dm-sans text-3xl sm:text-4xl font-light text-white">₹10,000</span><span class="text-slate-400 text-sm">/course</span></div>
                     <ul class="space-y-3 mb-8">
-                        <li class="flex items-start gap-2 text-sm text-slate-300"><iconify-icon
-                                icon="solar:check-circle-bold"
-                                class="text-yellow-400 flex-shrink-0 mt-0.5"></iconify-icon> Recorded lectures</li>
-                        <li class="flex items-start gap-2 text-sm text-slate-300"><iconify-icon
-                                icon="solar:check-circle-bold"
-                                class="text-yellow-400 flex-shrink-0 mt-0.5"></iconify-icon> Course materials</li>
-                        <li class="flex items-start gap-2 text-sm text-slate-300"><iconify-icon
-                                icon="solar:check-circle-bold"
-                                class="text-yellow-400 flex-shrink-0 mt-0.5"></iconify-icon> Community access</li>
-                        <li class="flex items-start gap-2 text-sm text-slate-500"><iconify-icon
-                                icon="solar:close-circle-linear"
-                                class="text-slate-600 flex-shrink-0 mt-0.5"></iconify-icon> Live mentorship</li>
-                        <li class="flex items-start gap-2 text-sm text-slate-500"><iconify-icon
-                                icon="solar:close-circle-linear"
-                                class="text-slate-600 flex-shrink-0 mt-0.5"></iconify-icon> Placement support</li>
-                    </ul><a
-                        href="https://docs.google.com/forms/d/e/1FAIpQLSddmp1XfmcjuXQsfD4Wb2umA5v9BX_Fj-nuW7UkvhCNfO_uiw/viewform?usp=dialog"
-                        target="_blank" rel="noopener noreferrer"
-                        class="block text-center bg-yellow-400 text-neutral-900 text-sm font-medium px-5 py-3 rounded-full hover:bg-yellow-300 transition">Enroll
-                        Now</a>
+                        <li class="flex items-start gap-2 text-sm text-slate-300"><iconify-icon icon="solar:check-circle-bold" class="text-yellow-400 flex-shrink-0 mt-0.5"></iconify-icon> Recorded lectures</li>
+                        <li class="flex items-start gap-2 text-sm text-slate-300"><iconify-icon icon="solar:check-circle-bold" class="text-yellow-400 flex-shrink-0 mt-0.5"></iconify-icon> Course materials</li>
+                        <li class="flex items-start gap-2 text-sm text-slate-300"><iconify-icon icon="solar:check-circle-bold" class="text-yellow-400 flex-shrink-0 mt-0.5"></iconify-icon> Community access</li>
+                        <li class="flex items-start gap-2 text-sm text-slate-500"><iconify-icon icon="solar:close-circle-linear" class="text-slate-600 flex-shrink-0 mt-0.5"></iconify-icon> Live mentorship</li>
+                        <li class="flex items-start gap-2 text-sm text-slate-500"><iconify-icon icon="solar:close-circle-linear" class="text-slate-600 flex-shrink-0 mt-0.5"></iconify-icon> Placement support</li>
+                    </ul>
+                    <a href="https://docs.google.com/forms/d/e/1FAIpQLSddmp1XfmcjuXQsfD4Wb2umA5v9BX_Fj-nuW7UkvhCNfO_uiw/viewform?usp=dialog" target="_blank" rel="noopener noreferrer" class="block text-center bg-yellow-400 text-neutral-900 text-sm font-medium px-5 py-3 rounded-full hover:bg-yellow-300 transition">Enroll Now</a>
                 </div>
-                <div
-                    class="animate-on-scroll anim-delay-2 relative bg-white/[0.03] border-2 border-yellow-400/50 rounded-[1.5rem] sm:rounded-[2rem] p-6 sm:p-8 shadow-2xl gradient-border mt-3 md:mt-0">
-                    <span
-                        class="absolute -top-3 left-1/2 -translate-x-1/2 bg-yellow-400 text-neutral-900 text-xs font-bold px-4 py-1 rounded-full whitespace-nowrap">Most
-                        Popular</span>
+                <div class="animate-on-scroll anim-delay-2 relative bg-white/[0.03] border-2 border-yellow-400/50 rounded-[1.5rem] sm:rounded-[2rem] p-6 sm:p-8 shadow-2xl gradient-border mt-3 md:mt-0">
+                    <span class="absolute -top-3 left-1/2 -translate-x-1/2 bg-yellow-400 text-neutral-900 text-xs font-bold px-4 py-1 rounded-full whitespace-nowrap">Most Popular</span>
                     <h3 class="font-dm-sans text-lg font-medium text-white mb-2">Mentor-Led</h3>
                     <p class="text-slate-400 text-sm mb-6">Live classes + projects</p>
-                    <div class="mb-6"><span
-                            class="font-dm-sans text-3xl sm:text-4xl font-light text-yellow-400">₹15,000</span><span
-                            class="text-slate-400 text-sm">/course</span></div>
+                    <div class="mb-6"><span class="font-dm-sans text-3xl sm:text-4xl font-light text-yellow-400">₹15,000</span><span class="text-slate-400 text-sm">/course</span></div>
                     <ul class="space-y-3 mb-8">
-                        <li class="flex items-start gap-2 text-sm text-slate-300"><iconify-icon
-                                icon="solar:check-circle-bold"
-                                class="text-yellow-400 flex-shrink-0 mt-0.5"></iconify-icon> Live batch sessions</li>
-                        <li class="flex items-start gap-2 text-sm text-slate-300"><iconify-icon
-                                icon="solar:check-circle-bold" class="text-yellow-400 flex-shrink-0 mt-0.5"></iconify-icon>
-                            3 Real projects</li>
-                        <li class="flex items-start gap-2 text-sm text-slate-300"><iconify-icon
-                                icon="solar:check-circle-bold" class="text-yellow-400 flex-shrink-0 mt-0.5"></iconify-icon>
-                            1:1 mentorship</li>
-                        <li class="flex items-start gap-2 text-sm text-slate-300"><iconify-icon
-                                icon="solar:check-circle-bold" class="text-yellow-400 flex-shrink-0 mt-0.5"></iconify-icon>
-                            Resume + interview prep</li>
-                        <li class="flex items-start gap-2 text-sm text-slate-300"><iconify-icon
-                                icon="solar:check-circle-bold" class="text-yellow-400 flex-shrink-0 mt-0.5"></iconify-icon>
-                            6-month placement support</li>
-                    </ul><a
-                        href="https://docs.google.com/forms/d/e/1FAIpQLSddmp1XfmcjuXQsfD4Wb2umA5v9BX_Fj-nuW7UkvhCNfO_uiw/viewform?usp=dialog"
-                        target="_blank" rel="noopener noreferrer"
-                        class="block text-center bg-yellow-400 text-neutral-900 text-sm font-medium px-5 py-3 rounded-full hover:bg-yellow-300 transition">Enroll
-                        Now</a>
+                        <li class="flex items-start gap-2 text-sm text-slate-300"><iconify-icon icon="solar:check-circle-bold" class="text-yellow-400 flex-shrink-0 mt-0.5"></iconify-icon> Live batch sessions</li>
+                        <li class="flex items-start gap-2 text-sm text-slate-300"><iconify-icon icon="solar:check-circle-bold" class="text-yellow-400 flex-shrink-0 mt-0.5"></iconify-icon> 3 Real projects</li>
+                        <li class="flex items-start gap-2 text-sm text-slate-300"><iconify-icon icon="solar:check-circle-bold" class="text-yellow-400 flex-shrink-0 mt-0.5"></iconify-icon> 1:1 mentorship</li>
+                        <li class="flex items-start gap-2 text-sm text-slate-300"><iconify-icon icon="solar:check-circle-bold" class="text-yellow-400 flex-shrink-0 mt-0.5"></iconify-icon> Resume + interview prep</li>
+                        <li class="flex items-start gap-2 text-sm text-slate-300"><iconify-icon icon="solar:check-circle-bold" class="text-yellow-400 flex-shrink-0 mt-0.5"></iconify-icon> 6-month placement support</li>
+                    </ul>
+                    <a href="https://docs.google.com/forms/d/e/1FAIpQLSddmp1XfmcjuXQsfD4Wb2umA5v9BX_Fj-nuW7UkvhCNfO_uiw/viewform?usp=dialog" target="_blank" rel="noopener noreferrer" class="block text-center bg-yellow-400 text-neutral-900 text-sm font-medium px-5 py-3 rounded-full hover:bg-yellow-300 transition">Enroll Now</a>
                 </div>
-                <div
-                    class="animate-on-scroll anim-delay-3 bg-white/[0.03] border border-white/10 rounded-[1.5rem] sm:rounded-[2rem] p-6 sm:p-8 hover:border-white/20 transition">
+                <div class="animate-on-scroll anim-delay-3 bg-white/[0.03] border border-white/10 rounded-[1.5rem] sm:rounded-[2rem] p-6 sm:p-8 hover:border-white/20 transition">
                     <h3 class="font-dm-sans text-lg font-medium text-white mb-2">Intensive</h3>
                     <p class="text-slate-400 text-sm mb-6">Job guarantee program</p>
-                    <div class="mb-6"><span
-                            class="font-dm-sans text-3xl sm:text-4xl font-light text-white">₹25,000</span><span
-                            class="text-slate-400 text-sm">/program</span></div>
+                    <div class="mb-6"><span class="font-dm-sans text-3xl sm:text-4xl font-light text-white">₹25,000</span><span class="text-slate-400 text-sm">/program</span></div>
                     <ul class="space-y-3 mb-8">
-                        <li class="flex items-start gap-2 text-sm text-slate-300"><iconify-icon
-                                icon="solar:check-circle-bold"
-                                class="text-yellow-400 flex-shrink-0 mt-0.5"></iconify-icon> Everything in Mentor-Led</li>
-                        <li class="flex items-start gap-2 text-sm text-slate-300"><iconify-icon
-                                icon="solar:check-circle-bold" class="text-yellow-400 flex-shrink-0 mt-0.5"></iconify-icon>
-                            5+ client projects</li>
-                        <li class="flex items-start gap-2 text-sm text-slate-300"><iconify-icon
-                                icon="solar:check-circle-bold" class="text-yellow-400 flex-shrink-0 mt-0.5"></iconify-icon>
-                            Dedicated career coach</li>
-                        <li class="flex items-start gap-2 text-sm text-slate-300"><iconify-icon
-                                icon="solar:check-circle-bold" class="text-yellow-400 flex-shrink-0 mt-0.5"></iconify-icon>
-                            100% job guarantee</li>
-                        <li class="flex items-start gap-2 text-sm text-slate-300"><iconify-icon
-                                icon="solar:check-circle-bold" class="text-yellow-400 flex-shrink-0 mt-0.5"></iconify-icon>
-                            Full refund if not placed</li>
-                    </ul><a
-                        href="https://docs.google.com/forms/d/e/1FAIpQLSddmp1XfmcjuXQsfD4Wb2umA5v9BX_Fj-nuW7UkvhCNfO_uiw/viewform?usp=dialog"
-                        target="_blank" rel="noopener noreferrer"
-                        class="block text-center bg-yellow-400 text-neutral-900 text-sm font-medium px-5 py-3 rounded-full hover:bg-yellow-300 transition">Enroll
-                        Now</a>
+                        <li class="flex items-start gap-2 text-sm text-slate-300"><iconify-icon icon="solar:check-circle-bold" class="text-yellow-400 flex-shrink-0 mt-0.5"></iconify-icon> Everything in Mentor-Led</li>
+                        <li class="flex items-start gap-2 text-sm text-slate-300"><iconify-icon icon="solar:check-circle-bold" class="text-yellow-400 flex-shrink-0 mt-0.5"></iconify-icon> 5+ client projects</li>
+                        <li class="flex items-start gap-2 text-sm text-slate-300"><iconify-icon icon="solar:check-circle-bold" class="text-yellow-400 flex-shrink-0 mt-0.5"></iconify-icon> Dedicated career coach</li>
+                        <li class="flex items-start gap-2 text-sm text-slate-300"><iconify-icon icon="solar:check-circle-bold" class="text-yellow-400 flex-shrink-0 mt-0.5"></iconify-icon> 100% job guarantee</li>
+                        <li class="flex items-start gap-2 text-sm text-slate-300"><iconify-icon icon="solar:check-circle-bold" class="text-yellow-400 flex-shrink-0 mt-0.5"></iconify-icon> Full refund if not placed</li>
+                    </ul>
+                    <a href="https://docs.google.com/forms/d/e/1FAIpQLSddmp1XfmcjuXQsfD4Wb2umA5v9BX_Fj-nuW7UkvhCNfO_uiw/viewform?usp=dialog" target="_blank" rel="noopener noreferrer" class="block text-center bg-yellow-400 text-neutral-900 text-sm font-medium px-5 py-3 rounded-full hover:bg-yellow-300 transition">Enroll Now</a>
                 </div>
             </div>
         </div>
@@ -1513,27 +924,18 @@
     <!-- ========== CTA ========== -->
     <section class="py-16 sm:py-20 lg:py-24">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div
-                class="animate-on-scroll relative bg-white/[0.03] border border-white/10 rounded-[1.5rem] sm:rounded-[2rem] p-6 sm:p-10 lg:p-16 text-center overflow-hidden">
-                <div class="absolute inset-0"
-                    style="background: radial-gradient(circle at 50% 0%, rgba(250,204,21,0.08), transparent 70%);">
-                </div>
-                <div class="relative z-10"><iconify-icon icon="solar:rocket-2-bold-duotone"
-                        class="text-yellow-400 text-4xl sm:text-5xl mb-5 sm:mb-6"></iconify-icon>
-                    <h2
-                        class="font-dm-sans text-[1.6rem] xs:text-[1.85rem] sm:text-[2.25rem] lg:text-[3rem] font-light tracking-tight leading-tight text-white mb-4">
+            <div class="animate-on-scroll relative bg-white/[0.03] border border-white/10 rounded-[1.5rem] sm:rounded-[2rem] p-6 sm:p-10 lg:p-16 text-center overflow-hidden">
+                <div class="absolute inset-0" style="background: radial-gradient(circle at 50% 0%, rgba(250,204,21,0.08), transparent 70%);"></div>
+                <div class="relative z-10">
+                    <iconify-icon icon="solar:rocket-2-bold-duotone" class="text-yellow-400 text-4xl sm:text-5xl mb-5 sm:mb-6"></iconify-icon>
+                    <h2 class="font-dm-sans text-[1.6rem] sm:text-[2.25rem] lg:text-[3rem] font-light tracking-tight leading-tight text-white mb-4">
                         Ready to transform<br>your career?</h2>
-                    <p class="text-slate-400 text-base sm:text-lg mb-8 max-w-lg mx-auto">Next batch starts September 15,
-                        2026. Limited to 120 seats. Reserve yours today with a ₹2,000 booking amount.</p>
+                    <p class="text-slate-400 text-base sm:text-lg mb-8 max-w-lg mx-auto">Next batch starts September 15, 2026. Limited to 120 seats. Reserve yours today with a ₹2,000 booking amount.</p>
                     <div class="flex flex-col sm:flex-row flex-wrap justify-center gap-3 sm:gap-4">
-                        <a href="https://docs.google.com/forms/d/e/1FAIpQLSddmp1XfmcjuXQsfD4Wb2umA5v9BX_Fj-nuW7UkvhCNfO_uiw/viewform?usp=dialog"
-                            target="_blank" rel="noopener noreferrer"
-                            class="bg-yellow-400 text-neutral-900 font-medium px-6 sm:px-8 py-3.5 sm:py-4 rounded-full hover:bg-yellow-300 transition text-center">Reserve
-                            My Seat</a>
-                        <button onclick="showToast('📞 Our counselor will call you within 24 hours!')"
-                            class="bg-white/5 border border-white/10 text-white font-medium px-6 sm:px-8 py-3.5 sm:py-4 rounded-full hover:bg-white/10 transition flex items-center justify-center gap-2"><iconify-icon
-                                icon="solar:phone-calling-linear" class="text-lg"></iconify-icon>Talk to
-                            Counselor</button>
+                        <a href="https://docs.google.com/forms/d/e/1FAIpQLSddmp1XfmcjuXQsfD4Wb2umA5v9BX_Fj-nuW7UkvhCNfO_uiw/viewform?usp=dialog" target="_blank" rel="noopener noreferrer" class="bg-yellow-400 text-neutral-900 font-medium px-6 sm:px-8 py-3.5 sm:py-4 rounded-full hover:bg-yellow-300 transition text-center">Reserve My Seat</a>
+                        <button onclick="showToast('📞 Our counselor will call you within 24 hours!')" class="bg-white/5 border border-white/10 text-white font-medium px-6 sm:px-8 py-3.5 sm:py-4 rounded-full hover:bg-white/10 transition flex items-center justify-center gap-2">
+                            <iconify-icon icon="solar:phone-calling-linear" class="text-lg"></iconify-icon>Talk to Counselor
+                        </button>
                     </div>
                     <p class="text-slate-500 text-xs mt-6">No credit card required · Free career assessment included</p>
                 </div>
@@ -1544,71 +946,55 @@
     <!-- ========== FAQ ========== -->
     <section class="py-16 sm:py-20 lg:py-24 bg-white/[0.02]">
         <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-10 sm:mb-14 animate-on-scroll"><span
-                    class="text-yellow-400 text-xs sm:text-sm font-medium tracking-wider uppercase block mb-3">FAQ</span>
-                <h2
-                    class="font-dm-sans text-[1.6rem] xs:text-[1.85rem] sm:text-[2.25rem] lg:text-[3rem] font-light tracking-tight leading-tight text-white">
+            <div class="text-center mb-10 sm:mb-14 animate-on-scroll">
+                <span class="text-yellow-400 text-xs sm:text-sm font-medium tracking-wider uppercase block mb-3">FAQ</span>
+                <h2 class="font-dm-sans text-[1.6rem] sm:text-[2.25rem] lg:text-[3rem] font-light tracking-tight leading-tight text-white">
                     Common <span class="text-yellow-400">questions</span></h2>
             </div>
             <div class="space-y-3">
-                <div
-                    class="animate-on-scroll anim-delay-1 faq-item bg-white/[0.03] border border-white/10 rounded-2xl overflow-hidden">
-                    <button class="faq-toggle w-full flex items-center justify-between gap-4 p-5 sm:p-6 text-left"
-                        onclick="toggleFaq(this)"><span class="font-medium text-white text-sm sm:text-base">Do I need
-                            prior coding experience?</span><iconify-icon icon="solar:alt-arrow-down-linear"
-                            class="text-slate-400 text-xl flex-shrink-0 transition-transform"></iconify-icon></button>
+                <div class="animate-on-scroll anim-delay-1 faq-item bg-white/[0.03] border border-white/10 rounded-2xl overflow-hidden">
+                    <button class="faq-toggle w-full flex items-center justify-between gap-4 p-5 sm:p-6 text-left" onclick="toggleFaq(this)">
+                        <span class="font-medium text-white text-sm sm:text-base">Do I need prior coding experience?</span>
+                        <iconify-icon icon="solar:alt-arrow-down-linear" class="text-slate-400 text-xl flex-shrink-0 transition-transform"></iconify-icon>
+                    </button>
                     <div class="faq-content">
-                        <p class="px-5 sm:px-6 pb-5 sm:pb-6 text-slate-400 text-sm leading-relaxed">Not at all! Our
-                            foundational modules are designed for complete beginners. We start from scratch and build
-                            up. 40% of our successful students had zero coding experience before joining.</p>
+                        <p class="px-5 sm:px-6 pb-5 sm:pb-6 text-slate-400 text-sm leading-relaxed">Not at all! Our foundational modules are designed for complete beginners. We start from scratch and build up. 40% of our successful students had zero coding experience before joining.</p>
                     </div>
                 </div>
-                <div
-                    class="animate-on-scroll anim-delay-2 faq-item bg-white/[0.03] border border-white/10 rounded-2xl overflow-hidden">
-                    <button class="faq-toggle w-full flex items-center justify-between gap-4 p-5 sm:p-6 text-left"
-                        onclick="toggleFaq(this)"><span class="font-medium text-white text-sm sm:text-base">What is the
-                            class schedule?</span><iconify-icon icon="solar:alt-arrow-down-linear"
-                            class="text-slate-400 text-xl flex-shrink-0 transition-transform"></iconify-icon></button>
+                <div class="animate-on-scroll anim-delay-2 faq-item bg-white/[0.03] border border-white/10 rounded-2xl overflow-hidden">
+                    <button class="faq-toggle w-full flex items-center justify-between gap-4 p-5 sm:p-6 text-left" onclick="toggleFaq(this)">
+                        <span class="font-medium text-white text-sm sm:text-base">What is the class schedule?</span>
+                        <iconify-icon icon="solar:alt-arrow-down-linear" class="text-slate-400 text-xl flex-shrink-0 transition-transform"></iconify-icon>
+                    </button>
                     <div class="faq-content">
-                        <p class="px-5 sm:px-6 pb-5 sm:pb-6 text-slate-400 text-sm leading-relaxed">We offer both weekday
-                            (Mon-Fri, 7-9 PM) and weekend (Sat-Sun, 10 AM-2 PM) batches. All sessions are recorded and
-                            available within 24 hours for review.</p>
+                        <p class="px-5 sm:px-6 pb-5 sm:pb-6 text-slate-400 text-sm leading-relaxed">We offer both weekday (Mon-Fri, 7-9 PM) and weekend (Sat-Sun, 10 AM-2 PM) batches. All sessions are recorded and available within 24 hours for review.</p>
                     </div>
                 </div>
-                <div
-                    class="animate-on-scroll anim-delay-3 faq-item bg-white/[0.03] border border-white/10 rounded-2xl overflow-hidden">
-                    <button class="faq-toggle w-full flex items-center justify-between gap-4 p-5 sm:p-6 text-left"
-                        onclick="toggleFaq(this)"><span class="font-medium text-white text-sm sm:text-base">How does the
-                            job guarantee work?</span><iconify-icon icon="solar:alt-arrow-down-linear"
-                            class="text-slate-400 text-xl flex-shrink-0 transition-transform"></iconify-icon></button>
+                <div class="animate-on-scroll anim-delay-3 faq-item bg-white/[0.03] border border-white/10 rounded-2xl overflow-hidden">
+                    <button class="faq-toggle w-full flex items-center justify-between gap-4 p-5 sm:p-6 text-left" onclick="toggleFaq(this)">
+                        <span class="font-medium text-white text-sm sm:text-base">How does the job guarantee work?</span>
+                        <iconify-icon icon="solar:alt-arrow-down-linear" class="text-slate-400 text-xl flex-shrink-0 transition-transform"></iconify-icon>
+                    </button>
                     <div class="faq-content">
-                        <p class="px-5 sm:px-6 pb-5 sm:pb-6 text-slate-400 text-sm leading-relaxed">Under the Intensive
-                            plan, if you complete all projects, attend 90%+ classes, and still don't get a job within 6
-                            months of graduation, we'll refund your entire course fee — no questions asked.</p>
+                        <p class="px-5 sm:px-6 pb-5 sm:pb-6 text-slate-400 text-sm leading-relaxed">Under the Intensive plan, if you complete all projects, attend 90%+ classes, and still don't get a job within 6 months of graduation, we'll refund your entire course fee — no questions asked.</p>
                     </div>
                 </div>
-                <div
-                    class="animate-on-scroll anim-delay-4 faq-item bg-white/[0.03] border border-white/10 rounded-2xl overflow-hidden">
-                    <button class="faq-toggle w-full flex items-center justify-between gap-4 p-5 sm:p-6 text-left"
-                        onclick="toggleFaq(this)"><span class="font-medium text-white text-sm sm:text-base">Can I switch
-                            courses mid-program?</span><iconify-icon icon="solar:alt-arrow-down-linear"
-                            class="text-slate-400 text-xl flex-shrink-0 transition-transform"></iconify-icon></button>
+                <div class="animate-on-scroll anim-delay-4 faq-item bg-white/[0.03] border border-white/10 rounded-2xl overflow-hidden">
+                    <button class="faq-toggle w-full flex items-center justify-between gap-4 p-5 sm:p-6 text-left" onclick="toggleFaq(this)">
+                        <span class="font-medium text-white text-sm sm:text-base">Can I switch courses mid-program?</span>
+                        <iconify-icon icon="solar:alt-arrow-down-linear" class="text-slate-400 text-xl flex-shrink-0 transition-transform"></iconify-icon>
+                    </button>
                     <div class="faq-content">
-                        <p class="px-5 sm:px-6 pb-5 sm:pb-6 text-slate-400 text-sm leading-relaxed">Yes, within the first
-                            2 weeks you can switch to any other course at no extra cost. We understand that sometimes
-                            you need to explore before finding the right fit.</p>
+                        <p class="px-5 sm:px-6 pb-5 sm:pb-6 text-slate-400 text-sm leading-relaxed">Yes, within the first 2 weeks you can switch to any other course at no extra cost. We understand that sometimes you need to explore before finding the right fit.</p>
                     </div>
                 </div>
-                <div
-                    class="animate-on-scroll anim-delay-5 faq-item bg-white/[0.03] border border-white/10 rounded-2xl overflow-hidden">
-                    <button class="faq-toggle w-full flex items-center justify-between gap-4 p-5 sm:p-6 text-left"
-                        onclick="toggleFaq(this)"><span class="font-medium text-white text-sm sm:text-base">Is EMI
-                            available?</span><iconify-icon icon="solar:alt-arrow-down-linear"
-                            class="text-slate-400 text-xl flex-shrink-0 transition-transform"></iconify-icon></button>
+                <div class="animate-on-scroll anim-delay-5 faq-item bg-white/[0.03] border border-white/10 rounded-2xl overflow-hidden">
+                    <button class="faq-toggle w-full flex items-center justify-between gap-4 p-5 sm:p-6 text-left" onclick="toggleFaq(this)">
+                        <span class="font-medium text-white text-sm sm:text-base">Is EMI available?</span>
+                        <iconify-icon icon="solar:alt-arrow-down-linear" class="text-slate-400 text-xl flex-shrink-0 transition-transform"></iconify-icon>
+                    </button>
                     <div class="faq-content">
-                        <p class="px-5 sm:px-6 pb-5 sm:pb-6 text-slate-400 text-sm leading-relaxed">Absolutely! We offer
-                            0% EMI options for up to 6 months on all plans. We also partner with NBFCs for longer tenure
-                            (up to 12 months) with minimal interest.</p>
+                        <p class="px-5 sm:px-6 pb-5 sm:pb-6 text-slate-400 text-sm leading-relaxed">Absolutely! We offer 0% EMI options for up to 6 months on all plans. We also partner with NBFCs for longer tenure (up to 12 months) with minimal interest.</p>
                     </div>
                 </div>
             </div>
@@ -1618,53 +1004,46 @@
     <!-- ========== CONTACT ========== -->
     <section id="contact" class="py-16 sm:py-20 lg:py-24">
         <div class="max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-10 sm:mb-12 animate-on-scroll"><span
-                    class="text-yellow-400 text-xs sm:text-sm font-medium tracking-wider uppercase block mb-3">Get in
-                    Touch</span>
-                <h2
-                    class="font-dm-sans text-[1.6rem] xs:text-[1.85rem] sm:text-[2rem] lg:text-[3rem] font-light tracking-tight leading-tight text-white">
+            <div class="text-center mb-10 sm:mb-12 animate-on-scroll">
+                <span class="text-yellow-400 text-xs sm:text-sm font-medium tracking-wider uppercase block mb-3">Get in Touch</span>
+                <h2 class="font-dm-sans text-[1.6rem] sm:text-[2rem] lg:text-[3rem] font-light tracking-tight leading-tight text-white">
                     Let's <span class="text-yellow-400">connect</span></h2>
-                <p class="text-slate-400 mt-3 max-w-lg mx-auto text-sm sm:text-base px-2">Have questions? We're here to
-                    help you start your learning journey.</p>
+                <p class="text-slate-400 mt-3 max-w-lg mx-auto text-sm sm:text-base px-2">Have questions? We're here to help you start your learning journey.</p>
             </div>
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 max-w-5xl mx-auto">
-                <div
-                    class="animate-on-scroll anim-delay-1 bg-white/[0.03] border border-white/10 rounded-2xl p-5 sm:p-6 lg:p-8">
+                <div class="animate-on-scroll anim-delay-1 bg-white/[0.03] border border-white/10 rounded-2xl p-5 sm:p-6 lg:p-8">
                     <h3 class="font-dm-sans text-lg sm:text-xl font-medium text-white mb-5">Send us a message</h3>
                     <form id="contactForm" onsubmit="submitContactForm(event)">
                         <div class="space-y-4">
-                            <div><label class="text-sm text-slate-400 block mb-1">Full Name *</label><input type="text"
-                                    id="contactName" required
-                                    class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white text-base focus:border-yellow-400 outline-none transition">
+                            <div>
+                                <label class="text-sm text-slate-400 block mb-1">Full Name *</label>
+                                <input type="text" id="contactName" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white text-base focus:border-yellow-400 outline-none transition">
                             </div>
-                            <div><label class="text-sm text-slate-400 block mb-1">Email Address *</label><input
-                                    type="email" id="contactEmail" required
-                                    class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white text-base focus:border-yellow-400 outline-none transition">
+                            <div>
+                                <label class="text-sm text-slate-400 block mb-1">Email Address *</label>
+                                <input type="email" id="contactEmail" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white text-base focus:border-yellow-400 outline-none transition">
                             </div>
-                            <div><label class="text-sm text-slate-400 block mb-1">Phone Number</label><input type="tel"
-                                    id="contactPhone"
-                                    class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white text-base focus:border-yellow-400 outline-none transition">
+                            <div>
+                                <label class="text-sm text-slate-400 block mb-1">Phone Number</label>
+                                <input type="tel" id="contactPhone" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white text-base focus:border-yellow-400 outline-none transition">
                             </div>
-                            <div><label class="text-sm text-slate-400 block mb-1">Course Interested In</label><select
-                                    id="contactCourse"
-                                    class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white text-base focus:border-yellow-400 outline-none transition">
+                            <div>
+                                <label class="text-sm text-slate-400 block mb-1">Course Interested In</label>
+                                <select id="contactCourse" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white text-base focus:border-yellow-400 outline-none transition">
                                     <option value="" class="bg-[#1a1a1f]">Select a course</option>
-                                    <option value="Full Stack Development" class="bg-[#1a1a1f]">Full Stack Development
-                                    </option>
+                                    <option value="Full Stack Development" class="bg-[#1a1a1f]">Full Stack Development</option>
                                     <option value="Data Analytics" class="bg-[#1a1a1f]">Data Analytics</option>
                                     <option value="React Developer" class="bg-[#1a1a1f]">React Developer</option>
                                     <option value="Data Science & AI" class="bg-[#1a1a1f]">Data Science & AI</option>
-                                    <option value="Mobile App Development" class="bg-[#1a1a1f]">Mobile App Development
-                                    </option>
+                                    <option value="Mobile App Development" class="bg-[#1a1a1f]">Mobile App Development</option>
                                     <option value="Advance Excel" class="bg-[#1a1a1f]">Advance Excel</option>
-                                </select></div>
-                            <div><label class="text-sm text-slate-400 block mb-1">Message *</label><textarea
-                                    id="contactMessage" rows="4" required
-                                    placeholder="Tell us about your goals or questions..."
-                                    class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white text-base focus:border-yellow-400 outline-none transition resize-none"></textarea>
-                            </div><button type="submit"
-                                class="w-full bg-yellow-400 text-neutral-900 font-semibold py-3 rounded-xl hover:bg-yellow-300 transition mt-2">Send
-                                Message</button>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="text-sm text-slate-400 block mb-1">Message *</label>
+                                <textarea id="contactMessage" rows="4" required placeholder="Tell us about your goals or questions..." class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white text-base focus:border-yellow-400 outline-none transition resize-none"></textarea>
+                            </div>
+                            <button type="submit" class="w-full bg-yellow-400 text-neutral-900 font-semibold py-3 rounded-xl hover:bg-yellow-300 transition mt-2">Send Message</button>
                         </div>
                     </form>
                 </div>
@@ -1673,35 +1052,30 @@
                         <h3 class="font-dm-sans text-lg sm:text-xl font-medium text-white mb-5">Contact Information</h3>
                         <div class="space-y-4">
                             <div class="flex items-start gap-3">
-                                <div
-                                    class="w-10 h-10 bg-yellow-400/10 rounded-xl flex items-center justify-center flex-shrink-0">
-                                    <iconify-icon icon="solar:phone-calling-bold"
-                                        class="text-yellow-400 text-xl"></iconify-icon></div>
+                                <div class="w-10 h-10 bg-yellow-400/10 rounded-xl flex items-center justify-center flex-shrink-0">
+                                    <iconify-icon icon="solar:phone-calling-bold" class="text-yellow-400 text-xl"></iconify-icon>
+                                </div>
                                 <div class="min-w-0">
-                                    <p class="text-slate-400 text-sm">Phone / WhatsApp</p><a href="tel:+918882165226"
-                                        class="text-white hover:text-yellow-400 transition break-all">+91
-                                       8882165226</a>
+                                    <p class="text-slate-400 text-sm">Phone / WhatsApp</p>
+                                    <a href="tel:+918882165226" class="text-white hover:text-yellow-400 transition break-all">+91 8882165226</a>
                                 </div>
                             </div>
                             <div class="flex items-start gap-3">
-                                <div
-                                    class="w-10 h-10 bg-yellow-400/10 rounded-xl flex items-center justify-center flex-shrink-0">
-                                    <iconify-icon icon="solar:letter-bold"
-                                        class="text-yellow-400 text-xl"></iconify-icon></div>
+                                <div class="w-10 h-10 bg-yellow-400/10 rounded-xl flex items-center justify-center flex-shrink-0">
+                                    <iconify-icon icon="solar:letter-bold" class="text-yellow-400 text-xl"></iconify-icon>
+                                </div>
                                 <div class="min-w-0">
-                                    <p class="text-slate-400 text-sm">Email</p><a href="mailto:info@mlearningpoint.com"
-                                        class="text-white hover:text-yellow-400 transition break-all">info@mlearningpoint.com</a>
+                                    <p class="text-slate-400 text-sm">Email</p>
+                                    <a href="mailto:info@mlearningpoint.com" class="text-white hover:text-yellow-400 transition break-all">info@mlearningpoint.com</a>
                                 </div>
                             </div>
                             <div class="flex items-start gap-3">
-                                <div
-                                    class="w-10 h-10 bg-yellow-400/10 rounded-xl flex items-center justify-center flex-shrink-0">
-                                    <iconify-icon icon="solar:map-point-bold"
-                                        class="text-yellow-400 text-xl"></iconify-icon></div>
+                                <div class="w-10 h-10 bg-yellow-400/10 rounded-xl flex items-center justify-center flex-shrink-0">
+                                    <iconify-icon icon="solar:map-point-bold" class="text-yellow-400 text-xl"></iconify-icon>
+                                </div>
                                 <div>
                                     <p class="text-slate-400 text-sm">Address</p>
-                                    <p class="text-white">M Learning Point, IT Training Center<br>India (Online &
-                                        Classroom)</p>
+                                    <p class="text-white">M Learning Point, IT Training Center<br>India (Online & Classroom)</p>
                                 </div>
                             </div>
                         </div>
@@ -1709,29 +1083,19 @@
                     <div class="bg-white/[0.03] border border-white/10 rounded-2xl p-5 sm:p-6">
                         <h3 class="font-dm-sans text-lg sm:text-xl font-medium text-white mb-4">Office Hours</h3>
                         <div class="space-y-2">
-                            <div class="flex justify-between gap-4"><span class="text-slate-400 text-sm">Monday -
-                                    Friday</span><span class="text-white text-sm text-right">9:00 AM - 8:00 PM</span>
-                            </div>
-                            <div class="flex justify-between gap-4"><span class="text-slate-400 text-sm">Saturday</span><span
-                                    class="text-white text-sm text-right">10:00 AM - 5:00 PM</span></div>
-                            <div class="flex justify-between gap-4"><span class="text-slate-400 text-sm">Sunday</span><span
-                                    class="text-white text-sm text-right">Closed (Support via WhatsApp)</span></div>
+                            <div class="flex justify-between gap-4"><span class="text-slate-400 text-sm">Monday - Friday</span><span class="text-white text-sm text-right">9:00 AM - 8:00 PM</span></div>
+                            <div class="flex justify-between gap-4"><span class="text-slate-400 text-sm">Saturday</span><span class="text-white text-sm text-right">10:00 AM - 5:00 PM</span></div>
+                            <div class="flex justify-between gap-4"><span class="text-slate-400 text-sm">Sunday</span><span class="text-white text-sm text-right">Closed (Support via WhatsApp)</span></div>
                         </div>
                     </div>
                     <div class="bg-white/[0.03] border border-white/10 rounded-2xl p-5 sm:p-6">
                         <h3 class="font-dm-sans text-lg sm:text-xl font-medium text-white mb-4">Follow Us</h3>
-                        <div class="flex flex-wrap gap-3"><a href="#" aria-label="LinkedIn"
-                                class="w-10 h-10 bg-white/5 border border-white/10 rounded-lg flex items-center justify-center text-slate-400 hover:text-yellow-400 hover:border-yellow-400/30 transition"><iconify-icon
-                                    icon="simple-icons:linkedin" class="text-lg"></iconify-icon></a><a href="#"
-                                aria-label="Instagram"
-                                class="w-10 h-10 bg-white/5 border border-white/10 rounded-lg flex items-center justify-center text-slate-400 hover:text-yellow-400 hover:border-yellow-400/30 transition"><iconify-icon
-                                    icon="simple-icons:instagram" class="text-lg"></iconify-icon></a><a href="#"
-                                aria-label="YouTube"
-                                class="w-10 h-10 bg-white/5 border border-white/10 rounded-lg flex items-center justify-center text-slate-400 hover:text-yellow-400 hover:border-yellow-400/30 transition"><iconify-icon
-                                    icon="simple-icons:youtube" class="text-lg"></iconify-icon></a><a href="#"
-                                aria-label="Facebook"
-                                class="w-10 h-10 bg-white/5 border border-white/10 rounded-lg flex items-center justify-center text-slate-400 hover:text-yellow-400 hover:border-yellow-400/30 transition"><iconify-icon
-                                    icon="simple-icons:facebook" class="text-lg"></iconify-icon></a></div>
+                        <div class="flex flex-wrap gap-3">
+                            <a href="#" aria-label="LinkedIn" class="w-10 h-10 bg-white/5 border border-white/10 rounded-lg flex items-center justify-center text-slate-400 hover:text-yellow-400 hover:border-yellow-400/30 transition"><iconify-icon icon="simple-icons:linkedin" class="text-lg"></iconify-icon></a>
+                            <a href="#" aria-label="Instagram" class="w-10 h-10 bg-white/5 border border-white/10 rounded-lg flex items-center justify-center text-slate-400 hover:text-yellow-400 hover:border-yellow-400/30 transition"><iconify-icon icon="simple-icons:instagram" class="text-lg"></iconify-icon></a>
+                            <a href="#" aria-label="YouTube" class="w-10 h-10 bg-white/5 border border-white/10 rounded-lg flex items-center justify-center text-slate-400 hover:text-yellow-400 hover:border-yellow-400/30 transition"><iconify-icon icon="simple-icons:youtube" class="text-lg"></iconify-icon></a>
+                            <a href="#" aria-label="Facebook" class="w-10 h-10 bg-white/5 border border-white/10 rounded-lg flex items-center justify-center text-slate-400 hover:text-yellow-400 hover:border-yellow-400/30 transition"><iconify-icon icon="simple-icons:facebook" class="text-lg"></iconify-icon></a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1745,37 +1109,27 @@
                 <div>
                     <a href="#" class="flex items-center gap-2 mb-4">
                         <div class="w-9 h-9 bg-yellow-400 rounded-lg flex items-center justify-center flex-shrink-0">
-                            <iconify-icon icon="solar:code-bold"
-                                class="text-neutral-900 text-xl"></iconify-icon></div><span
-                            class="font-dm-sans font-semibold text-lg sm:text-xl tracking-tight text-white">Ai Codex
-                            Learning Point</span>
+                            <iconify-icon icon="solar:code-bold" class="text-neutral-900 text-xl"></iconify-icon>
+                        </div>
+                        <span class="font-dm-sans font-semibold text-lg sm:text-xl tracking-tight text-white">Ai Codex Learning Point</span>
                     </a>
-                    <p class="text-slate-400 text-sm leading-relaxed mb-6">AI Codex Learning Point provides IT courses,
-                        web development training, data analytics, AI tools training and digital marketing services in
-                        Noida and Delhi NCR.</p>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-6">AI Codex Learning Point provides IT courses, web development training, data analytics, AI tools training and digital marketing services in Noida and Delhi NCR.</p>
                     <div class="mt-1 mb-3 flex items-center gap-2 text-slate-400">
                         <iconify-icon icon="solar:map-point-linear" class="text-yellow-400"></iconify-icon>
                         <span class="text-sm">Noida, Uttar Pradesh, India</span>
                     </div>
-                    <div class="flex flex-wrap items-center gap-3"><a href="#" aria-label="LinkedIn"
-                            class="w-10 h-10 bg-white/5 border border-white/10 rounded-lg flex items-center justify-center text-slate-400 hover:text-yellow-400 hover:border-yellow-400/30 transition"><iconify-icon
-                                icon="simple-icons:linkedin" class="text-lg"></iconify-icon></a><a href="#"
-                            aria-label="Twitter"
-                            class="w-10 h-10 bg-white/5 border border-white/10 rounded-lg flex items-center justify-center text-slate-400 hover:text-yellow-400 hover:border-yellow-400/30 transition"><iconify-icon
-                                icon="simple-icons:twitter" class="text-lg"></iconify-icon></a><a href="#"
-                            aria-label="YouTube"
-                            class="w-10 h-10 bg-white/5 border border-white/10 rounded-lg flex items-center justify-center text-slate-400 hover:text-yellow-400 hover:border-yellow-400/30 transition"><iconify-icon
-                                icon="simple-icons:youtube" class="text-lg"></iconify-icon></a><a href="#"
-                            aria-label="Instagram"
-                            class="w-10 h-10 bg-white/5 border border-white/10 rounded-lg flex items-center justify-center text-slate-400 hover:text-yellow-400 hover:border-yellow-400/30 transition"><iconify-icon
-                                icon="simple-icons:instagram" class="text-lg"></iconify-icon></a></div>
+                    <div class="flex flex-wrap items-center gap-3">
+                        <a href="#" aria-label="LinkedIn" class="w-10 h-10 bg-white/5 border border-white/10 rounded-lg flex items-center justify-center text-slate-400 hover:text-yellow-400 hover:border-yellow-400/30 transition"><iconify-icon icon="simple-icons:linkedin" class="text-lg"></iconify-icon></a>
+                        <a href="#" aria-label="Twitter" class="w-10 h-10 bg-white/5 border border-white/10 rounded-lg flex items-center justify-center text-slate-400 hover:text-yellow-400 hover:border-yellow-400/30 transition"><iconify-icon icon="simple-icons:twitter" class="text-lg"></iconify-icon></a>
+                        <a href="#" aria-label="YouTube" class="w-10 h-10 bg-white/5 border border-white/10 rounded-lg flex items-center justify-center text-slate-400 hover:text-yellow-400 hover:border-yellow-400/30 transition"><iconify-icon icon="simple-icons:youtube" class="text-lg"></iconify-icon></a>
+                        <a href="#" aria-label="Instagram" class="w-10 h-10 bg-white/5 border border-white/10 rounded-lg flex items-center justify-center text-slate-400 hover:text-yellow-400 hover:border-yellow-400/30 transition"><iconify-icon icon="simple-icons:instagram" class="text-lg"></iconify-icon></a>
+                    </div>
                 </div>
 
                 <div>
                     <h4 class="font-medium text-white mb-4">Programs</h4>
                     <ul class="space-y-3">
-                        <li><a href="#courses" class="footer-link text-slate-400 text-sm">Full Stack Web Development
-                                Course</a></li>
+                        <li><a href="#courses" class="footer-link text-slate-400 text-sm">Full Stack Web Development Course</a></li>
                         <li><a href="#courses" class="footer-link text-slate-400 text-sm">Frontend Development</a></li>
                         <li><a href="#courses" class="footer-link text-slate-400 text-sm">Backend Development</a></li>
                         <li><a href="#courses" class="footer-link text-slate-400 text-sm">Data Analytics</a></li>
@@ -1802,27 +1156,43 @@
                         <li><a href="#" class="footer-link text-slate-400 text-sm">Terms of Service</a></li>
                         <li><a href="#" class="footer-link text-slate-400 text-sm">Refund Policy</a></li>
                     </ul>
-                    <div class="mt-6 flex items-center gap-2 text-slate-400"><iconify-icon
-                            icon="solar:phone-calling-linear" class="text-yellow-400 flex-shrink-0"></iconify-icon><a
-                            href="tel:+918882165226" class="text-sm hover:text-yellow-400 transition">+91
-                           8882165226</a></div>
-                    <div class="mt-2 flex items-center gap-2 text-slate-400"><iconify-icon icon="solar:letter-linear"
-                            class="text-yellow-400 flex-shrink-0"></iconify-icon><a
-                            href="mailto:info@mlearningpoint.com"
-                            class="text-sm hover:text-yellow-400 transition break-all">info@mlearningpoint.com</a></div>
+                    <div class="mt-6 flex items-center gap-2 text-slate-400">
+                        <iconify-icon icon="solar:phone-calling-linear" class="text-yellow-400 flex-shrink-0"></iconify-icon>
+                        <a href="tel:+918882165226" class="text-sm hover:text-yellow-400 transition">+91 8882165226</a>
+                    </div>
+                    <div class="mt-2 flex items-center gap-2 text-slate-400">
+                        <iconify-icon icon="solar:letter-linear" class="text-yellow-400 flex-shrink-0"></iconify-icon>
+                        <a href="mailto:info@mlearningpoint.com" class="text-sm hover:text-yellow-400 transition break-all">info@mlearningpoint.com</a>
+                    </div>
                 </div>
             </div>
-            <div
-                class="border-t border-white/10 pt-8 flex flex-col md:flex-row items-center justify-between gap-3 text-center md:text-left">
+            <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row items-center justify-between gap-3 text-center md:text-left">
                 <p class="text-slate-500 text-sm">© 2026 AI Codex Learning Point. All rights reserved.</p>
-                <p class="text-slate-500 text-xs">Made with <iconify-icon icon="solar:heart-bold"
-                        class="text-yellow-400 align-middle"></iconify-icon> in India</p>
+                <p class="text-slate-500 text-xs">Made with <iconify-icon icon="solar:heart-bold" class="text-yellow-400 align-middle"></iconify-icon> in India</p>
             </div>
         </div>
     </footer>
 
     <!-- ========== JAVASCRIPT ========== -->
     <script>
+        // ----- IMAGE FALLBACK SAFETY NET -----
+        // Agar koi image load na ho (internet slow, CDN block), placeholder dikhado
+        (function () {
+            const PLACEHOLDER = 'https://placehold.co/600x400/1a1a1f/facc15?text=AI+Codex';
+            document.querySelectorAll('img').forEach(function (img) {
+                if (img.complete && img.naturalWidth === 0 && !img.dataset.fb) {
+                    img.dataset.fb = '1';
+                    img.src = PLACEHOLDER;
+                }
+                img.addEventListener('error', function () {
+                    if (!this.dataset.fb) {
+                        this.dataset.fb = '1';
+                        this.src = PLACEHOLDER;
+                    }
+                });
+            });
+        })();
+
         // ----- TOAST -----
         function showToast(msg) {
             const c = document.getElementById('toastContainer');
@@ -1951,10 +1321,16 @@
             const whatsappMsg =
                 `*📞 New Contact Form Submission* 📞%0A%0A*👤 Name:* ${name}%0A*📧 Email:* ${email}%0A*📱 Phone:* ${phone || 'Not provided'}%0A*📚 Course:* ${course || 'Not selected'}%0A*💬 Message:* ${message}%0A%0A🕐 Time: ${new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })}`;
             window.open(`https://wa.me/918882165226?text=${whatsappMsg}`, '_blank');
-            // backup to localStorage
             try {
                 const contacts = JSON.parse(localStorage.getItem('contacts') || '[]');
                 contacts.push({ name, email, phone, course, message, timestamp: new Date().toISOString() });
                 localStorage.setItem('contacts', JSON.stringify(contacts));
             } catch (err) { /* storage unavailable */ }
-            showToast(`✅ Thanks ${name}! WhatsApp opening...
+            showToast(`✅ Thanks ${name}! WhatsApp opening...`);
+            document.getElementById('contactForm').reset();
+        }
+
+        console.log('🚀 AI Codex Learning Point website ready.');
+    </script>
+</body>
+</html>
